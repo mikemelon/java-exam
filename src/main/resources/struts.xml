@@ -9,21 +9,17 @@
 	<constant name="struts.configuration.xml.reload" value="true"></constant>
 	<!-- 开发模式下使用，可以打印出更详细的错误信息 -->
 	<constant name="struts.devMode" value="true"></constant>
-	<!-- action全部用注解进行配置 -->
-
+	<!-- 使用Spring管理Action -->
 	<constant name="struts.objectFactory" value="spring"/>
+	<!-- 开启页面中的静态方法调用 -->
 	<constant name="struts.ognl.allowStaticMethodAccess" value="true" />
-	
 	<!-- 是否开启动态方法调用 -->
 	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	
 	<package name="javaexam" namespace="/" extends="struts-default,json-default">
 		<global-results>
 			<result name="error">main.jsp</result>
 		</global-results>
-		<action name="hello" class="hello">
-			<result name="success">all.jsp</result>
-			<result name="error">error.jsp</result>
-		</action>
 		
 		<!-- 考试管理 -->
 		<action name="examlist" class="examListShow"><!-- deprecated, 主页上被studentexamlist的action代替-->
