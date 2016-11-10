@@ -14,4 +14,4 @@ Java实现的包含题库编辑、抽题组卷、在线考试等模块的Web教�
 - Struts 2.5
 - Spring 4.3
 - Maven
-- Materialize CSS
+- Materialize v0.97.6 (CSS)
