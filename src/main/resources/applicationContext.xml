@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:context="http://www.springframework.org/schema/context"
+   xmlns:tx="http://www.springframework.org/schema/tx"
+   xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans
+     http://www.springframework.org/schema/beans/spring-beans.xsd
+     http://www.springframework.org/schema/context
+     http://www.springframework.org/schema/context/spring-context.xsd
+     http://www.springframework.org/schema/tx
+     http://www.springframework.org/schema/tx/spring-tx.xsd 
+     http://www.springframework.org/schema/data/jpa 
+	 http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+
+   <context:component-scan base-package="cn.lynu.lyq.java_exam.dao,cn.lynu.lyq.java_exam.actions"/>
+   <!-- jpa:repositories base-package="cn.lynu.lyq.java_exam.dao"></jpa:repositories-->
+   
+   <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+  		<!-- property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/-->
+  		<property name="driverClassName" value="net.sf.log4jdbc.DriverSpy"/>
+  		<!-- property name="url" value="jdbc:mysql://localhost:3306/examdb?serverTimezone=UTC"/-->
+  		<property name="url" value="jdbc:log4jdbc:mysql://localhost:3306/examdb?serverTimezone=UTC"/>
+  		<property name="username" value="root"/>
+  		<property name="password" value="root"/>
+	     <!-- 连接池启动时的初始值 -->
+		 <property name="initialSize" value="1"/>
+		 <!-- 连接池的最大值 -->
+		 <property name="maxActive" value="500"/>
+		 <!-- 最大空闲值.当经过一个高峰时间后，连接池可以慢慢将已经用不到的连接慢慢释放一部分，一直减少到maxIdle为止 -->
+		 <property name="maxIdle" value="2"/>
+		 <!--  最小空闲值.当空闲的连接数少于阀值时，连接池就会预申请去一些连接，以免洪峰来时来不及申请 -->
+		 <property name="minIdle" value="1"/>
+  	</bean>
+   	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+	     <property name="dataSource" ref="dataSource"/>
+	     <property name="annotatedClasses">
+	     	<list>
+	     		<value>cn.lynu.lyq.java_exam.entity.Student</value>
+	     		<value>cn.lynu.lyq.java_exam.entity.Grade</value>
+	     		<value>cn.lynu.lyq.java_exam.entity.Exam</value>
+	     		<value>cn.lynu.lyq.java_exam.entity.ExamStrategy</value>
+	     		<value>cn.lynu.lyq.java_exam.entity.ExamQuestion</value>
+	     		<value>cn.lynu.lyq.java_exam.entity.StudentExamScore</value>
+	     		<value>cn.lynu.lyq.java_exam.entity.ExamQuestionAnswer</value>
+	     		<value>cn.lynu.lyq.java_exam.entity.BankQuestion</value>
+	     		<value>cn.lynu.lyq.java_exam.entity.BankChoiceQuestion</value>
+	     		<value>cn.lynu.lyq.java_exam.entity.BankBlankFillingQuestion</value>
+	     		<value>cn.lynu.lyq.java_exam.entity.BankJudgeQuestion</value>
+	     	</list>
+	     </property>
+	     <property name="hibernateProperties">
+	     	<props>
+	     		<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+	     		<prop key="hibernate.hbm2ddl.auto">update</prop>
+	     		<prop key="hibernate.show_sql">false</prop>
+	     		<prop key="hibernate.format_sql">true</prop>
+	     	</props>
+	     </property>
+	</bean>
+	<bean id="transactionManager"
+        class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory" />
+        </property>
+    </bean>
+	
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+</beans>

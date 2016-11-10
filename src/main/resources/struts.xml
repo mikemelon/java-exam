@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE struts PUBLIC  
+            "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"  
+    "http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+	<!-- 设置浏览器是否缓存静态内容，开发阶段应关闭，生产阶段打开，默认为打开 -->
+	<constant name="struts.serve.static.browserCache" value="false"></constant>
+	<!-- 当struts的配置文件修改后，系统是否自动重新加载该文件，默认为false，开发阶段应打开 -->
+	<constant name="struts.configuration.xml.reload" value="true"></constant>
+	<!-- 开发模式下使用，可以打印出更详细的错误信息 -->
+	<constant name="struts.devMode" value="true"></constant>
+	<!-- action全部用注解进行配置 -->
+
+	<constant name="struts.objectFactory" value="spring"/>
+	<constant name="struts.ognl.allowStaticMethodAccess" value="true" />
+	
+	<!-- 是否开启动态方法调用 -->
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<package name="javaexam" namespace="/" extends="struts-default,json-default">
+		<global-results>
+			<result name="error">main.jsp</result>
+		</global-results>
+		<action name="hello" class="hello">
+			<result name="success">all.jsp</result>
+			<result name="error">error.jsp</result>
+		</action>
+		
+		<!-- 考试管理 -->
+		<action name="examlist" class="examListShow"><!-- deprecated, 主页上被studentexamlist的action代替-->
+			<result>examList.jsp</result>
+		</action>
+		<action name="studentexamlist" class="studentExamList">
+			<result>studentExamList.jsp</result>
+		</action>
+		<action name="examdetail2" class="examDetailShow2">
+			<result>examDetail2.jsp</result>
+		</action>
+		<action name="examdetail" class="examDetailShow">
+			<result>examDetail.jsp</result>
+		</action>
+		<action name="examsummary" class="examSummary">
+			<result>examSummary.jsp</result>
+		</action>
+		<action name="examhandin" class="examHandIn">
+			<result>examHandIn.jsp</result>
+		</action>
+		
+		<!-- 登录，登出 -->
+		<action name="login" class="userLogin">
+			<result>main.jsp</result>
+		</action>
+		<action name="logout" class="userLogin" method="logout">
+			<result>main.jsp</result>
+		</action>
+		
+		<action name="changepassword" class="userChangePassWord">
+			<result name="input">userChangePassword.jsp</result>
+			<result>main.jsp</result>
+		</action>
+		
+		<!-- 数据导入 -->
+		<action name="importchoice" class="questionImport">
+			<result>importData.jsp</result>
+		</action>
+		<action name="importblank" class="questionImport" method="executeForBlank">
+			<result>importData.jsp</result>
+		</action>
+		<action name="importjudge" class="questionImport" method="executeForJudge">
+			<result>importData.jsp</result>
+		</action>
+		<action name="importstudent" class="studentImport">
+			<result>importData.jsp</result>
+		</action>
+		
+		<!-- 搜索题库 -->
+		<action name="searchchoice" class="choiceQuestionSearch">
+			<result>searchChoice.jsp</result>
+		</action>
+		<action name="choicesearchlist" class="choiceQuestionSearch" method="executeForSearch">
+			<result>searchChoice.jsp</result>
+		</action>
+		<action name="searchblank" class="blankQuestionSearch">
+			<result>searchBlank.jsp</result>
+		</action>
+		<action name="blanksearchlist" class="blankQuestionSearch" method="executeForSearch">
+			<result>searchBlank.jsp</result>
+		</action>
+		<action name="searchjudge" class="judgeQuestionSearch">
+			<result>searchJudge.jsp</result>
+		</action>
+		<action name="judgesearchlist" class="judgeQuestionSearch" method="executeForSearch">
+			<result>searchJudge.jsp</result>
+		</action>
+		
+		<!-- 组卷 -->
+		<action name="examcompose" class="examCompose">
+			<result>examCompose.jsp</result>
+		</action>
+		<action name="liststrategy" class="examCompose" method="executeForSearchStrategy">
+			<result type="json">
+				<param name="root">strategyList</param>
+			</result>
+		</action>
+		<action name="createexamstrategy" class="examCompose" method="executeForCreateStrategy">
+			<result type="json">
+				<param name="root">eqCntMap</param>
+			</result>
+		</action>
+		<action name="deleteexamstrategy" class="examCompose" method="executeForDeleteStrategy">
+			<result type="json">
+				<param name="root">eqCntMap</param>
+			</result>
+		</action>
+		
+		<action name="createstudentexam" class="examCompose" method="executeForCreateStudentExam">
+			<result>examCompose.jsp</result>
+		</action>
+		
+		<action name="updatestrategyname" class="updateStrategyName">
+			<result type="json">
+				<param name="root">updatedStrategy</param>
+			</result>
+		</action>
+		<action name="updatechoicescore" class="updateStrategyScore" method="updateForChoice">
+			<result type="json">
+				<param name="root">updatedStrategy</param>
+			</result>
+		</action>
+		<action name="updateblankscore" class="updateStrategyScore" method="updateForBlank">
+			<result type="json">
+				<param name="root">updatedStrategy</param>
+			</result>
+		</action>
+		<action name="updatejudgescore" class="updateStrategyScore" method="updateForJudge">
+			<result type="json">
+				<param name="root">updatedStrategy</param>
+			</result>
+		</action>
+		<action name="studentselect" class="studentSelect">
+			<result>studentSelect.jsp</result>
+		</action>
+		<action name="studentsearchlist" class="studentSelect"  method="executeForStudentList">
+			<result>studentSelect.jsp</result>
+		</action>
+		<action name="getselectedstudent" class="studentSelect" method="executeForGetStudentList">
+			<result  type="chain">
+				<param name="actionName">examcompose</param>
+			</result>
+		</action>
+		
+	</package>
+</struts>  
