@@ -75,11 +75,21 @@
 		<action name="choicesearchlist" class="choiceQuestionSearch" method="executeForSearch">
 			<result>searchChoice.jsp</result>
 		</action>
+		<action name="choicesearchlist1" class="choiceQuestionSearch" method="executeForSearch"><!-- 选择题  抽题对话框 -->
+			<result type="json">
+				<param name="root">questionList</param>
+			</result>
+		</action>
 		<action name="searchblank" class="blankQuestionSearch">
 			<result>searchBlank.jsp</result>
 		</action>
 		<action name="blanksearchlist" class="blankQuestionSearch" method="executeForSearch">
 			<result>searchBlank.jsp</result>
+		</action>
+		<action name="blanksearchlist1" class="blankQuestionSearch" method="executeForSearch"><!-- 填空题  抽题对话框 -->
+			<result type="json">
+				<param name="root">questionList</param>
+			</result>
 		</action>
 		<action name="searchjudge" class="judgeQuestionSearch">
 			<result>searchJudge.jsp</result>
@@ -87,10 +97,23 @@
 		<action name="judgesearchlist" class="judgeQuestionSearch" method="executeForSearch">
 			<result>searchJudge.jsp</result>
 		</action>
+		<action name="judgesearchlist1" class="judgeQuestionSearch" method="executeForSearch"><!-- 判断题  抽题对话框 -->
+			<result type="json">
+				<param name="root">questionList</param>
+			</result>
+		</action>
 		
 		<!-- 组卷 -->
 		<action name="examcompose" class="examCompose">
 			<result>examCompose.jsp</result>
+		</action>
+		<action name="createexam" class="examCreate">
+			<result>examCreate.jsp</result>
+		</action>
+		<action name="createexamquestions" class="examCreate" method="executeForCreateExam">
+			<result  type="chain">
+				<param name="actionName">examcompose</param>
+			</result>
 		</action>
 		<action name="liststrategy" class="examCompose" method="executeForSearchStrategy">
 			<result type="json">

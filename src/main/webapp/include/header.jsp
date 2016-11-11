@@ -6,7 +6,7 @@
         <nav class="lime darken-1">
             <div class="container">
                 <div class="nav-wrapper">
-                    <a href="main.jsp" class="brand-logo">Java教学网站</a>
+                    <a href="main.jsp" class="brand-logo">Java考试网站</a>
                     <ul id="nav-mobile4" class="right hide-on-med-and-down">
                     	<s:if test="#session['USER_INFO']==null">
                         <li><a href="#logindialog" class="waves-effect waves-light btn modal-trigger">登录</a></li>

@@ -148,18 +148,18 @@ public class BankQuestionDaoImpl implements BankQuestionDao {
 			String knowledge) {
 		StringBuffer qStrSb =  new StringBuffer("from BankChoiceQuestion where content like :c0 ");
 		boolean choiceNotNull=false;
-		if(!choice.equals("")){
+		if(choice!=null && !choice.equals("")){
 			qStrSb.append(" and (choiceA like :c1 or choiceB like :c1  or choiceC like :c1 or choiceD like :c1 ");
 			qStrSb.append(" or choiceE like :c1 or choiceF like :c1 or choiceG like :c1 or choiceH like :c1 ) ");
 			choiceNotNull=true;
 		}
 		boolean answerNotNull=false;
-		if(!answer.equals("")){
+		if(answer!=null && !answer.equals("")){
 			qStrSb.append(" and answer like :a ");
 			answerNotNull=true;
 		}
 		boolean knowledgeNotNull=false;
-		if(!knowledge.equals("")){
+		if(knowledge!=null && !knowledge.equals("")){
 			qStrSb.append(" and knowledgePoint like :k ");
 			knowledgeNotNull=true;
 		}

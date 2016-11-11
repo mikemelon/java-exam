@@ -45,7 +45,6 @@ body {
 	<div id="main">
 		<div class="container" style="margin-top: 20px;">
 			<form name="form1" method="post" action="blanksearchlist">
-			<input type="hidden" name="answerSearch2">
 				<div class="row">
                     <div class="input-field col l3 m4 s12">
                         <i class="material-icons prefix small">info_outline</i>
@@ -76,6 +75,7 @@ body {
 			        </div>
                 </div>
 			</form>
+			
 			<table class="mytable">
 				<thead>
 					<tr>
