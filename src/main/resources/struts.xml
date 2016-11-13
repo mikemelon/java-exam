@@ -110,6 +110,9 @@
 		<action name="createexam" class="examCreate">
 			<result>examCreate.jsp</result>
 		</action>
+		<action name="createexam1" class="examCreate" method="executeForSelectQuestions">
+			<result>examCreate.jsp</result>
+		</action>
 		<action name="createexamquestions" class="examCreate" method="executeForCreateExam">
 			<result  type="chain">
 				<param name="actionName">examcompose</param>

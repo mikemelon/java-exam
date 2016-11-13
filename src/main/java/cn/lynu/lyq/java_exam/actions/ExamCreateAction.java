@@ -19,7 +19,6 @@ import cn.lynu.lyq.java_exam.entity.BankBlankFillingQuestion;
 import cn.lynu.lyq.java_exam.entity.BankChoiceQuestion;
 import cn.lynu.lyq.java_exam.entity.BankJudgeQuestion;
 import cn.lynu.lyq.java_exam.entity.Exam;
-import cn.lynu.lyq.java_exam.entity.ExamQuestion;
 
 @Component("examCreate")
 @Scope("prototype")
@@ -83,6 +82,17 @@ public class ExamCreateAction extends ActionSupport {
 	public String execute() throws Exception {
 		ActionContext ctx=ActionContext.getContext();
 		Map<String,Object> session = ctx.getSession();
+		session.remove("EXAM_CREATE_NAME");
+		session.remove("EXAM_CREATE_DETAIL");
+		session.remove("EXAM_CREATE_CHOICELIST");
+		session.remove("EXAM_CREATE_BLANKLIST");
+		session.remove("EXAM_CREATE_JUDGELIST");
+		return SUCCESS;
+	}
+	
+	public String executeForSelectQuestions() throws Exception{
+		ActionContext ctx=ActionContext.getContext();
+		Map<String,Object> session = ctx.getSession();
 		if(examName!=null){
 			session.put("EXAM_CREATE_NAME", examName);
 		}
@@ -122,31 +132,12 @@ public class ExamCreateAction extends ActionSupport {
 		Map<String,Object> session = ctx.getSession();
 		System.out.println("examName="+examName);
 		System.out.println("examDetail="+examDetail);
-		Exam exam=new Exam(examName,examDetail);
-		examDao.save(exam);
 		
+		Exam exam=new Exam(examName,examDetail);
 		List<BankChoiceQuestion> choiceListSelected = (List<BankChoiceQuestion>)session.get("EXAM_CREATE_CHOICELIST");
-		if(choiceListSelected!=null){
-			for(BankChoiceQuestion bq:choiceListSelected){
-				ExamQuestion eq=new ExamQuestion(exam,bq);
-				examQuestionDao.save(eq);
-			}
-		}
 		List<BankBlankFillingQuestion> blankListSelected = (List<BankBlankFillingQuestion>)session.get("EXAM_CREATE_BLANKLIST");
-		if(blankListSelected!=null){
-			for(BankBlankFillingQuestion bq:blankListSelected){
-				ExamQuestion eq=new ExamQuestion(exam,bq);
-				examQuestionDao.save(eq);
-			}
-		}
-//		int b=5/0;
 		List<BankJudgeQuestion> judgeListSelected = (List<BankJudgeQuestion>)session.get("EXAM_CREATE_JUDGELIST");
-		if(judgeListSelected!=null){
-			for(BankJudgeQuestion bq:judgeListSelected){
-				ExamQuestion eq=new ExamQuestion(exam,bq);
-				examQuestionDao.save(eq);
-			}
-		}
+		examDao.examCreateWithQuestions(exam, choiceListSelected, blankListSelected, judgeListSelected);
 		return SUCCESS;
 	}
 

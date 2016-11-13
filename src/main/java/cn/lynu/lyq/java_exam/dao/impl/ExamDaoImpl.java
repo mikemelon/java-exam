@@ -111,4 +111,30 @@ public class ExamDaoImpl implements ExamDao {
 		return listExtracted;
 	}
 
+	@Override
+	public void examCreateWithQuestions(Exam exam, List<BankChoiceQuestion> choiceList,
+			List<BankBlankFillingQuestion> blankList, List<BankJudgeQuestion> judgeList) {
+		this.save(exam);
+		
+		if(choiceList!=null){
+			for(BankChoiceQuestion bq:choiceList){
+				ExamQuestion eq=new ExamQuestion(exam,bq);
+				examQuestionDao.save(eq);
+			}
+		}
+		if(blankList!=null){
+			for(BankBlankFillingQuestion bq:blankList){
+				ExamQuestion eq=new ExamQuestion(exam,bq);
+				examQuestionDao.save(eq);
+			}
+		}
+		if(judgeList!=null){
+			for(BankJudgeQuestion bq:judgeList){
+				ExamQuestion eq=new ExamQuestion(exam,bq);
+				examQuestionDao.save(eq);
+			}
+		}
+		
+	}
+
 }

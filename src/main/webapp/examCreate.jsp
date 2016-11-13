@@ -10,6 +10,9 @@
 <link type="text/css" rel="stylesheet" href="css/material_icons.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
+	body{
+		font-family: Roboto, "Microsoft YaHei";
+	}
 	#main{
 		
 	}
@@ -31,27 +34,23 @@
 	.mytable td{
 		padding: 5px 10px;
 	}
-	a{text-decoration: none;}
-	a:LINK{color: #12f;}
-	a:VISITED{color: #a2e;}
-	a:HOVER{color: #17f;}
 </style>
 </head>
 <body>
+	<%@ include file="include/header.jsp" %>
+	
 	<form name="form1" method="post">
 	<div id="main">
 		<div class="container">
-			<div class="row">
-				<div class="input-field col s12 center-align teal lighten-4">
+			<div class="row" style="margin-top:20px;">
+				<div class="input-field col s4 center-align">
 	                <i class="material-icons prefix small">info_outline</i>
 	                <input type="text" placeholder="输入本次考试的名称" id="examName" name="examName" 
 	                value="<s:property value="#session.EXAM_CREATE_NAME"/>" 
 	                class="validate" style="font-size:large">
 	                <label for="examName">考试名称</label>
 	            </div>
-            </div>
-            <div class="row">
-	            <div class="input-field col s12 center-align teal lighten-4">
+	            <div class="input-field col s8 center-align">
 	                <i class="material-icons prefix small">info_outline</i>
 	                <input type="text" placeholder="输入本次考试的一些描述信息" id="examDetail" name="examDetail" 
 	                value="<s:property value="#session.EXAM_CREATE_DETAIL"/>" 
@@ -60,68 +59,80 @@
 	            </div>
             </div>
             <div class="row">
-            	<a href="#searchchoicedialog" class="modal-trigger red darken-4 waves-effect waves-teal btn">
+            	<a href="#searchchoicedialog" class="modal-trigger lime darken-4 waves-effect waves-teal btn">
 					<span class="yellow-text text-lighten-1">加入选择题
 	        		<i class="material-icons right">search</i></span>
 	    		</a>
-            	<a href="#searchblankdialog" class="modal-trigger red darken-4 waves-effect waves-blue btn">
+            	<a href="#searchblankdialog" class="modal-trigger light-green darken-4 waves-effect waves-blue btn">
 					<span class="yellow-text text-lighten-1">加入填空题
 	        		<i class="material-icons right">search</i></span>
 	    		</a>
-            	<a href="#searchjudgedialog" class="modal-trigger red darken-4 waves-effect waves-green btn" >
+            	<a href="#searchjudgedialog" class="modal-trigger brown darken-4 waves-effect waves-green btn" >
 					<span class="yellow-text text-lighten-1">加入判断题
 	        		<i class="material-icons right">search</i></span>
 	    		</a>
             </div>
-            <div class="row">
+
+			<div class="row">
+			    <div class="col s12">
+			      <ul class="tabs tabs-fixed-width">
+			        <li class="tab"><a href="#choiceTab">选择题</a></li>
+			        <li class="tab"><a href="#blankTab">填空题</a></li>
+			        <li class="tab"><a href="#judgeTab">判断题</a></li>
+			      </ul>
+			    </div>
+			    <div id="choiceTab" class="col s12"><!-- 选择题 选项卡 -->
+			    	<table class="mytable">
+					<s:iterator value="#session.EXAM_CREATE_CHOICELIST" status="st" var="item">
+						<tr style="background-color:<s:if test="#st.odd">#efefef</s:if><s:else>#ffffff</s:else>">
+							<td><s:property value="#st.index+1"/>. </td>
+							<td style="text-align:left;"><s:property value="content"/></td>
+						</tr>
+						<!-- tr style="background-color:<s:if test="#st.odd">#efefef</s:if><s:else>#ffffff</s:else>">
+							<td colspan="2">
+								<table>
+									<tr><td>A. </td><td><s:property value="choiceA"/></td></tr>
+									<tr><td>B. </td><td><s:property value="choiceB"/></td></tr>
+									<tr><td>C. </td><td><s:property value="choiceC"/></td></tr>
+									<tr><td>D. </td><td><s:property value="choiceD"/></td></tr>
+								</table>
+							</td>
+						</tr-->
+						<tr><td colspan="2" style="height:20px;"></td></tr>
+					</s:iterator>
+					</table>
+			    </div>
+			    <div id="blankTab" class="col s12"><!-- 填空题 选项卡 -->
+			    	<table class="mytable">
+					<s:iterator value="#session.EXAM_CREATE_BLANKLIST" status="st" var="item">
+						<tr style="background-color:<s:if test="#st.odd">#efefef</s:if><s:else>#ffffff</s:else>">
+							<td><s:property value="#st.index+1"/>. </td>
+							<td style="text-align:left;"><s:property value="content"/></td>
+						</tr>
+						<tr><td colspan="2" style="height:20px"></td></tr>
+					</s:iterator>
+					</table>
+			    </div>
+			    <div id="judgeTab" class="col s12"><!-- 判断题 选项卡 -->
+			    	<table class="mytable">
+					<s:iterator value="#session.EXAM_CREATE_JUDGELIST" status="st" var="item">
+						<tr style="background-color:<s:if test="#st.odd">#efefef</s:if><s:else>#ffffff</s:else>">
+							<td><s:property value="#st.index+1"/>. </td>
+							<td style="text-align:left;"><s:property value="content"/></td>
+						</tr>
+						<tr><td colspan="2" style="height:20px"></td></tr>
+					</s:iterator>
+					</table>
+			    </div>
+			 </div>
+
+			<div class="row">
             	<button class="red darken-4 waves-effect waves-teal btn-flat" 
             		type="button" onclick="form1.action='createexamquestions';form1.submit()">
 					<span class="yellow-text text-lighten-1">确定创建考试
 	        		<i class="material-icons right">search</i></span>
 		    	</button>
             </div>
-			<h2>选择题</h2>
-			<table class="mytable">
-			<s:iterator value="#session.EXAM_CREATE_CHOICELIST" status="st" var="item">
-				<tr style="background-color:<s:if test="#st.odd">#efefef</s:if><s:else>#ffffff</s:else>">
-					<td><s:property value="#st.index+1"/>. </td>
-					<td style="text-align:left;"><s:property value="content"/></td>
-				</tr>
-				<tr style="background-color:<s:if test="#st.odd">#efefef</s:if><s:else>#ffffff</s:else>">
-					<td colspan="2">
-						<table>
-							<tr><td>A. </td><td><s:property value="choiceA"/></td></tr>
-							<tr><td>B. </td><td><s:property value="choiceB"/></td></tr>
-							<tr><td>C. </td><td><s:property value="choiceC"/></td></tr>
-							<tr><td>D. </td><td><s:property value="choiceD"/></td></tr>
-						</table>
-					</td>
-				</tr>
-				<tr><td colspan="2" style="height:20px;"></td></tr>
-			</s:iterator>
-			</table>
-			
-			<h2>填空题</h2>
-			<table class="mytable">
-			<s:iterator value="#session.EXAM_CREATE_BLANKLIST" status="st" var="item">
-				<tr style="background-color:<s:if test="#st.odd">#efefef</s:if><s:else>#ffffff</s:else>">
-					<td><s:property value="#st.index+1"/>. </td>
-					<td style="text-align:left;"><s:property value="content"/></td>
-				</tr>
-				<tr><td colspan="2" style="height:20px"></td></tr>
-			</s:iterator>
-			</table>
-			
-			<h2>判断题</h2>
-			<table class="mytable">
-			<s:iterator value="#session.EXAM_CREATE_JUDGELIST" status="st" var="item">
-				<tr style="background-color:<s:if test="#st.odd">#efefef</s:if><s:else>#ffffff</s:else>">
-					<td><s:property value="#st.index+1"/>. </td>
-					<td style="text-align:left;"><s:property value="content"/></td>
-				</tr>
-				<tr><td colspan="2" style="height:20px"></td></tr>
-			</s:iterator>
-			</table>
 		</div>
 	</div>
 	</form>
@@ -163,16 +174,18 @@
         </div>
     </div>
     
+    <%@ include file="include/footer.jsp" %>
 	<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
 	<script type="text/javascript" src="js/materialize.min.js"></script>
 	<script>
 	function selectQuestionSubmit(formName){
-		document.forms[formName].action='createexam';
+		document.forms[formName].action='createexam1';
 		document.forms[formName].examName.value=form1.examName.value;
 		document.forms[formName].examDetail.value=form1.examDetail.value;            
 		document.forms[formName].submit();
 	}
     $(document).ready(function () {
+    	$('ul.tabs').tabs();//使用了选项卡
         $('.modal-trigger').leanModal({
             dismissible: true, //是否点模态对话框外面就可以关闭
             opacity: 0.6, //接近1，不透明
