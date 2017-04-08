@@ -107,8 +107,7 @@ public class ExamComposeAction extends ActionSupport {
 		ActionContext ctx =ActionContext.getContext();
 		if(ctx.getSession().containsKey("USER_INFO")){
 			getAllExamList();
-			//从学生选择action chain过来，已经选过了examSelect
-			if(examSelect>0){
+			if(examSelect>0){ //从学生选择action chain过来，已经选过了examSelect
 				strategyList = examStrategyDao.findByExam(examDao.findById(examSelect));
 				int[] studentIds = (int[])ctx.getSession().get("EXAM_STUDENT_IDS");
 				if(studentIds!=null){
@@ -118,6 +117,8 @@ public class ExamComposeAction extends ActionSupport {
 						studentList.add(stu);
 					}
 				}
+			}else{
+				ctx.getSession().remove("EXAM_STUDENT_IDS");
 			}
 			return SUCCESS;
 		}else{
@@ -194,7 +195,7 @@ public class ExamComposeAction extends ActionSupport {
 	
 	private void getAllExamList(){
 		ActionContext ctx =ActionContext.getContext();
-		examList = examDao.findAll();
+		examList = examDao.findAllFixedExam();
 		
         for(Exam exam:examList){
 	        List<ExamQuestion> eqList = examQuestionDao.findByExam(exam);

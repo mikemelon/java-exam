@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cn.lynu.lyq.java_exam.dao.ExamQuestionAnswerDao;
 import cn.lynu.lyq.java_exam.entity.Exam;
+import cn.lynu.lyq.java_exam.entity.ExamQuestion;
 import cn.lynu.lyq.java_exam.entity.ExamQuestionAnswer;
 import cn.lynu.lyq.java_exam.entity.Student;
 @Component("examQuestionAnswerDao")
@@ -30,6 +31,15 @@ public class ExamQuestionAnswerDaoImpl implements ExamQuestionAnswerDao {
 	public List<ExamQuestionAnswer> findAll(){
 		Query q=sessionFactory.getCurrentSession().createQuery("from ExamQuestionAnswer");
 		return q.list();
+	}
+	
+	@Override
+	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
+	public ExamQuestionAnswer findByStudentAndExamQuestion(Student student, ExamQuestion examQuestion){
+		Query q=sessionFactory.getCurrentSession().createQuery("from ExamQuestionAnswer where student=? and examQuestion=?");
+		q.setParameter(0, student);
+		q.setParameter(1, examQuestion);
+		return (ExamQuestionAnswer)q.uniqueResult();
 	}
 	
 	@SuppressWarnings("unchecked")

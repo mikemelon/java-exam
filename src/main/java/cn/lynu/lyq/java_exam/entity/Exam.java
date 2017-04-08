@@ -12,21 +12,29 @@ public class Exam {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
+	private int type;//0-->固定选择组卷, 1-->随机抽题组卷
 	private String name;
 	private String detail;
 	private Date examDate;
 	private Date createDate;
 	
 	public Exam(){}
-	public Exam(String name, String detail){
+	public Exam(String name, String detail, int type){
 		this.name = name;
 		this.detail = detail;
+		this.type = type;
 	}
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public int getType() {
+		return type;
+	}
+	public void setType(int type) {
+		this.type = type;
 	}
 	public String getName() {
 		return name;

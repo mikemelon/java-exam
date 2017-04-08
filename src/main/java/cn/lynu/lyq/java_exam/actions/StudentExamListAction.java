@@ -33,7 +33,8 @@ public class StudentExamListAction extends ActionSupport {
 
 	private static final long serialVersionUID = 4675761085855839420L;
 	
-	private List<StudentExamScore> studentExamList;
+	private List<StudentExamScore> studentExamList;//未完成考试列表
+	private List<StudentExamScore> studentFinishedExamList; //已完成考试列表
 	
 	@Resource
 	private StudentExamScoreDao studentExamScoreDao;
@@ -48,13 +49,19 @@ public class StudentExamListAction extends ActionSupport {
 	public void setStudentExamList(List<StudentExamScore> studentExamList) {
 		this.studentExamList = studentExamList;
 	}
-
+	public List<StudentExamScore> getStudentFinishedExamList() {
+		return studentFinishedExamList;
+	}
+	public void setStudentFinishedExamList(List<StudentExamScore> studentFinishedExamList) {
+		this.studentFinishedExamList = studentFinishedExamList;
+	}
+	
 	@Override
 	public String execute() throws Exception {
 		ActionContext ctx =ActionContext.getContext();
 		if(ctx.getSession().containsKey("USER_INFO")){
 			Student stu=(Student)ctx.getSession().get("USER_INFO");
-			studentExamList = studentExamScoreDao.findByStudent(stu);
+			studentExamList = studentExamScoreDao.findByStudentAndExamPhase(stu,"试卷初始化");
 			
 			for(StudentExamScore ses:studentExamList){
 					Exam exam = ses.getExam();
@@ -83,6 +90,8 @@ public class StudentExamListAction extends ActionSupport {
 			        eqListMap.put("JUDGE_LIST", judgeList);
 			        ctx.put("EXAM_QUESTION_"+exam.getId(), eqListMap);
 			}
+			
+			studentFinishedExamList = studentExamScoreDao.findByStudentAndExamPhase(stu,"最终得分");
 			return SUCCESS;
 		}else{
 			this.addActionError("您还没有登录，请登录后再点击进入");

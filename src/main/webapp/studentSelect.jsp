@@ -44,6 +44,7 @@ body {
 	<%@ include file="include/header.jsp" %>
 	<div id="main">
 		<form name="form1" method="post" action="studentsearchlist">
+		<input type="hidden" name="selectStudentFor" value="<s:property value='selectStudentFor'/>">
 		<div class="container" style="margin-top: 20px;">
 			<input type="hidden" name="examSelect" value='<s:property value="examSelect"/>'>
 			<input type="hidden" name="strategySelect" value='<s:property value="strategySelect"/>'>
@@ -88,7 +89,7 @@ body {
 				<thead>
 					<tr>
 						<th width="100px">
-							<input type="checkbox" name="selectAll" id="selectAll" onclick=""><label for="selectAll">序号</label>
+							<input type="checkbox" name="selectAll" id="selectAll" onclick="selectAllStudent()"><label for="selectAll">序号</label>
 						</th>
 						<th width="120px">学号</th>
 						<th>姓名</th>
@@ -140,6 +141,17 @@ body {
 	        });
 	    })
 	   	
+	    function selectAllStudent(){
+	    	var theCheck = document.getElementById("selectAll");
+	    	var allCheckBox = document.getElementsByName("studentChecked");
+	    	for (var i=0; i<allCheckBox.length; i++){
+	    		if(theCheck.checked== true){
+	    			allCheckBox[i].checked= true;
+	    		}else{
+	    			allCheckBox[i].checked= false;
+	    		}
+	    	}
+	    }
 	</script>
 	<s:debug></s:debug>
 </body>

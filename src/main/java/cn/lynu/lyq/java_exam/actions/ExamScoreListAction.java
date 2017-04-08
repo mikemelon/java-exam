@@ -10,36 +10,39 @@ import org.springframework.stereotype.Component;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
-import cn.lynu.lyq.java_exam.dao.ExamDao;
-import cn.lynu.lyq.java_exam.entity.Exam;
+import cn.lynu.lyq.java_exam.dao.StudentExamScoreDao;
+import cn.lynu.lyq.java_exam.entity.StudentExamScore;
 
-@Component("examListShow")
+@Component("examScoreList")
 @Scope("prototype")
-public class ExamListShowAction extends ActionSupport {
+public class ExamScoreListAction extends ActionSupport {
 
 	private static final long serialVersionUID = 4675761085855839420L;
+	
+	private List<StudentExamScore> examScoreList;
+	
 	@Resource
-	private ExamDao examDao;
-	
-	private List<Exam> examList;
-	
-	public List<Exam> getExamList() {
-		return examList;
+	private StudentExamScoreDao studentExamScoreDao;
+
+	public List<StudentExamScore> getExamScoreList() {
+		return examScoreList;
 	}
-	
-	public void setExamList(List<Exam> examList) {
-		this.examList = examList;
+	public void setExamScoreList(List<StudentExamScore> examScoreList) {
+		this.examScoreList = examScoreList;
 	}
 
 	@Override
 	public String execute() throws Exception {
 		ActionContext ctx =ActionContext.getContext();
 		if(ctx.getSession().containsKey("USER_INFO")){
-			examList = examDao.findAllFixedExam();
+//			Student stu=(Student)ctx.getSession().get("USER_INFO");
+			examScoreList = studentExamScoreDao.findByExamPhase("最终得分");
+			
 			return SUCCESS;
 		}else{
 			this.addActionError("您还没有登录，请登录后再点击进入");
 			return ERROR;
 		}
 	}
+	
 }

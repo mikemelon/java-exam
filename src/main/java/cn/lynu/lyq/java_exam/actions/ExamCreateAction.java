@@ -133,7 +133,7 @@ public class ExamCreateAction extends ActionSupport {
 		System.out.println("examName="+examName);
 		System.out.println("examDetail="+examDetail);
 		
-		Exam exam=new Exam(examName,examDetail);
+		Exam exam=new Exam(examName,examDetail,0); //固定抽题
 		List<BankChoiceQuestion> choiceListSelected = (List<BankChoiceQuestion>)session.get("EXAM_CREATE_CHOICELIST");
 		List<BankBlankFillingQuestion> blankListSelected = (List<BankBlankFillingQuestion>)session.get("EXAM_CREATE_BLANKLIST");
 		List<BankJudgeQuestion> judgeListSelected = (List<BankJudgeQuestion>)session.get("EXAM_CREATE_JUDGELIST");

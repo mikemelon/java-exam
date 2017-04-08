@@ -70,7 +70,7 @@
 	        	</div>
 	        	
 		        <div class="col s12 m4">
-		        	<a href="<s:url action="examcompose"/>">
+		        	<a href="examComposeTypes.jsp">
 			            <div class="card"><!--只要某个图片、按钮或链接有activator这个class，点击就显示card-reveal这个div-->
 			                <div class="card-image waves-effect waves-block waves-light my-opacity">
 			                    <img class="activator" src="images/papergenerator2.jpg">
@@ -98,7 +98,7 @@
 	        	</div>
 	        	
 		        <div class="col s12 m4">
-		        	<a href="#">
+		        	<a href="<s:url action="examscorelist"></s:url>">
 			            <div class="card"><!--只要某个图片、按钮或链接有activator这个class，点击就显示card-reveal这个div-->
 			                <div class="card-image waves-effect waves-block waves-light my-opacity">
 			                    <img class="activator" src="images/datastats2.png">

@@ -20,6 +20,13 @@
         	margin: 0 auto;
         }
     </style>
+    <script type="text/javascript">
+    	function examHandIn(){
+    		if(window.confirm("正式交卷后，将会进行自动评分，且不可再次提交。确定正式交卷吗？")){
+    			form1.submit();
+    		}
+    	}
+    </script>
 </head>
 <body>
 	<%@ include file="include/header.jsp" %>
@@ -29,15 +36,21 @@
 	<table class="mytable">
 		<tr>
 			<td>共有<s:property value="submittedAnswerMap.CHOICE.size "/>道选择题</td>
-			<td>你已经答了<s:property value="submittedCntMap.CHOICE "/>道，未答n道。
+			<td style="<s:if test="submittedAnswerMap.CHOICE.size - submittedCntMap.CHOICE>0">color: red;</s:if><s:else>color:blue;</s:else>">
+				你已经答了<s:property value="submittedCntMap.CHOICE "/>道，未答<s:property value="submittedAnswerMap.CHOICE.size - submittedCntMap.CHOICE "/>道。
+			</td>
 		</tr>
 		<tr>
 			<td>共有<s:property value="submittedAnswerMap.BLANK_FILLING.size "/>道填空题</td>
-			<td>你已经答了<s:property value="submittedCntMap.BLANK_FILLING "/>个空白，未答n道。
+			<td style="<s:if test="submittedAnswerMap.BLANK_FILLING.size - submittedCntMap.BLANK_FILLING>0">color: red;</s:if><s:else>color:blue;</s:else>">
+				你已经答了<s:property value="submittedCntMap.BLANK_FILLING "/>个空白，未答<s:property value="submittedAnswerMap.BLANK_FILLING.size - submittedCntMap.BLANK_FILLING "/>道。
+			</td>
 		</tr>
 		<tr>
 			<td>共有<s:property value="submittedAnswerMap.JUDGE.size "/>道判断题</td>
-			<td>你已经答了<s:property value="submittedCntMap.JUDGE "/>道，未答n道。
+			<td style="<s:if test="submittedAnswerMap.JUDGE.size - submittedCntMap.JUDGE>0">color: red;</s:if><s:else>color:blue;</s:else>">
+				你已经答了<s:property value="submittedCntMap.JUDGE "/>道，未答<s:property value="submittedAnswerMap.JUDGE.size - submittedCntMap.JUDGE "/>道。
+			</td>
 		</tr>
 	</table>
 	
@@ -46,11 +59,11 @@
 		<div class="col s12">
 			<button class="red darken-4 waves-effect waves-teal btn-flat" 
 			type="button" name="action"
-			onclick="form1.action='examdetail';form1.submit();">
+			onclick="form1.action='examdetail2';form1.submit();">
 				<span class="yellow-text text-lighten-1">返回继续答题
         		<i class="material-icons right">loop</i></span>
     		</button>
-			<button class="teal darken-4 waves-effect waves-teal btn-flat" type="submit" name="action">
+			<button class="teal darken-4 waves-effect waves-teal btn-flat" type="button" name="action" onclick="examHandIn()">
 				<span class="yellow-text text-lighten-1">正式交卷
         		<i class="material-icons right">send</i></span>
     		</button>

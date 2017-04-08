@@ -38,8 +38,8 @@ public class ExamDaoImpl implements ExamDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public List<Exam> findAll(){
-		Query q=sessionFactory.getCurrentSession().createQuery("from Exam");
+	public List<Exam> findAllFixedExam(){
+		Query q=sessionFactory.getCurrentSession().createQuery("from Exam where type=0");
 		return q.list();
 	}
 	

@@ -40,11 +40,11 @@
 	<table class="mytable">
 	<s:iterator value="choiceList" status="st" var="item">
 		<tr>
-			<td width="50px">
-				<span class="blue-text text-lighten-2" style="display:inline-block;width:30px;">
+			<td width="40px" valign="top">
+				<span class="blue-text text-lighten-2" style="display:inline-block;width:30px;margin-top:1px;">
 				<s:property value="#st.index+1"/>.</span>
 			</td>
-			<td><s:property value="content"/></td>
+			<td><s:property value="@cn.lynu.lyq.java_exam.actions.ExamDetailShowAction2@showContentWithImage(content)" escapeHtml="false"/></td>
 			<td>
 				<span id="choice_answer_q<s:property value="#st.index+1"/>"class="blue-text text-darken-2">
 					<s:property value="@cn.lynu.lyq.java_exam.actions.ExamDetailShowAction2@determineChoiceAnswer(#st.index)"/>

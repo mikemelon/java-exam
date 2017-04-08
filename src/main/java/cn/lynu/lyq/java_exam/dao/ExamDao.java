@@ -9,7 +9,7 @@ import cn.lynu.lyq.java_exam.entity.Exam;
 
 public interface ExamDao {
 
-	List<Exam> findAll();
+	List<Exam> findAllFixedExam();
 	Exam findById(int id);
 	void save(Exam e);
 	void update(Exam e);

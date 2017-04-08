@@ -2,9 +2,10 @@ package cn.lynu.lyq.java_exam.dao.impl;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -273,7 +274,7 @@ public class BankQuestionDaoImpl implements BankQuestionDao {
 		BufferedReader br= null;
 		int cnt = 0;
 		try {
-			br=new BufferedReader(new FileReader(txtFile));
+			br=new BufferedReader(new InputStreamReader(new FileInputStream(txtFile),"UTF-8"));
 			String line="";
 			String content = "";//题干
 			String[] choices=new String[8];//选项
@@ -413,7 +414,7 @@ public class BankQuestionDaoImpl implements BankQuestionDao {
 		BufferedReader br= null;
 		int cnt = 0;
 		try {
-			br=new BufferedReader(new FileReader(txtFile));
+			br=new BufferedReader(new InputStreamReader(new FileInputStream(txtFile),"UTF-8"));
 			String line="";
 			String content = "";//题干
 			String answer = "";//答案
@@ -508,7 +509,7 @@ public class BankQuestionDaoImpl implements BankQuestionDao {
 		BufferedReader br= null;
 		int cnt = 0;
 		try {
-			br=new BufferedReader(new FileReader(txtFile));
+			br=new BufferedReader(new InputStreamReader(new FileInputStream(txtFile),"UTF-8"));
 			String line="";
 			String content = "";//题干
 			String answer = "";//答案
@@ -581,7 +582,10 @@ public class BankQuestionDaoImpl implements BankQuestionDao {
 	 * 对题干、选项等的第一行，先去掉第一个字符（字母或数字后），如果还有逗号或句号等分隔符，也去掉。
 	 */
 	private static String firstStringLineProcess(String line){
-		String result = line.substring(1).trim();
+		String result = line;
+		while( Character.isDigit(result.charAt(0)) ){
+			result = result.substring(1);
+		}
 		
 		char firstNoLetterChar=result.charAt(0);
 		if(firstNoLetterChar=='.' || firstNoLetterChar=='．' || firstNoLetterChar=='。' ||

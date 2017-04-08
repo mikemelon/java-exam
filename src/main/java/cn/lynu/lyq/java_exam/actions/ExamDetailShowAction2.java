@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -40,7 +41,7 @@ public class ExamDetailShowAction2 extends ActionSupport {
     private List<BankBlankFillingQuestion> blankFillingList = new ArrayList<>();
     private List<BankJudgeQuestion> judgeList = new ArrayList<>();
     
-	private Map<QuestionType,List<Object>> examAnswerMap = new HashMap<>();
+	private Map<QuestionType,List<Object>> examAnswerMap = new HashMap<>(); //正确答案
     
 	public List<BankChoiceQuestion> getChoiceList() {
 		return choiceList;
@@ -76,12 +77,15 @@ public class ExamDetailShowAction2 extends ActionSupport {
 		}
 		
 		String	examIds=ctx.getParameters().get("exam_id").getValue();
+		String examStrategyIds = ctx.getParameters().get("exam_strategy_id").getValue();
 		if(examIds==null){//不是从试卷列表进入的，是从examDetail.jsp返回的
 			examIds =(String) ctx.getSession().get("EXAM_ID");
+			examStrategyIds = (String) ctx.getSession().get("EXAM_STRATEGY_ID");
 		}else{//从试卷列表进入
 			ctx.getSession().remove("EXAM_SUBMITTED_ANSWER");
 		}
 		ctx.getSession().put("EXAM_ID", examIds);
+		ctx.getSession().put("EXAM_STRATEGY_ID", examStrategyIds);
         int examId=Integer.parseInt( examIds.trim());
 //        System.out.println("**********"+examId);
         
@@ -173,15 +177,16 @@ public class ExamDetailShowAction2 extends ActionSupport {
 			if(blankAnswerList !=null ){
 				blankAnswerListForCurrentQ = (List<String>)blankAnswerList.get(quesitonNo-1);
 			}
+			content = StringEscapeUtils.escapeHtml(content);
 			
-			Pattern p = Pattern.compile("[_]{2,}");//含有至少两个_符号表示空白
+			Pattern p = Pattern.compile("[_]{2,}");//含有至少两个_符号表示空白，  即： _______
 			Matcher m = p.matcher(content);
 			StringBuffer sb = new StringBuffer();
 			int i=1;
 			while (m.find()) {
 				String idStr="'q"+quesitonNo+"_blank"+i+"'";
 				String replacement ="<input type='text' id="+idStr
-						+ " name="+idStr+ " style='width:200px' placeholder='输入答案' ";
+						+ " name="+idStr+ " style='font-size: 18px; width:200px; text-align:center;' placeholder='输入答案' ";
 				if(blankAnswerListForCurrentQ!=null && blankAnswerListForCurrentQ.size()>0){
 					String currentBlankAnswer = blankAnswerListForCurrentQ.get(i-1);
 					currentBlankAnswer = currentBlankAnswer!=null?currentBlankAnswer:"";
@@ -329,4 +334,27 @@ System.out.println("replaceBlank exception:"+e);
 			return "";
 		}
 	}
+	
+	/*
+	 * 如果选择题的题干中有 “[[[xxxx.xxx]]]”的图片，则替换为<img src='images/xxxx.xxx'>的Html标签，否则原样返回
+	 */
+	public  static String showContentWithImage(String content){
+		content = StringEscapeUtils.escapeHtml(content);
+		Pattern pattern = Pattern.compile("\\[{3}\\w+\\.\\w+\\]{3}"); //匹配 “[[[xxxx.xxx]]]”
+		Matcher matcher = pattern.matcher(content);
+		String picFileName = null;
+		if(matcher.find()){
+			picFileName = matcher.group();
+			picFileName = picFileName.substring(3, picFileName.length()-3);
+			String beforePicNameContent = content.substring(0,matcher.start());
+			String afterPicNameContent = content.substring(matcher.end());
+			String newContent = beforePicNameContent 
+					+ "<br><br><img src='images\\"+ picFileName +"' style='float:left;clear:both;'>"
+					+ afterPicNameContent;
+			return newContent;
+		}else{
+			return content;
+		}
+	}
+	
 }

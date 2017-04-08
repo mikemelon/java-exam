@@ -53,7 +53,7 @@ public class ExamSummaryAction extends ActionSupport {
 		List<Object> choiceAnswerList = answerMap.get(QuestionType.CHOICE);
 		List<Object> choiceSubmmitedList = new ArrayList<>();
 		int submittedChoiceCnt=0;
-		for(int i=0; i<choiceAnswerList.size(); i++){
+		for(int i=0; choiceAnswerList!=null && i<choiceAnswerList.size(); i++){
 			Parameter p = params.get("choice_q"+(i+1));
 			String value = null;
 			if( ExamDetailShowAction2.isMultipleChoice1( (String)(choiceAnswerList.get(i)) ) ){
@@ -76,7 +76,7 @@ public class ExamSummaryAction extends ActionSupport {
 		List<Object> blankAnswerList = answerMap.get(QuestionType.BLANK_FILLING);
 		List<Object> blankSubmmitedList = new ArrayList<>();
 		int submittedBlankCnt=0;
-		for(int i=0; i<blankAnswerList.size(); i++){
+		for(int i=0; blankAnswerList!=null && i<blankAnswerList.size(); i++){
 			@SuppressWarnings("unchecked")
 			List<String> answerListForCurrentQ = (List<String>)blankAnswerList.get(i);
 			List<String> answerSubmittedListForCurrentQ = new ArrayList<>();
@@ -99,7 +99,7 @@ public class ExamSummaryAction extends ActionSupport {
 		List<Object> judgeAnswerList = answerMap.get(QuestionType.JUDGE);
 		List<Object> judgeSubmmitedList = new ArrayList<>();
 		int submittedJudgeCnt=0;
-		for(int i=0; i<judgeAnswerList.size(); i++){
+		for(int i=0; judgeAnswerList!=null && i<judgeAnswerList.size(); i++){
 			Parameter p = params.get("judge_q"+(i+1));
 			String value=p.getValue();
 //			System.out.println(p.getName()+":"+value);

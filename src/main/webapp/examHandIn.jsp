@@ -29,15 +29,12 @@
 	<table class="mytable">
 		<tr>
 			<td>选择题得分<s:property value="choiceScore"/></td>
-			<td>你已经答了<s:property value="submittedCntMap.CHOICE "/>道，未答n道。
 		</tr>
 		<tr>
 			<td>填空题得分<s:property value="blankScore"/></td>
-			<td>你已经答了<s:property value="submittedCntMap.BLANK_FILLING "/>个空白，未答n道。
 		</tr>
 		<tr>
 			<td>判断题得分<s:property value="judgeScore"/></td>
-			<td>你已经答了<s:property value="submittedCntMap.JUDGE "/>道，未答n道。
 		</tr>
 	</table>
 	
@@ -46,13 +43,13 @@
 		<div class="col s12">
 			<button class="red darken-4 waves-effect waves-teal btn-flat" 
 			type="button" name="action"
-			onclick="form1.action='examlist';form1.submit();">
+			onclick="form1.action='studentexamlist';form1.submit();">
 				<span class="yellow-text text-lighten-1">返回试卷列表
         		<i class="material-icons right">loop</i></span>
     		</button>
 			<button class="teal darken-4 waves-effect waves-teal btn-flat" 
 			type="button" name="action" 
-			onclick="window.close();">
+			onclick="if(window.confirm('将关闭本浏览器窗口，继续吗？')){window.close();}">
 				<span class="yellow-text text-lighten-1">关闭
         		<i class="material-icons right">send</i></span>
     		</button>
