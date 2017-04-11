@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
+import cn.lynu.lyq.java_exam.common.ExamPhase;
 import cn.lynu.lyq.java_exam.common.QuestionType;
 import cn.lynu.lyq.java_exam.dao.BankQuestionDao;
 import cn.lynu.lyq.java_exam.dao.ExamDao;
@@ -159,7 +160,7 @@ public class ExamComposeAction extends ActionSupport {
 			for(int sid:studentIds){
 				Student theStudent = studentDao.findById(sid);
 				studentList.add(theStudent);
-				StudentExamScore ses=new StudentExamScore(theStudent,theExam,theStrategy,0,"试卷初始化");
+				StudentExamScore ses=new StudentExamScore(theStudent,theExam,theStrategy,0,ExamPhase.PAPER_INITIALIZED.getChineseName());
 				studentExamScoreDao.save(ses);
 			}
 			this.clearMessages();

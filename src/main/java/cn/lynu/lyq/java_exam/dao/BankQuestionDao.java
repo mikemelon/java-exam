@@ -36,6 +36,7 @@ public interface BankQuestionDao {
 	void save(BankQuestion bq);
 	void update(BankQuestion bq);
 	void delete(BankQuestion bq);
+	
 	int importChoiceFromTxt(File txtFile);
 	int importBlankFromTxt(File txtFile);
 	int importJudgeFromTxt(File txtFile);

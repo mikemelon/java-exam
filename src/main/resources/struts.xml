@@ -16,8 +16,7 @@
 	<!-- 是否开启动态方法调用 -->
 	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
 
-	<package name="javaexam" namespace="/"
-		extends="struts-default,json-default">
+	<package name="javaexam" namespace="/" extends="struts-default,json-default">
 		<global-results>
 			<result name="error">main.jsp</result>
 		</global-results>
@@ -196,12 +195,40 @@
 			<result type="chain" name="exam_compose">
 				<param name="actionName">examcompose</param>
 			</result>
-
 		</action>
 
 		<action name="examscorelist" class="examScoreList">
 			<result>examScoreList.jsp</result>
 		</action>
 
+		<action name="scorestats" class="scoreStats">
+			<result>scoresBarChart.jsp</result>
+		</action>
+
+		<action name="questionstats" class="questionStats">
+			<result>questionPieChart.jsp</result>
+		</action>
+		
+	</package>
+	
+	<package name="json1" namespace="/json" extends="json-default">
+		<action name="simpletest" class="simpleTest">
+			<result>main.jsp</result>
+		</action>
+	</package>
+
+	<package name="statschart" namespace="/charts" extends="jfreechart-default">
+		<action name="scoresbarchart" class="scoresBarChart">
+			<result type="chart">
+				<param name="width">800</param>
+				<param name="height">1100</param>
+			</result>
+		</action>
+		<action name="questionpiechart" class="questionPieChart">
+			<result type="chart">
+				<param name="width">800</param>
+				<param name="height">400</param>
+			</result>
+		</action>
 	</package>
 </struts>  

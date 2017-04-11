@@ -23,7 +23,7 @@
                    </div>
                    <div class="input-field col l2 m4 s12">
                        <i class="material-icons prefix small">spellcheck</i>
-                       <select multiple name="answerSearch" id="answerSearchChoice">
+                       <select multiple name="answerSearchChoice" id="answerSearchChoice">
 				      <option value="" disabled selected>选择</option>
 				      <option value="A" <s:if test="answerSearch.contains(\"A\")">selected</s:if>>A</option>
 				      <option value="B" <s:if test="answerSearch.contains(\"B\")">selected</s:if>>B</option>
@@ -109,10 +109,15 @@
 		</form>
 	</div>
 </div>
-
+<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="js/materialize.min.js"></script>
 <script>
+	$(document).ready(function () {
+		$('select').material_select();
+	});
+	
 	function answerCheckDetermin(){
-		form1.answerSearch2.value=$('#answerSearch').val();
+		choicesearchform.answerSearch2.value=$('#answerSearchChoice').val();
 	}
 	function selectPage(page){
 		form2.pageIndex.value=page-1;
@@ -120,11 +125,12 @@
 		form2.submit();
 	}
 	function ajaxSearchChoice(){
+		answerCheckDetermin();
 		$.post("choicesearchlist1",
 				{contentSearch:document.forms['choicesearchform'].contentSearchChoice.value,
 				choiceSearch:document.forms['choicesearchform'].choiceSearchChoice.value,
-				answerSearch:document.forms['choicesearchform'].answerSearchChoice.value,
-				answerSearch2:$('#answerSearchChoice').val(),
+				answerSearch:$('#answerSearchChoice').val()+"",
+				answerSearch2:$('#answerSearchChoice').val()+"",
 				knowledgeSearch:document.forms['choicesearchform'].knowledgeSearchChoice.value},
 				function(data,status){
 					var showHtml="";

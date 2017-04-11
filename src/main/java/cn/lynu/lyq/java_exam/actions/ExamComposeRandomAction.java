@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
+import cn.lynu.lyq.java_exam.common.ExamPhase;
 import cn.lynu.lyq.java_exam.dao.ExamDao;
 import cn.lynu.lyq.java_exam.dao.ExamQuestionDao;
 import cn.lynu.lyq.java_exam.dao.ExamStrategyDao;
@@ -91,7 +92,7 @@ public class ExamComposeRandomAction extends ActionSupport {
 				ExamStrategy theStrategy = new ExamStrategy(theExam,"随机抽题给分策略005->"+theStudent.getName(),8,6,6,"随机抽题给分策略005->"+theStudent.getName());
 				examStrategyDao.save(theStrategy);
 				
-				StudentExamScore ses=new StudentExamScore(theStudent,theExam,theStrategy,0,"试卷初始化");
+				StudentExamScore ses=new StudentExamScore(theStudent,theExam,theStrategy,0,ExamPhase.PAPER_INITIALIZED.getChineseName());
 				studentExamScoreDao.save(ses);
 			}
 			this.clearMessages();

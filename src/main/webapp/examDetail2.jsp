@@ -16,21 +16,22 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>试卷详细</title>
-    <link type="text/css" rel="stylesheet" href="css/materialize.min.css">
-    <link type="text/css" rel="stylesheet" href="css/material_icons.css">
-    <link type="text/css" rel="stylesheet" href="css/nouislider.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style type="text/css">
-        body {
-            font-family: Roboto, "Microsoft YaHei";
-            font-size: large;
-        }
-        .mytable{
-        	width: 80%;
-        	margin: 0 auto;
-        }
-    </style>
+<title>Java考试系统--试卷详细</title>
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+<link type="text/css" rel="stylesheet" href="css/materialize.min.css">
+<link type="text/css" rel="stylesheet" href="css/material_icons.css">
+<link type="text/css" rel="stylesheet" href="css/nouislider.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style type="text/css">
+    body {
+        font-family: Roboto, "Microsoft YaHei";
+        font-size: large;
+    }
+    .mytable{
+    	width: 80%;
+    	margin: 0 auto;
+    }
+</style>
 </head>
 <body>
 	<%@ include file="include/header.jsp" %>

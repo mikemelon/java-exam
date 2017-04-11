@@ -94,6 +94,15 @@ public class StudentDaoImpl implements StudentDao {
 		return q.list();
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
+	public List<Student> findByGrade(Grade g){
+		Query q=sessionFactory.getCurrentSession().createQuery("from Student where grade=?");
+		q.setParameter(0, g);
+		return q.list();
+	}
+	
 	@Override
 	public void save(Student s){
 		sessionFactory.getCurrentSession().save(s);

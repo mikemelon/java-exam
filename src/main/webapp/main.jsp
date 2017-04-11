@@ -6,6 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Java考试系统--主页</title>
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
     <link type="text/css" rel="stylesheet" href="css/materialize.min.css">
     <link type="text/css" rel="stylesheet" href="css/material_icons.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,88 +28,83 @@
 	    <div class="container" style="padding: 20px;">
 	    	<div class="divider" style="height:20px;background:#fff;"></div>
 	        <div class="row">
+	        
 		        <div class="col s12 m4">
-		        	<a href="<s:url action="studentexamlist"/>">
-			            <div class="card"><!--只要某个图片、按钮或链接有activator这个class，点击就显示card-reveal这个div-->
-			                <div class="card-image waves-effect waves-block waves-light my-opacity" >
-			                    <img class="activator" src="images/exampaper2.jpg">
-			                </div>
-			                <div class="card-content">
-			                    <span class="card-title activator grey-text text-darken-4">试题列表<i class="material-icons right">more_vert</i></span>
-			                    <p>列出所有已有的试题列表</p>
-			                </div>
-			            </div>
-		            </a>
+		            <div class="card">
+		                <div class="card-image waves-effect waves-block waves-light my-opacity" >
+		                    <a href="<s:url action="studentexamlist"/>"><img class="activator" src="images/exampaper2.jpg"></a>
+		                </div>
+		                <div class="card-content">
+		                    <span class="card-title activator grey-text text-darken-4">试题列表<i class="material-icons right">more_vert</i></span>
+		                    <p><a href="<s:url action="studentexamlist"/>">列出所有已有的试题列表</a></p>
+		                </div>
+		            </div>
 	        	</div>
 	        	
 		        <div class="col s12 m4">
-		        	<a href="questionByKnowledge.jsp">
-			            <div class="card"><!--只要某个图片、按钮或链接有activator这个class，点击就显示card-reveal这个div-->
-			                <div class="card-image waves-effect waves-block waves-light my-opacity">
-			                    <img class="activator" src="images/categories2.jpg">
-			                </div>
-			                <div class="card-content">
-			                    <span class="card-title activator grey-text text-darken-4">章节练习<i class="material-icons right">more_vert</i></span>
-			                    <p>按照章节知识点分类进行练习</p>
-			                </div>
-			            </div>
-		            </a>
+		            <div class="card">
+		                <div class="card-image waves-effect waves-block waves-light my-opacity">
+		                    <a href="questionByKnowledge.jsp"><img class="activator" src="images/categories2.jpg"></a>
+		                </div>
+		                <div class="card-content">
+		                    <span class="card-title activator grey-text text-darken-4">章节练习<i class="material-icons right">more_vert</i></span>
+		                    <p><a href="questionByKnowledge.jsp">按照章节知识点分类进行练习</a></p>
+		                </div>
+		            </div>
 	        	</div>
 	        	
+	        	<s:if test="#session['USER_INFO']!=null && #session['USER_INFO'].role==1">
 	        	<div class="col s12 m4">
-	        		<a href="questionTypes.jsp">
-			            <div class="card"><!--只要某个图片、按钮或链接有activator这个class，点击就显示card-reveal这个div-->
-			                <div class="card-image waves-effect waves-block waves-light my-opacity">
-			                    <img class="activator" src="images/questiontype2.jpg">
-			                </div>
-			                <div class="card-content">
-			                    <span class="card-title activator grey-text text-darken-4">题型练习<i class="material-icons right">more_vert</i></span>
-			                    <p>按照选择题、填空题、判断题分别练习</p>
-			                </div>
-			            </div>
-		            </a>
+		            <div class="card">
+		                <div class="card-image waves-effect waves-block waves-light my-opacity">
+		                    <a href="questionTypes.jsp"><img class="activator" src="images/questiontype2.jpg"></a>
+		                </div>
+		                <div class="card-content">
+		                    <span class="card-title activator grey-text text-darken-4">题型练习<i class="material-icons right">more_vert</i></span>
+		                    <p><a href="questionTypes.jsp">按选择题、填空题、判断题分别练习</a></p>
+		                </div>
+		            </div>
 	        	</div>
+	        	</s:if>
 	        	
+	        	<s:if test="#session['USER_INFO']!=null && #session['USER_INFO'].role==1">
 		        <div class="col s12 m4">
-		        	<a href="examComposeTypes.jsp">
-			            <div class="card"><!--只要某个图片、按钮或链接有activator这个class，点击就显示card-reveal这个div-->
-			                <div class="card-image waves-effect waves-block waves-light my-opacity">
-			                    <img class="activator" src="images/papergenerator2.jpg">
-			                </div>
-			                <div class="card-content">
-			                    <span class="card-title activator grey-text text-darken-4">抽题组卷<i class="material-icons right">more_vert</i></span>
-			                    <p>从题库中根据策略抽题组卷</p>
-			                </div>
-			            </div>
-		            </a>
+		            <div class="card">
+		                <div class="card-image waves-effect waves-block waves-light my-opacity">
+		                    <a href="examComposeTypes.jsp"><img class="activator" src="images/papergenerator2.jpg"></a>
+		                </div>
+		                <div class="card-content">
+		                    <span class="card-title activator grey-text text-darken-4">抽题组卷<i class="material-icons right">more_vert</i></span>
+		                    <p><a href="examComposeTypes.jsp">从题库中根据策略抽题组卷</a></p>
+		                </div>
+		            </div>
 	        	</div>
+	        	</s:if>
 
+				<s:if test="#session['USER_INFO']!=null && #session['USER_INFO'].role==1">
 		        <div class="col s12 m4">
-		        	<a href="importData.jsp">
-			            <div class="card"><!--只要某个图片、按钮或链接有activator这个class，点击就显示card-reveal这个div-->
-			                <div class="card-image waves-effect waves-block waves-light my-opacity">
-			                    <img class="activator" src="images/importexport2.jpg">
-			                </div>
-			                <div class="card-content">
-			                    <span class="card-title activator grey-text text-darken-4">导入导出<i class="material-icons right">more_vert</i></span>
-			                    <p>用户、试题等数据的导入导出</p>
-			                </div>
-			            </div>
-		            </a>
+		            <div class="card">
+		                <div class="card-image waves-effect waves-block waves-light my-opacity">
+		                    <a href="importData.jsp"><img class="activator" src="images/importexport2.jpg"></a>
+		                </div>
+		                <div class="card-content">
+		                    <span class="card-title activator grey-text text-darken-4">导入导出<i class="material-icons right">more_vert</i></span>
+		                    <p><a href="importData.jsp">用户、试题等数据的导入导出</a></p>
+		                </div>
+		            </div>
 	        	</div>
+	        	</s:if>
 	        	
 		        <div class="col s12 m4">
-		        	<a href="<s:url action="examscorelist"></s:url>">
-			            <div class="card"><!--只要某个图片、按钮或链接有activator这个class，点击就显示card-reveal这个div-->
-			                <div class="card-image waves-effect waves-block waves-light my-opacity">
-			                    <img class="activator" src="images/datastats2.png">
-			                </div>
-			                <div class="card-content">
-			                    <span class="card-title activator grey-text text-darken-4">试题分析<i class="material-icons right">more_vert</i></span>
-			                    <p>按照题型、知识点等进行统计分析</p>
-			                </div>
-			            </div>
-		            </a>
+		            <div class="card">
+		                <div class="card-image waves-effect waves-block waves-light my-opacity">
+		                    <a href="statsTypes.jsp"><img class="activator" src="images/datastats2.png"></a>
+		                </div>
+		                <div class="card-content">
+		                    <span class="card-title activator grey-text text-darken-4">试题分析<i class="material-icons right">more_vert</i></span>
+		                    <p><a href="statsTypes.jsp">按照题型、知识点等进行统计分析</a></p>
+		                </div>
+		            </div>
 	        	</div>
 	        	
 	        </div>

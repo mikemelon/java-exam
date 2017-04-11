@@ -9,6 +9,7 @@ import cn.lynu.lyq.java_exam.entity.Student;
 
 public interface ExamQuestionAnswerDao {
 	
+	ExamQuestionAnswer findById(int id);
 	List<ExamQuestionAnswer> findAll();
 //	List<ExamQuestionAnswer> findForExam(Exam exam);
 	
@@ -17,6 +18,7 @@ public interface ExamQuestionAnswerDao {
 //	List<ExamQuestionAnswer> findForBankBlankFillingQuestion(BankBlankFillingQuestion q);
 //	List<ExamQuestionAnswer> findForBankJudgeQuestion(BankJudgeQuestion q);
 	
+	List<ExamQuestionAnswer> findByExamQuestion(ExamQuestion eq);
 	ExamQuestionAnswer findByStudentAndExamQuestion(Student student, ExamQuestion examQuestion);
 	
 	//针对某个学生的对某次考试的搜索，相当于该学生的一份答卷

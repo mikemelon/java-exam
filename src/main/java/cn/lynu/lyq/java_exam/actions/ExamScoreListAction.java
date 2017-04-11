@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
+import cn.lynu.lyq.java_exam.common.ExamPhase;
 import cn.lynu.lyq.java_exam.dao.StudentExamScoreDao;
 import cn.lynu.lyq.java_exam.entity.StudentExamScore;
 
@@ -36,7 +37,7 @@ public class ExamScoreListAction extends ActionSupport {
 		ActionContext ctx =ActionContext.getContext();
 		if(ctx.getSession().containsKey("USER_INFO")){
 //			Student stu=(Student)ctx.getSession().get("USER_INFO");
-			examScoreList = studentExamScoreDao.findByExamPhase("最终得分");
+			examScoreList = studentExamScoreDao.findByExamPhase(ExamPhase.FINAL_SCORED.getChineseName());
 			
 			return SUCCESS;
 		}else{

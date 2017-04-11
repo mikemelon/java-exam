@@ -25,11 +25,27 @@ public class ExamQuestionAnswerDaoImpl implements ExamQuestionAnswerDao {
 		this.sessionFactory = sessionFactory;
 	}
 	
+	@Override
+	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
+	public ExamQuestionAnswer findById(int id) {
+		ExamQuestionAnswer eqa = sessionFactory.getCurrentSession().get(ExamQuestionAnswer.class, id);
+		return eqa;
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	public List<ExamQuestionAnswer> findAll(){
 		Query q=sessionFactory.getCurrentSession().createQuery("from ExamQuestionAnswer");
+		return q.list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
+	public List<ExamQuestionAnswer> findByExamQuestion(ExamQuestion eq){
+		Query q=sessionFactory.getCurrentSession().createQuery("from ExamQuestionAnswer where examQuestion=?");
+		q.setParameter(0, eq);
 		return q.list();
 	}
 	

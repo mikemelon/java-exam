@@ -20,6 +20,7 @@ public class Student {
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="grade_id")
 	private Grade grade;
+	private int role; //权限  role=0表示学生， role=1表示“教师或管理员”
 	
 	public Student(){}
 	
@@ -74,6 +75,12 @@ public class Student {
 	public void setGrade(Grade grade) {
 		this.grade = grade;
 	}
+	public int getRole() {
+		return role;
+	}
+	public void setRole(int role) {
+		this.role = role;
+	}
 
 	@Override
 	public String toString() {
@@ -82,7 +89,8 @@ public class Student {
 				+ "registerNo=" + registerNo 
 				+ ", gender=" + gender 
 				+ ", password=" + password 
-				+ ", grade=" + grade + "]";
+				+ ", grade=" + grade 
+				+ ", role="+ role + "]";
 	}
 	
 }

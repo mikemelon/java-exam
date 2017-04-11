@@ -5,7 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Java考试系统--试题类型</title>
+<title>Java考试系统--抽题组卷类型</title>
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
 <link type="text/css" rel="stylesheet" href="css/materialize.min.css">
 <link type="text/css" rel="stylesheet" href="css/material_icons.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,36 +29,34 @@ body {
 		<div class="container" style="padding: 20px;">
 			<div class="divider" style="height: 20px; background: #fff;"></div>
 			<div class="row">
+			
 				<div class="col s12 m6">
-					<a href="<s:url action="examcompose"/>">
-						<div class="card">
-							<div
-								class="card-image waves-effect waves-block waves-light my-opacity">
-								<img class="activator" src="images/choicequestion1.jpg">
-							</div>
-							<div class="card-content">
-								<span class="card-title activator grey-text text-darken-4">固定组卷<i
-									class="material-icons right">more_vert</i></span>
-								<p>固定组卷</p>
-							</div>
+					<div class="card">
+						<div class="card-image waves-effect waves-block waves-light my-opacity">
+							<a href="<s:url action="examcompose"/>"><img class="activator" src="images/choicequestion1.jpg"></a>
 						</div>
-					</a>
+						<div class="card-content">
+							<span class="card-title activator grey-text text-darken-4">固定组卷<i
+								class="material-icons right">more_vert</i></span>
+							<p><a href="<s:url action="examcompose"/>">固定组卷</a></p>
+						</div>
+					</div>
 				</div>
+				
 				<div class="col s12 m6">
-					<a href="<s:url action="examcomposerandom"/>">
-						<div class="card">
-							<div
-								class="card-image waves-effect waves-block waves-light my-opacity">
-								<img class="activator" src="images/blankquestion1.jpg">
-							</div>
-							<div class="card-content">
-								<span class="card-title activator grey-text text-darken-4">随机抽题组卷<i
-									class="material-icons right">more_vert</i></span>
-								<p>随机抽题组卷</p>
-							</div>
+					<div class="card">
+						<div
+							class="card-image waves-effect waves-block waves-light my-opacity">
+							<a href="<s:url action="examcomposerandom"/>"><img class="activator" src="images/blankquestion1.jpg"></a>
 						</div>
-					</a>
+						<div class="card-content">
+							<span class="card-title activator grey-text text-darken-4">随机抽题组卷<i
+								class="material-icons right">more_vert</i></span>
+							<p><a href="<s:url action="examcomposerandom"/>">随机抽题组卷</a></p>
+						</div>
+					</div>
 				</div>
+				
 			</div>
 		</div>
 	</div>

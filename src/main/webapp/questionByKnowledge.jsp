@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Java考试系统--按知识点查看题目</title>
-
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
 <link rel="stylesheet" type="text/css" href="css/materialize.min.css">
 <link rel="stylesheet" type="text/css" href="css/material_icons.css">
 <link type="text/css" rel="stylesheet" href="css/jquery.jOrgChart.lyq.css">

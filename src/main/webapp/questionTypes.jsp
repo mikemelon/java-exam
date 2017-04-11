@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Java考试系统--试题类型</title>
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
 <link type="text/css" rel="stylesheet" href="css/materialize.min.css">
 <link type="text/css" rel="stylesheet" href="css/material_icons.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,51 +29,46 @@ body {
 		<div class="container" style="padding: 20px;">
 			<div class="divider" style="height: 20px; background: #fff;"></div>
 			<div class="row">
+			
 				<div class="col s12 m4">
-					<a href="<s:url action="searchchoice"/>">
-						<div class="card">
-							<div
-								class="card-image waves-effect waves-block waves-light my-opacity">
-								<img class="activator" src="images/choicequestion1.jpg">
-							</div>
-							<div class="card-content">
-								<span class="card-title activator grey-text text-darken-4">选择题<i
-									class="material-icons right">more_vert</i></span>
-								<p>列出和搜索选择题</p>
-							</div>
+					<div class="card">
+						<div class="card-image waves-effect waves-block waves-light my-opacity">
+							<a href="<s:url action="searchchoice"/>"><img class="activator" src="images/choicequestion1.jpg"></a>
 						</div>
-					</a>
+						<div class="card-content">
+							<span class="card-title activator grey-text text-darken-4">选择题<i
+								class="material-icons right">more_vert</i></span>
+							<p><a href="<s:url action="searchchoice"/>">列出和搜索选择题</a></p>
+						</div>
+					</div>
 				</div>
+				
 				<div class="col s12 m4">
-					<a href="<s:url action="searchblank"/>">
-						<div class="card">
-							<div
-								class="card-image waves-effect waves-block waves-light my-opacity">
-								<img class="activator" src="images/blankquestion1.jpg">
-							</div>
-							<div class="card-content">
-								<span class="card-title activator grey-text text-darken-4">填空题<i
-									class="material-icons right">more_vert</i></span>
-								<p>列出和搜索填空题</p>
-							</div>
+					<div class="card">
+						<div class="card-image waves-effect waves-block waves-light my-opacity">
+							<a href="<s:url action="searchblank"/>"><img class="activator" src="images/blankquestion1.jpg"></a>
 						</div>
-					</a>
+						<div class="card-content">
+							<span class="card-title activator grey-text text-darken-4">填空题<i
+								class="material-icons right">more_vert</i></span>
+							<p><a href="<s:url action="searchblank"/>">列出和搜索填空题</a></p>
+						</div>
+					</div>
 				</div>
+				
 				<div class="col s12 m4">
-					<a href="<s:url action="searchjudge"/>">
-						<div class="card">
-							<div
-								class="card-image waves-effect waves-block waves-light my-opacity">
-								<img class="activator" src="images/judgequestion1.jpg">
-							</div>
-							<div class="card-content">
-								<span class="card-title activator grey-text text-darken-4">判断题<i
-									class="material-icons right">more_vert</i></span>
-								<p>列出和搜索判断题</p>
-							</div>
+					<div class="card">
+						<div class="card-image waves-effect waves-block waves-light my-opacity">
+							<a href="<s:url action="searchjudge"/>"><img class="activator" src="images/judgequestion1.jpg"></a>
 						</div>
-					</a>
+						<div class="card-content">
+							<span class="card-title activator grey-text text-darken-4">判断题<i
+								class="material-icons right">more_vert</i></span>
+							<p><a href="<s:url action="searchjudge"/>">列出和搜索判断题</a></p>
+						</div>
+					</div>
 				</div>
+				
 			</div>
 		</div>
 	</div>

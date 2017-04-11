@@ -3,6 +3,7 @@ package cn.lynu.lyq.java_exam.dao;
 import java.io.File;
 import java.util.List;
 
+import cn.lynu.lyq.java_exam.entity.Grade;
 import cn.lynu.lyq.java_exam.entity.Student;
 
 public interface StudentDao {
@@ -11,6 +12,8 @@ public interface StudentDao {
 	
 	Student findById(int id);
 	List<Student> findAll();
+	List<Student> findByGrade(Grade g);
+	
 	void save(Student s);
 	void update(Student s);
 	void delete(Student s);

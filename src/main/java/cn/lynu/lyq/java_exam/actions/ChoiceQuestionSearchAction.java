@@ -24,7 +24,7 @@ public class ChoiceQuestionSearchAction extends ActionSupport{
 	private int totalPage;
 	private int pageIndex;
 	private static final int PAGE_SIZE = 10;
-
+	
 	@Resource
 	private BankQuestionDao bankQuestionDao;
 
@@ -33,6 +33,7 @@ public class ChoiceQuestionSearchAction extends ActionSupport{
 	}
 
 	public void setContentSearch(String contentSearch) {
+		System.out.println("setting contentSearch========================"+contentSearch);
 		this.contentSearch = contentSearch;
 	}
 
@@ -48,18 +49,19 @@ public class ChoiceQuestionSearchAction extends ActionSupport{
 		return answerSearch;
 	}
 
-	public String getAnswerSearch2() {
-		return answerSearch2;
-	}
-
-	public void setAnswerSearch2(String answerSearch2) {
-		this.answerSearch2 = answerSearch2;
-	}
-
 	public void setAnswerSearch(String answerSearch) {
 		this.answerSearch = answerSearch;
 	}
 
+	public String getAnswerSearch2() {
+		return answerSearch2;
+	}
+	
+	public void setAnswerSearch2(String answerSearch2) {
+		System.out.println("setting answerSearch2========================"+answerSearch2);
+		this.answerSearch2 = answerSearch2;
+	}
+	
 	public String getKnowledgeSearch() {
 		return knowledgeSearch;
 	}
@@ -115,6 +117,7 @@ public class ChoiceQuestionSearchAction extends ActionSupport{
 		System.out.println("contentSearch="+contentSearch);
 		System.out.println("choiceSearch="+choiceSearch);
 		System.out.println("answerSearch="+answerSearch);
+		System.out.println("answerSearch2="+answerSearch2);
 		System.out.println("knowledgeSearch="+knowledgeSearch);
 		questionList = bankQuestionDao.findChoiceForSearch(contentSearch,choiceSearch,answerSearch,knowledgeSearch);
 		return SUCCESS;

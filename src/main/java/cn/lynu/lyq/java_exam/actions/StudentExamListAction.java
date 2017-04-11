@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
+import cn.lynu.lyq.java_exam.common.ExamPhase;
 import cn.lynu.lyq.java_exam.common.QuestionType;
 import cn.lynu.lyq.java_exam.dao.BankQuestionDao;
 import cn.lynu.lyq.java_exam.dao.ExamQuestionDao;
@@ -61,7 +62,7 @@ public class StudentExamListAction extends ActionSupport {
 		ActionContext ctx =ActionContext.getContext();
 		if(ctx.getSession().containsKey("USER_INFO")){
 			Student stu=(Student)ctx.getSession().get("USER_INFO");
-			studentExamList = studentExamScoreDao.findByStudentAndExamPhase(stu,"试卷初始化");
+			studentExamList = studentExamScoreDao.findByStudentAndExamPhase(stu,ExamPhase.PAPER_INITIALIZED.getChineseName());
 			
 			for(StudentExamScore ses:studentExamList){
 					Exam exam = ses.getExam();
@@ -91,7 +92,7 @@ public class StudentExamListAction extends ActionSupport {
 			        ctx.put("EXAM_QUESTION_"+exam.getId(), eqListMap);
 			}
 			
-			studentFinishedExamList = studentExamScoreDao.findByStudentAndExamPhase(stu,"最终得分");
+			studentFinishedExamList = studentExamScoreDao.findByStudentAndExamPhase(stu,ExamPhase.FINAL_SCORED.getChineseName());
 			return SUCCESS;
 		}else{
 			this.addActionError("您还没有登录，请登录后再点击进入");

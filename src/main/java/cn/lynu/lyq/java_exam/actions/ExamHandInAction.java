@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
+import cn.lynu.lyq.java_exam.common.ExamPhase;
 import cn.lynu.lyq.java_exam.common.QuestionType;
 import cn.lynu.lyq.java_exam.dao.ExamDao;
 import cn.lynu.lyq.java_exam.dao.ExamQuestionAnswerDao;
@@ -100,7 +101,7 @@ public class ExamHandInAction extends ActionSupport {
 		if(sesList.size()>1){
 			this.addActionError("系统出错。您有关该次考试(exam_id="+theExam.getId()+")的成绩多于一个。");
 			return ERROR;
-		}else if(sesList.get(0).getExamPhase().equals("最终得分")){
+		}else if(sesList.get(0).getExamPhase().equals(ExamPhase.FINAL_SCORED.getChineseName())){
 			this.addActionError("您已经交过卷子，并得到成绩了。不允许再次交卷！");
 			return ERROR;
 		}else{
@@ -159,7 +160,7 @@ public class ExamHandInAction extends ActionSupport {
 			System.out.println("总分="+(choiceScore+blankScore+judgeScore));
 			
 			for(StudentExamScore ses : sesList){
-				ses.setExamPhase("最终得分");
+				ses.setExamPhase(ExamPhase.FINAL_SCORED.getChineseName());
 				ses.setScore(totalScore);
 				studentExamScoreDao.update(ses);
 			}
