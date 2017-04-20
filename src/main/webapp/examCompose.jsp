@@ -11,49 +11,49 @@
 <link type="text/css" rel="stylesheet" href="css/material_icons.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style type="text/css">
-body {
-	font-family: Roboto, "Microsoft YaHei";
-}
-
-.mytable {
-	border-collapse: collapse;
-	border-bottom: 2px solid #ddd;
-}
-
-.mytable td {
-	padding: 5px 10px;
-}
-
-.namelink a {
-	text-decoration: none;
-}
-
-.namelink a:LINK {
-	color: #12f;
-}
-
-.namelink a:VISITED {
-	color: #a2e;
-}
-
-.namelink a:HOVER {
-	color: #17f;
-}
-td[id*="ScoreText"] a{
-	display:none;
-}
-td[id*="ScoreText"]:hover a{
-	display:inline-block;
-}
-td[id^="strategyName"] input,td[id^="strategyName"] a{
-	display:none;
-}
-td[id^="strategyName"]:hover input,td[id^="strategyName"]:hover a{
-	display:inline-block;
-}
-td[id^="strategyName"]:hover > span{
-	display:none;
-}
+	body {
+		font-family: Roboto, "Microsoft YaHei";
+	}
+	
+	.mytable {
+		border-collapse: collapse;
+		border-bottom: 2px solid #ddd;
+	}
+	
+	.mytable td {
+		padding: 5px 10px;
+	}
+	
+	.namelink a {
+		text-decoration: none;
+	}
+	
+	.namelink a:LINK {
+		color: #12f;
+	}
+	
+	.namelink a:VISITED {
+		color: #a2e;
+	}
+	
+	.namelink a:HOVER {
+		color: #17f;
+	}
+	td[id*="ScoreText"] a{
+		display:none;
+	}
+	td[id*="ScoreText"]:hover a{
+		display:inline-block;
+	}
+	td[id^="strategyName"] input,td[id^="strategyName"] a{
+		display:none;
+	}
+	td[id^="strategyName"]:hover input,td[id^="strategyName"]:hover a{
+		display:inline-block;
+	}
+	td[id^="strategyName"]:hover > span{
+		display:none;
+	}
 </style>
 </head>
 <body>
@@ -77,7 +77,7 @@ td[id^="strategyName"]:hover > span{
 						<td>
 							<input type="radio" class="with-gap" name="examSelect" id="examSelect<s:property value="id" />" 
 							value="<s:property value="id" />" <s:if test="id==examSelect">checked</s:if>  
-							onclick="getStrategyList(<s:property value="id" />,
+							onclick=" getStrategyList(<s:property value="id"/>,
 							<s:property value="#attr['EXAM_QUESTION_'+id].CHOICE_LIST.size" />,
 							<s:property value="#attr['EXAM_QUESTION_'+id].BLANK_CNT" />,
 							<s:property value="#attr['EXAM_QUESTION_'+id].JUDGE_LIST.size" />);">
