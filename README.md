@@ -1,5 +1,5 @@
 # java-exam
-Java实现的包含题库编辑、抽题组卷、在线考试等模块的Web教育系统。
+Java实现的包含题库编辑、抽题组卷、试题分析、在线考试等模块的Web教育系统。
 
 已经实现的主要功能有：
 - 选择题、填空题、判断题的文本文件数据的Web导入
@@ -13,5 +13,15 @@ Java实现的包含题库编辑、抽题组卷、在线考试等模块的Web教�
 - Hibernate 5.1 
 - Struts 2.5
 - Spring 4.3
+- JFreeChart 1.0.19
 - Maven
 - Materialize v0.97.6 (CSS)
+
+数据库设计：
+- (MySQL导出)
+![image](https://raw.githubusercontent.com/mikemelon/java-exam/master/screenshots/db_design1.bmp)
+
+- (简版)
+![image](https://raw.githubusercontent.com/mikemelon/java-exam/master/screenshots/db_design2.png)
+
+目前代码行数约为：15000行 (2017-04-20)
