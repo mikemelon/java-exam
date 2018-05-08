@@ -90,7 +90,7 @@ body {
 				<s:iterator value="questionList" status="st" var="item">
 					<tr
 						style="background-color:<s:if test="#st.odd">#efefef</s:if><s:else>#ffffff</s:else>">
-						<td><s:property value="#st.index+1" /></td>
+						<td><s:property value="#st.index+pageIndex*questionList.size+1" /></td>
 						<td><s:property value="name"/></td>
 						<td><a class="namelink"
 							href="<s:url action="blankdetail"><s:param name="qid" value="%{id}"></s:param></s:url>"><s:property
