@@ -28,6 +28,7 @@ public class BankChoiceQuestion extends BankQuestion {
 		this.choiceD = choiceD;
 		setAnswer(answer);
 		setKnowledgePoint(knowledgePoint);
+		setComposeFlag(1); //默认允许题目参与随机抽题
 	}
 
 	public BankChoiceQuestion(String content,String choiceA, String choiceB, String choiceC, String choiceD,
@@ -43,6 +44,7 @@ public class BankChoiceQuestion extends BankQuestion {
 		this.choiceH = choiceH;
 		setAnswer(answer);
 		setKnowledgePoint(knowledgePoint);
+		setComposeFlag(1); //默认允许题目参与随机抽题
 	}
 	public String getChoiceA() {
 		return choiceA;

@@ -20,6 +20,11 @@ public interface BankQuestionDao {
 	List<BankBlankFillingQuestion> findAllBlankFilling();
 	List<BankJudgeQuestion> findAllJudge();
 	
+	//根据组卷标志（目前用于随机抽题）查询
+	List<BankChoiceQuestion> findChoiceWithComposeFlag(int composeFlag);
+	List<BankBlankFillingQuestion> findBlankFillingWithComposeFlag(int composeFlag);
+	List<BankJudgeQuestion> findJudgeWithComposeFlag(int composeFlag);
+	
 	//分页查询
 	List<BankChoiceQuestion> findAllChoiceWithPage(int pageIndex, int pageSize);
 	List<BankBlankFillingQuestion> findAllBlankFillingWithPage(int pageIndex, int pageSize);

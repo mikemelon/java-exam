@@ -22,6 +22,7 @@ public abstract class BankQuestion {
 	private String contributor;//出题人，或题目贡献者，如果有的话
 	private String knowledgePoint;//知识点
 	private String memo;
+	private int composeFlag;//组卷标志：（目前只用于题目是否参与随机组卷，1表示用于随机组卷）
 	
 	public int getId() {
 		return id;
@@ -82,6 +83,12 @@ public abstract class BankQuestion {
 	}
 	public void setMemo(String memo) {
 		this.memo = memo;
+	}
+	public int getComposeFlag() {
+		return composeFlag;
+	}
+	public void setComposeFlag(int composeFlag) {
+		this.composeFlag = composeFlag;
 	}
 	
 }

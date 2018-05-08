@@ -67,9 +67,9 @@ public class ExamDaoImpl implements ExamDao {
 	
 	@Override
 	public void composeExamRandom(Exam exam, int choiceNum,int blankFillingNum, int judgeNum){
-		List<BankChoiceQuestion> listChoice = bankQuestionDao.findAllChoice();
-		List<BankBlankFillingQuestion> listBlankFilling = bankQuestionDao.findAllBlankFilling();
-		List<BankJudgeQuestion> listJudge = bankQuestionDao.findAllJudge();
+		List<BankChoiceQuestion> listChoice = bankQuestionDao.findChoiceWithComposeFlag(1);//只查题库中有组卷标记=1的题
+		List<BankBlankFillingQuestion> listBlankFilling = bankQuestionDao.findBlankFillingWithComposeFlag(1);//只查题库中有组卷标记=1的题
+		List<BankJudgeQuestion> listJudge = bankQuestionDao.findJudgeWithComposeFlag(1);//只查题库中有组卷标记=1的题
 		
 		List<BankChoiceQuestion> listChoiceExtracted = extractRandomQuestions(listChoice,choiceNum);
 		List<BankBlankFillingQuestion> listBlankFillingExtracted = extractRandomQuestions(listBlankFilling,blankFillingNum);

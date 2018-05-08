@@ -23,6 +23,7 @@ public class BankBlankFillingQuestion extends BankQuestion {
 		setContent(content);
 		setAnswer(answer);
 		setKnowledgePoint(knowledgePoint);
+		setComposeFlag(1); //默认允许题目参与随机抽题
 	}
 	
 	public BankBlankFillingQuestion(String content,String answer, String answer2,String knowledgePoint) {
@@ -30,6 +31,7 @@ public class BankBlankFillingQuestion extends BankQuestion {
 		setAnswer(answer);
 		this.answer2 = answer2;
 		setKnowledgePoint(knowledgePoint);
+		setComposeFlag(1); //默认允许题目参与随机抽题
 	}
 	
 	public BankBlankFillingQuestion(String content,String answer, String answer2, String answer3,String knowledgePoint) {
@@ -38,6 +40,7 @@ public class BankBlankFillingQuestion extends BankQuestion {
 		this.answer2 = answer2;
 		this.answer3 = answer3;
 		setKnowledgePoint(knowledgePoint);
+		setComposeFlag(1); //默认允许题目参与随机抽题
 	}
 	
 	public BankBlankFillingQuestion(String content,String answer, String answer2, String answer3, String answer4,String knowledgePoint) {
@@ -47,6 +50,7 @@ public class BankBlankFillingQuestion extends BankQuestion {
 		this.answer3 = answer3;
 		this.answer4 = answer4;
 		setKnowledgePoint(knowledgePoint);
+		setComposeFlag(1); //默认允许题目参与随机抽题
 	}
 
 	public String getAnswer2() {

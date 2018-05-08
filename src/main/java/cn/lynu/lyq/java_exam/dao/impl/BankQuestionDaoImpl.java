@@ -111,6 +111,36 @@ public class BankQuestionDaoImpl implements BankQuestionDao {
 	
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
+	public List<BankChoiceQuestion> findChoiceWithComposeFlag(int composeFlag) {
+		Query q = sessionFactory.getCurrentSession().createQuery("from BankChoiceQuestion where composeFlag=:c0");
+		q.setInteger("c0", composeFlag);
+		@SuppressWarnings("unchecked")
+		List<BankChoiceQuestion> list=(List<BankChoiceQuestion>)(q.list());
+		return list;
+	}
+
+	@Override
+	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
+	public List<BankBlankFillingQuestion> findBlankFillingWithComposeFlag(int composeFlag) {
+		Query q = sessionFactory.getCurrentSession().createQuery("from BankBlankFillingQuestion where composeFlag=:c0");
+		q.setInteger("c0", composeFlag);
+		@SuppressWarnings("unchecked")
+		List<BankBlankFillingQuestion> list=(List<BankBlankFillingQuestion>)(q.list());
+		return list;
+	}
+
+	@Override
+	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
+	public List<BankJudgeQuestion> findJudgeWithComposeFlag(int composeFlag) {
+		Query q = sessionFactory.getCurrentSession().createQuery("from BankJudgeQuestion where composeFlag=:c0");
+		q.setInteger("c0", composeFlag);
+		@SuppressWarnings("unchecked")
+		List<BankJudgeQuestion> list=(List<BankJudgeQuestion>)(q.list());
+		return list;
+	}
+	
+	@Override
+	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	public List<BankChoiceQuestion> findAllChoiceWithPage(int pageIndex, int pageSize) {
 		Query q=sessionFactory.getCurrentSession().createQuery("from BankChoiceQuestion");
 		int firstResult = pageIndex*pageSize;

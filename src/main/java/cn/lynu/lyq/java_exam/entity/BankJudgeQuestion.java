@@ -15,6 +15,7 @@ public class BankJudgeQuestion extends BankQuestion {
 		setContent(content);
 		setAnswer(answer);
 		setKnowledgePoint(knowledgePoint);
+		setComposeFlag(1); //默认允许题目参与随机抽题
 	}
 
 	@Override
