@@ -95,6 +95,7 @@
 	        	</div>
 	        	</s:if>
 	        	
+	        	<s:if test="#session['USER_INFO']!=null && #session['USER_INFO'].role==1">
 		        <div class="col s12 m4">
 		            <div class="card">
 		                <div class="card-image waves-effect waves-block waves-light my-opacity">
@@ -106,6 +107,7 @@
 		                </div>
 		            </div>
 	        	</div>
+	        	</s:if>
 	        	
 	        </div>
 	    </div>
