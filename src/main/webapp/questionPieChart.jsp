@@ -363,6 +363,5 @@ body {
 			$('#chartdialog').openModal();
 		}
 	</script>
-	<s:debug></s:debug>
 </body>
 </html>

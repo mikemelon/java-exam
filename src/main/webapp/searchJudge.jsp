@@ -93,7 +93,7 @@ body {
 						<td><s:property value="#st.index+pageIndex*questionList.size+1" /></td>
 						<td><s:property value="name"/></td>
 						<td><a class="namelink"
-							href="<s:url action="blankdetail"><s:param name="qid" value="%{id}"></s:param></s:url>"><s:property
+							href="<s:url action="judgedetail"><s:param name="qid" value="%{id}"></s:param></s:url>"><s:property
 									value="content" /></a></td>
 						<td>
 							<s:if test="answer==\"T\""><i class='material-icons small'>done</i></s:if>
@@ -155,6 +155,5 @@ body {
 	    })
 	   	
 	</script>
-	<s:debug></s:debug>
 </body>
 </html>

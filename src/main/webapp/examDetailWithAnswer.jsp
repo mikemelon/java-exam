@@ -148,7 +148,6 @@ h2 {
 			</s:iterator>
 		</table>
 	</div>
-	<s:debug></s:debug>
 	<%@ include file="include/footer.jsp"%>
 	<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
 	<script type="text/javascript" src="js/materialize.min.js"></script>

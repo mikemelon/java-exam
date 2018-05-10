@@ -85,6 +85,10 @@
 				<param name="root">questionList</param>
 			</result>
 		</action>
+		<action name="choicedetail" class="choiceDetail">
+			<result>choiceDetail.jsp</result>
+		</action>
+		
 		<action name="searchblank" class="blankQuestionSearch">
 			<result>searchBlank.jsp</result>
 		</action>
@@ -98,6 +102,10 @@
 				<param name="root">questionList</param>
 			</result>
 		</action>
+		<action name="blankdfillingdetail" class="blankFillingDetail">
+			<result>blankFillingDetail.jsp</result>
+		</action>
+		
 		<action name="searchjudge" class="judgeQuestionSearch">
 			<result>searchJudge.jsp</result>
 		</action>
@@ -110,6 +118,9 @@
 			<result type="json">
 				<param name="root">questionList</param>
 			</result>
+		</action>
+		<action name="judgedetail" class="judgeDetail">
+			<result>judgeDetail.jsp</result>
 		</action>
 
 		<!-- 组卷 -->
@@ -196,7 +207,8 @@
 				<param name="actionName">examcompose</param>
 			</result>
 		</action>
-
+	
+		<!-- 试题分析 -->
 		<action name="examscorelist" class="examScoreList">
 			<result>examScoreList.jsp</result>
 		</action>

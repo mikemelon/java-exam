@@ -113,6 +113,5 @@ footer.page-footer{
 			});
 		})
 	</script>
-	<s:debug></s:debug>
 </body>
 </html>

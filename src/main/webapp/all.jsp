@@ -28,6 +28,5 @@
 	1）搜ExamQuestion，查看正确率最高的5个问题，用JFreeChart柱状图。
 	2）搜StudentExamScore，查看平均分最高的5个用户，柱状图
 	</h1>
-	<s:debug></s:debug>
 </body>
 </html>

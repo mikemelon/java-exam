@@ -79,6 +79,5 @@
 	</s:iterator>
 	</table>
 	</div>
-	<s:debug></s:debug>
 </body>
 </html>

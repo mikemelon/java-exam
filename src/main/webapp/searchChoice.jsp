@@ -179,6 +179,5 @@ body {
 	    })
 	   	
 	</script>
-	<s:debug></s:debug>
 </body>
 </html>

@@ -188,6 +188,5 @@ body {
 		}
 	</script>
 	</s:if>
-	<s:debug></s:debug>
 </body>
 </html>
