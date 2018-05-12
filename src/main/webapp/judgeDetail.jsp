@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Java考试系统--判断题详细</title>
 <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+<link type="text/css" rel="stylesheet" href="css/fontawesome-all.min.css">
 <link type="text/css" rel="stylesheet" href="css/materialize.min.css">
 <link type="text/css" rel="stylesheet" href="css/material_icons.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -64,10 +65,10 @@
 				<td colspan="2"  class="red-text text-darken-2" style="height:20px;">
 					<span class="blue-text text-darken-2">答案：</span>
 					<s:if test="question.answer==\"T\"">
-						<i class="material-icons small">done</i>
+						<i class='fas fa-check fa-2x'></i>
 					</s:if>
 					<s:else>
-						<img src="images/wrong.png" width="20">
+						<i class='fas fa-times fa-2x'></i>
 					</s:else>
 				</td>
 			</tr>

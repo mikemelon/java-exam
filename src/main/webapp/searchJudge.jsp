@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Java考试系统--搜索判断题</title>
 <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+<link type="text/css" rel="stylesheet" href="css/fontawesome-all.min.css">
 <link type="text/css" rel="stylesheet" href="css/materialize.min.css">
 <link type="text/css" rel="stylesheet" href="css/material_icons.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -59,9 +60,9 @@ body {
                     	<span class="valign" style="display:inline-block;margin:0 20px;"><label>答案:</label></span>
                         <!-- i class="tiny material-icons prefix ">toc</i-->
                         <input type="radio" class="with-gap valign" id="answerSearchT" name="answerSearch" value="T">
-                        <label for="answerSearchT"><i class='material-icons small'>done</i></label>
+                        <label for="answerSearchT"><i class='fas fa-check fa-2x'></i></label>
                         <input type="radio" class="with-gap valign"  id="answerSearchF" name="answerSearch" value="F">
-                        <label for="answerSearchF"><i><img src='images/wrong.png' width='20'/></i></label>
+                        <label for="answerSearchF"><i class='fas fa-times fa-2x'></i></label>
                     </div>
                     <div class="input-field col l3 m4 s12">
                         <i class="material-icons prefix small">description</i>
@@ -96,8 +97,8 @@ body {
 							href="<s:url action="judgedetail"><s:param name="qid" value="%{id}"></s:param></s:url>"><s:property
 									value="content" /></a></td>
 						<td>
-							<s:if test="answer==\"T\""><i class='material-icons small'>done</i></s:if>
-							<s:elseif test="answer==\"F\""><i><img src='images/wrong.png' width='20'/></i></s:elseif>
+							<s:if test="answer==\"T\""><i class='fas fa-check fa-lg'></i></s:if>
+							<s:elseif test="answer==\"F\""><i class='fas fa-times fa-lg'></i></s:elseif>
 						</td>
 						<td><s:property value="knowledgePoint" /></td>
 					</tr>
@@ -150,7 +151,7 @@ body {
 	        });
 	        
 	        $(".collapsible").collapsible({
-	            accordion: true
+	           	accordion: true
 	        });
 	    })
 	   	

@@ -18,9 +18,9 @@
                    	<span class="valign" style="display:inline-block;margin:0 20px;"><label>答案:</label></span>
                        <!-- i class="tiny material-icons prefix ">toc</i-->
                        <input type="radio" class="with-gap valign" id="answerSearchT" name="answerSearchJudge" value="T">
-                       <label for="answerSearchT"><i class='material-icons small'>done</i></label>
+                       <label for="answerSearchT"><i class='fas fa-check fa-2x'></i></label>
                        <input type="radio" class="with-gap valign"  id="answerSearchF" name="answerSearchJudge" value="F">
-                       <label for="answerSearchF"><i><img src='images/wrong.png' width='20'/></i></label>
+                       <label for="answerSearchF"><i class='fas fa-times fa-2x'></i></label>
                    </div>
                    <div class="input-field col l3 m4 s12">
                        <i class="material-icons prefix small">description</i>
@@ -111,7 +111,7 @@
 						+data[i].id+"</label></td>";
 						showHtml+="<td>"+(!data[i].name?'':data[i].name)+"</td>";
 						showHtml+="<td>"+(!data[i].content?'':data[i].content)+"</td>";
-						showHtml+="<td>"+(!data[i].answer?'':data[i].answer)+"</td>";
+						showHtml+="<td>"+(!data[i].answer?'':(data[i].answer=='T'?"<i class='fas fa-check fa-lg'></i>":"<i class='fas fa-times fa-lg'></i>"))+"</td>";
 						showHtml+="<td>"+(!data[i].knowledgePoint?'':data[i].knowledgePoint)+"</td></tr>";
 					}
 					$('#judgeListBody').html(showHtml);

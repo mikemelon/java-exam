@@ -66,11 +66,11 @@ public class ScoresBarChartAction extends ActionSupport {
 		for(Student s:stuList){
 			List<StudentExamScore> list1 = studentExamScoreDao.findByStudentAndExamPhase(s, ExamPhase.FINAL_SCORED.getChineseName());
 			for(StudentExamScore examScore:list1){
-				if(examScore.getExam().getName().startsWith("随机试卷005->")){
+//				if(examScore.getExam().getName().startsWith("随机试卷005->")){
 					scoreList.add((double)examScore.getScore());
 					stuNameList.add(s.getName());
-					break;
-				}
+//					break;
+//				}
 			}
 		}
 		String[] stuNameArray = (String[])stuNameList.toArray(new String[stuNameList.size()]);

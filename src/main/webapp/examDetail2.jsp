@@ -18,6 +18,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Java考试系统--试卷详细</title>
 <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+<link type="text/css" rel="stylesheet" href="css/fontawesome-all.min.css">
 <link type="text/css" rel="stylesheet" href="css/materialize.min.css">
 <link type="text/css" rel="stylesheet" href="css/material_icons.css">
 <link type="text/css" rel="stylesheet" href="css/nouislider.css">
@@ -189,10 +190,10 @@
 		function changeSwitch(idx){
 			if($("#check_judge_q"+idx).prop("checked")==true){
 				$("#judge_q"+idx).val("T");
-				$("#judge_answer_q"+idx).html("<i class='material-icons right small'>done</i>");
+				$("#judge_answer_q"+idx).html("<i class='fas fa-check fa-2x'></i>");
 			}else{
 				$("#judge_q"+idx).val("F");
-				$("#judge_answer_q"+idx).html("<i class='right'><img src='images/wrong.png' width='20'/></i>");
+				$("#judge_answer_q"+idx).html("<i class='fas fa-times fa-2x'></i>");
 			}
 		}
 		
