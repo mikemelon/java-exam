@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <title>Java考试系统--主页</title>
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <link type="text/css" rel="stylesheet" href="css/fontawesome-all.min.css">
     <link type="text/css" rel="stylesheet" href="css/materialize.min.css">
     <link type="text/css" rel="stylesheet" href="css/material_icons.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,7 +36,8 @@
 		                    <a href="<s:url action="studentexamlist"/>"><img class="activator" src="images/exampaper2.jpg"></a>
 		                </div>
 		                <div class="card-content">
-		                    <span class="card-title activator grey-text text-darken-4">试题列表<i class="material-icons right">more_vert</i></span>
+		                    <span class="card-title activator grey-text text-darken-4">试题列表
+		                    <i class="fas fa-sign-in-alt fa-lg right blue-text"></i></span>
 		                    <p><a href="<s:url action="studentexamlist"/>">列出所有已有的试题列表</a></p>
 		                </div>
 		            </div>
@@ -47,7 +49,8 @@
 		                    <a href="questionByKnowledge.jsp"><img class="activator" src="images/categories2.jpg"></a>
 		                </div>
 		                <div class="card-content">
-		                    <span class="card-title activator grey-text text-darken-4">章节练习<i class="material-icons right">more_vert</i></span>
+		                    <span class="card-title activator grey-text text-darken-4">章节练习
+		                    <i class="fas fa-sign-in-alt fa-lg right blue-text"></i></span>
 		                    <p><a href="questionByKnowledge.jsp">按照章节知识点分类进行练习</a></p>
 		                </div>
 		            </div>
@@ -60,7 +63,8 @@
 		                    <a href="questionTypes.jsp"><img class="activator" src="images/questiontype2.jpg"></a>
 		                </div>
 		                <div class="card-content">
-		                    <span class="card-title activator grey-text text-darken-4">题型练习<i class="material-icons right">more_vert</i></span>
+		                    <span class="card-title activator grey-text text-darken-4">题型练习
+		                    <i class="fas fa-sign-in-alt fa-lg right blue-text"></i></span>
 		                    <p><a href="questionTypes.jsp">按选择题、填空题、判断题分别练习</a></p>
 		                </div>
 		            </div>
@@ -74,7 +78,8 @@
 		                    <a href="examComposeTypes.jsp"><img class="activator" src="images/papergenerator2.jpg"></a>
 		                </div>
 		                <div class="card-content">
-		                    <span class="card-title activator grey-text text-darken-4">抽题组卷<i class="material-icons right">more_vert</i></span>
+		                    <span class="card-title activator grey-text text-darken-4">抽题组卷
+		                    <i class="fas fa-sign-in-alt fa-lg right blue-text"></i></span>
 		                    <p><a href="examComposeTypes.jsp">从题库中根据策略抽题组卷</a></p>
 		                </div>
 		            </div>
@@ -88,7 +93,8 @@
 		                    <a href="importData.jsp"><img class="activator" src="images/importexport2.jpg"></a>
 		                </div>
 		                <div class="card-content">
-		                    <span class="card-title activator grey-text text-darken-4">导入导出<i class="material-icons right">more_vert</i></span>
+		                    <span class="card-title activator grey-text text-darken-4">导入导出
+		                    <i class="fas fa-sign-in-alt fa-lg right blue-text"></i></span>
 		                    <p><a href="importData.jsp">用户、试题等数据的导入导出</a></p>
 		                </div>
 		            </div>
@@ -102,7 +108,8 @@
 		                    <a href="statsTypes.jsp"><img class="activator" src="images/datastats2.png"></a>
 		                </div>
 		                <div class="card-content">
-		                    <span class="card-title activator grey-text text-darken-4">试题分析<i class="material-icons right">more_vert</i></span>
+		                    <span class="card-title activator grey-text text-darken-4">试题分析
+		                    <i class="fas fa-sign-in-alt fa-lg right blue-text"></i></span>
 		                    <p><a href="statsTypes.jsp">按照题型、知识点等进行统计分析</a></p>
 		                </div>
 		            </div>
@@ -122,12 +129,14 @@
             <form name="loginform1" method="post" action="login" class="col s12" style="margin-top: 40px;">
             	<div class="row">
                     <div class="input-field col s11" style="margin: 0 auto;">
-                        <i class="material-icons prefix">account_circle</i>
+                        <!-- i class="material-icons prefix">account_circle</i-->
+                        <i class="fas fa-user fa-3x prefix"></i>
                         <input type="text" placeholder="输入学号" id="registerNo" name="registerNo" class="validate" style="font-size:large">
                         <label for="registerNo">学号</label>
                     </div>
                     <div class="input-field col s11">
-                        <i class="material-icons prefix">phone</i>
+                        <!-- i class="material-icons prefix">phone</i-->
+                        <i class="fas fa-key fa-3x prefix"></i>
                         <input type="password" placeholder="输入密码" id="password" name="password" class="validate" style="font-size:large">
                         <label for="password">密码</label>
                     </div>

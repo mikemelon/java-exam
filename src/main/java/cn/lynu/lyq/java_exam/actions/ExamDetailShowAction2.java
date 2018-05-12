@@ -349,7 +349,7 @@ System.out.println("replaceBlank exception:"+e);
 			String beforePicNameContent = content.substring(0,matcher.start());
 			String afterPicNameContent = content.substring(matcher.end());
 			String newContent = beforePicNameContent 
-					+ "<br><br><img src='images\\"+ picFileName +"' style='float:left;clear:both;'>"
+					+ "<br><br><img src='images/"+ picFileName +"' style='float:left;clear:both;'>"
 					+ afterPicNameContent;
 			return newContent;
 		}else{
