@@ -45,6 +45,30 @@ body {
 	<%@ include file="include/header.jsp" %>
 	<div id="main">
 		<div class="container" style="min-height:350px;">
+		
+		<form name="form1" method="post" action="examscorelistforsearch">
+			<input type="hidden" name="answerSearch2">
+				<div class="row" style="margin-top: 10px;">
+                    <div class="input-field col l4 m4 s12">
+                        <i class="material-icons prefix small">spellcheck</i>
+                        <s:select list="gradeList" id="classSearch" name="classSearch" listKey="name" listValue="name"></s:select>
+                        <label for="classSearch">班级</label>
+                    </div>
+                    <div class="input-field col l4 m4 s12">
+                        <i class="material-icons prefix small">description</i>
+                        <input type="text" placeholder="输入考试名称" id="examNameSearch" name="examNameSearch" 
+                        value="<s:property value="examNameSearch"/>" 
+                        class="validate" style="font-size:large">
+                        <label for="examNameSearch">考试名称</label>
+                    </div>
+                    <div class="input-field col l2 m4 s12 vertical-align">
+						<button class="red darken-4 waves-effect waves-teal btn-flat" type="submit">
+							<span class="yellow-text text-lighten-1">搜索
+			        		<i class="material-icons right">search</i></span>
+			    		</button>
+			        </div>
+                </div>
+			</form>
 			<table class="mytable">
 				<thead>
 					<tr>
@@ -80,6 +104,7 @@ body {
 	
 	<script>
 	    $(document).ready(function () {
+	    	$('select').material_select();
 	        $('.modal-trigger').leanModal({
 	            dismissible: true, //是否点模态对话框外面就可以关闭
 	            opacity: 0.6, //接近1，不透明
@@ -97,5 +122,6 @@ body {
 	    })
 	   	
 	</script>
+	<s:debug></s:debug>
 </body>
 </html>

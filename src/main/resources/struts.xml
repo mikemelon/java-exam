@@ -212,6 +212,9 @@
 		<action name="examscorelist" class="examScoreList">
 			<result>examScoreList.jsp</result>
 		</action>
+		<action name="examscorelistforsearch" class="examScoreList" method="executeForSearch">
+			<result>examScoreList.jsp</result>
+		</action>
 
 		<action name="scorestats" class="scoreStats">
 			<result>scoresBarChart.jsp</result>

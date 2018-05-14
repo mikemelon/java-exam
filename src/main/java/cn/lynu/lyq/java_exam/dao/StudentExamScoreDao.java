@@ -10,6 +10,7 @@ public interface StudentExamScoreDao {
 	
 	List<StudentExamScore> findByStudent(Student s);
 	List<StudentExamScore> findByExamPhase(String examPhase);
+	List<StudentExamScore> findByClassAndExamNameAndExamPhase(String className, String examName, String examPhase);
 	List<StudentExamScore> findByStudentAndExamPhase(Student s, String examPhase);
 	List<StudentExamScore> findByStudentAndExam(Student s, Exam e);
 	

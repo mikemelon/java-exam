@@ -47,6 +47,18 @@ public class StudentExamScoreDaoImpl implements StudentExamScoreDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
+	public List<StudentExamScore> findByClassAndExamNameAndExamPhase(String className, String examName,
+			String examPhase) {
+		Query q=sessionFactory.getCurrentSession().createQuery("from StudentExamScore ses where ses.student.grade.name=? and ses.exam.name like ? and ses.examPhase=?");
+		q.setParameter(0, className);
+		q.setParameter(1, examName+"%");
+		q.setParameter(2, examPhase);
+		return q.list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	public List<StudentExamScore> findByStudentAndExamPhase(Student s, String examPhase) {
 		Query q=sessionFactory.getCurrentSession().createQuery("from StudentExamScore where student=? and examPhase=?");
 		q.setParameter(0, s);

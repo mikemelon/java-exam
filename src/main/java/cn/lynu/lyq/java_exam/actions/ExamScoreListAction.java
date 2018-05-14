@@ -11,7 +11,9 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import cn.lynu.lyq.java_exam.common.ExamPhase;
+import cn.lynu.lyq.java_exam.dao.GradeDao;
 import cn.lynu.lyq.java_exam.dao.StudentExamScoreDao;
+import cn.lynu.lyq.java_exam.entity.Grade;
 import cn.lynu.lyq.java_exam.entity.StudentExamScore;
 
 @Component("examScoreList")
@@ -20,11 +22,35 @@ public class ExamScoreListAction extends ActionSupport {
 
 	private static final long serialVersionUID = 4675761085855839420L;
 	
+	private String classSearch;
+	private String examNameSearch; 
+	
+	private List<Grade> gradeList;
 	private List<StudentExamScore> examScoreList;
 	
 	@Resource
+	private GradeDao gradeDao;
+	@Resource
 	private StudentExamScoreDao studentExamScoreDao;
 
+	public String getClassSearch() {
+		return classSearch;
+	}
+	public void setClassSearch(String classSearch) {
+		this.classSearch = classSearch;
+	}
+	public String getExamNameSearch() {
+		return examNameSearch;
+	}
+	public void setExamNameSearch(String examNameSearch) {
+		this.examNameSearch = examNameSearch;
+	}
+	public List<Grade> getGradeList() {
+		return gradeList;
+	}
+	public void setGradeList(List<Grade> gradeList) {
+		this.gradeList = gradeList;
+	}
 	public List<StudentExamScore> getExamScoreList() {
 		return examScoreList;
 	}
@@ -37,6 +63,7 @@ public class ExamScoreListAction extends ActionSupport {
 		ActionContext ctx =ActionContext.getContext();
 		if(ctx.getSession().containsKey("USER_INFO")){
 //			Student stu=(Student)ctx.getSession().get("USER_INFO");
+			gradeList = gradeDao.findAll();
 			examScoreList = studentExamScoreDao.findByExamPhase(ExamPhase.FINAL_SCORED.getChineseName());
 			
 			return SUCCESS;
@@ -44,6 +71,12 @@ public class ExamScoreListAction extends ActionSupport {
 			this.addActionError("您还没有登录，请登录后再点击进入");
 			return ERROR;
 		}
+	}
+	
+	public String executeForSearch() throws Exception {
+		gradeList = gradeDao.findAll();
+		examScoreList = studentExamScoreDao.findByClassAndExamNameAndExamPhase(classSearch, examNameSearch, ExamPhase.FINAL_SCORED.getChineseName());
+		return SUCCESS;
 	}
 	
 }
