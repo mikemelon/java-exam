@@ -46,12 +46,16 @@ body {
 	<div id="main">
 		<div class="container" style="min-height:350px;">
 		
-		<form name="form1" method="post" action="examscorelistforsearch">
-			<input type="hidden" name="answerSearch2">
+			<form name="form1" method="post" action="examscorelistforsearch">
 				<div class="row" style="margin-top: 10px;">
                     <div class="input-field col l4 m4 s12">
                         <i class="material-icons prefix small">spellcheck</i>
-                        <s:select list="gradeList" id="classSearch" name="classSearch" listKey="name" listValue="name"></s:select>
+                        <select multiple id="classSearch" name="classSearch">
+                        <option value="" disabled>选择</option>
+                        <s:iterator value="gradeList" var="gradeItem">
+                        	<option value="<s:property value="id"/>" <s:if test='classSearch.contains(\"\"+#gradeItem.id)'>selected</s:if>><s:property value="name"/></option>
+                        </s:iterator>
+                        </select>
                         <label for="classSearch">班级</label>
                     </div>
                     <div class="input-field col l4 m4 s12">
@@ -69,6 +73,7 @@ body {
 			        </div>
                 </div>
 			</form>
+			
 			<table class="mytable">
 				<thead>
 					<tr>

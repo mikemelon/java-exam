@@ -75,7 +75,8 @@ public class ExamScoreListAction extends ActionSupport {
 	
 	public String executeForSearch() throws Exception {
 		gradeList = gradeDao.findAll();
-		examScoreList = studentExamScoreDao.findByClassAndExamNameAndExamPhase(classSearch, examNameSearch, ExamPhase.FINAL_SCORED.getChineseName());
+		classSearch = classSearch!=null?classSearch:"";
+		examScoreList = studentExamScoreDao.findByClassIdAndExamNameAndExamPhase(classSearch, examNameSearch, ExamPhase.FINAL_SCORED.getChineseName());
 		return SUCCESS;
 	}
 	

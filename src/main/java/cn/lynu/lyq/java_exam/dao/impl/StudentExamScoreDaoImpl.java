@@ -39,7 +39,7 @@ public class StudentExamScoreDaoImpl implements StudentExamScoreDao {
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	public List<StudentExamScore> findByExamPhase(String examPhase) {
-		Query q=sessionFactory.getCurrentSession().createQuery("from StudentExamScore where examPhase=?");
+		Query q=sessionFactory.getCurrentSession().createQuery("from StudentExamScore where examPhase=? order by score desc");
 		q.setParameter(0, examPhase);
 		return q.list();
 	}
@@ -47,12 +47,29 @@ public class StudentExamScoreDaoImpl implements StudentExamScoreDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
-	public List<StudentExamScore> findByClassAndExamNameAndExamPhase(String className, String examName,
+	public List<StudentExamScore> findByClassIdAndExamNameAndExamPhase(String classId, String examName,
 			String examPhase) {
-		Query q=sessionFactory.getCurrentSession().createQuery("from StudentExamScore ses where ses.student.grade.name=? and ses.exam.name like ? and ses.examPhase=?");
-		q.setParameter(0, className);
-		q.setParameter(1, examName+"%");
-		q.setParameter(2, examPhase);
+		StringBuilder sb = new StringBuilder();
+		sb.append("from StudentExamScore ses where ");
+		
+		classId = classId.trim();
+		int nPos = 0;
+		String[] ids = null;
+		if(!classId.equals("")){
+			ids = classId.split(",");
+			sb.append("(");
+			for(int i=0; i<ids.length; i++){
+				sb.append("ses.student.grade.id=?");
+				if(i<ids.length-1) sb.append(" or ");
+				nPos++;
+			}
+			sb.append(") and ");
+		}
+		sb.append("ses.exam.name like ? and ses.examPhase=?  order by score desc");
+		Query q=sessionFactory.getCurrentSession().createQuery(sb.toString());
+		for(int i=0; i<nPos; i++) q.setInteger(i, Integer.parseInt(ids[i].trim()));
+		q.setParameter(nPos++, examName+"%");
+		q.setParameter(nPos, examPhase);
 		return q.list();
 	}
 	

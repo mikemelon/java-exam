@@ -1,8 +1,11 @@
 package cn.lynu.lyq.java_exam.dao.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -41,6 +44,25 @@ public class ExamDaoImpl implements ExamDao {
 	public List<Exam> findAllFixedExam(){
 		Query q=sessionFactory.getCurrentSession().createQuery("from Exam where type=0");
 		return q.list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
+	public List<String> findAllDistinctExamName() {
+		Query q=sessionFactory.getCurrentSession().createQuery("from Exam order by createDate desc");
+		List<Exam> examList = q.list();
+		Set<String> examNameSet = new HashSet<String>();
+		for(Exam ex:examList){
+			String exName = ex.getName();
+			if(exName.contains("->")){
+				examNameSet.add(exName.substring(0, exName.indexOf("->")));
+			}else
+				examNameSet.add(exName);
+		}
+		List<String> examNameList = new ArrayList<>(examNameSet);
+		Collections.sort(examNameList);
+		return examNameList;
 	}
 	
 	@Override

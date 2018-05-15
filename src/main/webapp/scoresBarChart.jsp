@@ -27,10 +27,41 @@ body {
 
 	<div id="main">
 		<div class="container" style="padding: 20px;">
+			<form name="form1" method="post" action="scorestatsforsearch">
+				<div class="row" style="margin-top: 10px;">
+                    <div class="input-field col l4 m4 s12">
+                        <i class="material-icons prefix small">spellcheck</i>
+                        <select multiple id="classSearch" name="classSearch">
+                        <option value="" disabled>选择</option>
+                        <s:iterator value="gradeList" var="gradeItem">
+                        	<option value="<s:property value="id"/>" <s:if test='classSearch.contains(\"\"+#gradeItem.id)'>selected</s:if>><s:property value="name"/></option>
+                        </s:iterator>
+                        </select>
+                        <label for="classSearch">班级</label>
+                    </div>
+                    <div class="input-field col l6 m6 s12">
+                        <i class="material-icons prefix small">description</i>
+                        <select id="examNameSearch" name="examNameSearch">
+                        <option value="" disabled selected>选择</option>
+                        <s:iterator value="examNameList" var="examNameItem" status="st">
+                        	<option value="<s:property value="#st.index+1"/>" <s:if test='examNameSearch==((#st.index+1)+\"\")'>selected</s:if> ><s:property/></option>
+                        </s:iterator>
+                        </select>
+                        <label for="examNameSearch">考试名称</label>
+                    </div>
+                    <div class="input-field col l2 m4 s12 vertical-align">
+						<button class="red darken-4 waves-effect waves-teal btn-flat" type="submit">
+							<span class="yellow-text text-lighten-1">搜索
+			        		<i class="material-icons right">search</i></span>
+			    		</button>
+			        </div>
+                </div>
+			</form>
+			
 			<div class="divider" style="height: 20px; background: #fff;"></div>
 			<div class="row">
 			
-				<img src="charts/scoresbarchart.action">
+				<img src="charts/scoresbarchart.action?classSearch=<s:property value="classSearch"/>&examNameSearch=<s:property value="examNameSearch"/>">
 				
 			</div>
 		</div>
@@ -42,6 +73,7 @@ body {
 
 <script>
    $(document).ready(function () {
+	   $('select').material_select();
        $('.modal-trigger').leanModal({
            dismissible: true, //是否点模态对话框外面就可以关闭
            opacity: 0.6, //接近1，不透明

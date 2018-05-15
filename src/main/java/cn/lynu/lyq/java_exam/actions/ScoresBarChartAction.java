@@ -26,6 +26,7 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import cn.lynu.lyq.java_exam.common.ExamPhase;
+import cn.lynu.lyq.java_exam.dao.ExamDao;
 import cn.lynu.lyq.java_exam.dao.StudentDao;
 import cn.lynu.lyq.java_exam.dao.StudentExamScoreDao;
 import cn.lynu.lyq.java_exam.entity.Student;
@@ -40,6 +41,8 @@ public class ScoresBarChartAction extends ActionSupport {
 	private JFreeChart chart;
 	@Resource
 	private StudentDao studentDao;
+	@Resource
+	private ExamDao examDao;
 	@Resource
 	private StudentExamScoreDao studentExamScoreDao;
 
@@ -58,21 +61,30 @@ public class ScoresBarChartAction extends ActionSupport {
 //		String[] columnKeys = { "张三", "李四", "王二", "马六" };
 		
 		ActionContext ctx =ActionContext.getContext();
-		Student theStudent =(Student)ctx.getSession().get("USER_INFO");
-		List<Student> stuList = studentDao.findByGrade(theStudent.getGrade());
+		String classSearch=ctx.getParameters().get("classSearch").getValue();
+		String examNameSearch=ctx.getParameters().get("examNameSearch").getValue();
+		System.out.println("classSearch=["+classSearch+"]");
+		System.out.println("examNameSearch=["+examNameSearch+"]");
+		
+//		Student theStudent =(Student)ctx.getSession().get("USER_INFO");
+//		List<Student> stuList = studentDao.findByGrade(theStudent.getGrade());
+		List<String> examNameList = examDao.findAllDistinctExamName();
+		if(!examNameSearch.equals("")){
+			examNameSearch=examNameList.get(Integer.parseInt(examNameSearch)-1);
+		}else{
+			examNameSearch=examNameList.get(0);
+		}
+		List<StudentExamScore> list1 = studentExamScoreDao.findByClassIdAndExamNameAndExamPhase(classSearch,examNameSearch,
+				ExamPhase.FINAL_SCORED.getChineseName());
 		List<String> stuNameList = new ArrayList<>();
 		List<Double> scoreList = new ArrayList<>();
 		
-		for(Student s:stuList){
-			List<StudentExamScore> list1 = studentExamScoreDao.findByStudentAndExamPhase(s, ExamPhase.FINAL_SCORED.getChineseName());
-			for(StudentExamScore examScore:list1){
-//				if(examScore.getExam().getName().startsWith("随机试卷005->")){
-					scoreList.add((double)examScore.getScore());
-					stuNameList.add(s.getName());
-//					break;
-//				}
-			}
+		for(StudentExamScore examScore:list1){
+			scoreList.add((double)examScore.getScore());
+			Student stu = studentDao.findById(examScore.getStudent().getId());
+			stuNameList.add(stu.getName());
 		}
+		
 		String[] stuNameArray = (String[])stuNameList.toArray(new String[stuNameList.size()]);
 		Double[] integerScoreArray = (Double[])scoreList.toArray(new Double[scoreList.size()]);
 		double[] scoreArray = ArrayUtils.toPrimitive(integerScoreArray);
@@ -93,7 +105,9 @@ public class ScoresBarChartAction extends ActionSupport {
 		String[] rowKeys = {""};
 		String[] columnKeys = stuNameArraySorted;
 		System.out.println(">>>>>>>>>>学生名列表："+Arrays.toString(stuNameArraySorted));
+		System.out.println(">>>>>>>>>>学生名length："+stuNameArraySorted.length);
 		System.out.println(">>>>>>>>>>分数列表："+Arrays.toString(scoreArray));
+		System.out.println(">>>>>>>>>>分数length"+scoreArray.length);
 		
 		CategoryDataset dataset = DatasetUtilities.createCategoryDataset(rowKeys, columnKeys, data);
 

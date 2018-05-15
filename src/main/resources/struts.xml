@@ -219,6 +219,9 @@
 		<action name="scorestats" class="scoreStats">
 			<result>scoresBarChart.jsp</result>
 		</action>
+		<action name="scorestatsforsearch" class="scoreStats" method="executeForSearch">
+			<result>scoresBarChart.jsp</result>
+		</action>
 
 		<action name="questionstats" class="questionStats">
 			<result>questionPieChart.jsp</result>
