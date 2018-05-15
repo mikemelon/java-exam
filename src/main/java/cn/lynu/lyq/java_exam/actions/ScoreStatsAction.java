@@ -11,10 +11,11 @@ import org.springframework.stereotype.Component;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
-import cn.lynu.lyq.java_exam.common.ExamPhase;
 import cn.lynu.lyq.java_exam.dao.ExamDao;
 import cn.lynu.lyq.java_exam.dao.GradeDao;
+import cn.lynu.lyq.java_exam.dao.StudentExamScoreDao;
 import cn.lynu.lyq.java_exam.entity.Grade;
+import cn.lynu.lyq.java_exam.entity.Student;
 
 @Component("scoreStats")
 @Scope("prototype")
@@ -25,11 +26,14 @@ public class ScoreStatsAction extends ActionSupport {
 	private GradeDao gradeDao;
 	@Resource
 	private ExamDao examDao;
+	@Resource
+	private StudentExamScoreDao studentExamScoreDao;
 	
 	private List<Grade> gradeList = new ArrayList<>();
 	private List<String> examNameList = new ArrayList<>();
 	private String classSearch;
 	private String examNameSearch;
+	private List<Student> examAbsentStudentList=new ArrayList<>();
 	
 	public List<Grade> getGradeList() {
 		return gradeList;
@@ -55,6 +59,12 @@ public class ScoreStatsAction extends ActionSupport {
 	public void setExamNameSearch(String examNameSearch) {
 		this.examNameSearch = examNameSearch;
 	}
+	public List<Student> getExamAbsentStudentList() {
+		return examAbsentStudentList;
+	}
+	public void setExamAbsentStudentList(List<Student> examAbsentStudentList) {
+		this.examAbsentStudentList = examAbsentStudentList;
+	}
 	
 	@Override
 	public String execute() throws Exception {
@@ -72,8 +82,14 @@ public class ScoreStatsAction extends ActionSupport {
 	public String executeForSearch() throws Exception {
 		gradeList = gradeDao.findAll();
 		examNameList = examDao.findAllDistinctExamName();
+		
 		classSearch = classSearch!=null?classSearch:"";
 		examNameSearch = examNameSearch!=null?examNameSearch:"";
+		
+		//只有一个班级和一个考试名称选中时，返回缺考考生
+		if(!classSearch.equals("") && !classSearch.contains(",") && !examNameSearch.equals("")){  
+			examAbsentStudentList = studentExamScoreDao.getAbsentStudentsForExamName(classSearch,examNameList.get(Integer.parseInt(examNameSearch)-1));
+		}
 		return SUCCESS;
 	}
 

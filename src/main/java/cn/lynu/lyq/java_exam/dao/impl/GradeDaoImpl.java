@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cn.lynu.lyq.java_exam.dao.GradeDao;
 import cn.lynu.lyq.java_exam.entity.Grade;
+import cn.lynu.lyq.java_exam.entity.Student;
 
 @Component("gradeDao")
 @Transactional
@@ -22,6 +23,13 @@ public class GradeDaoImpl implements GradeDao {
 	
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
+	}
+	
+	@Override
+	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
+	public Grade findById(int id) {
+		Grade g = sessionFactory.getCurrentSession().get(Grade.class, id);
+		return g;
 	}
 	
 	@SuppressWarnings("unchecked")

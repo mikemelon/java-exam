@@ -1,5 +1,6 @@
 package cn.lynu.lyq.java_exam.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -10,6 +11,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import cn.lynu.lyq.java_exam.common.ExamPhase;
+import cn.lynu.lyq.java_exam.dao.GradeDao;
+import cn.lynu.lyq.java_exam.dao.StudentDao;
 import cn.lynu.lyq.java_exam.dao.StudentExamScoreDao;
 import cn.lynu.lyq.java_exam.entity.Exam;
 import cn.lynu.lyq.java_exam.entity.Student;
@@ -21,6 +25,10 @@ import cn.lynu.lyq.java_exam.entity.StudentExamScore;
 public class StudentExamScoreDaoImpl implements StudentExamScoreDao {
 	@Resource
 	private SessionFactory sessionFactory;
+	@Resource
+	private StudentDao studentDao;
+	@Resource
+	private GradeDao gradeDao;
 	
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
@@ -121,6 +129,33 @@ public class StudentExamScoreDaoImpl implements StudentExamScoreDao {
 	@Override
 	public void delete(StudentExamScore ses){
 		sessionFactory.getCurrentSession().delete(ses);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
+	public List<Student> getAbsentStudentsForExamName(String classId, String examName) {
+		Query q=sessionFactory.getCurrentSession().createQuery("from StudentExamScore ses where ses.exam.name like ? "
+				+ "and ses.student.grade.id=?"
+				+ "and ses.examPhase=?");
+		int gradeId = Integer.parseInt(classId.trim());
+		q.setString(0, examName+"%");
+		q.setInteger(1,gradeId);
+		q.setString(2, ExamPhase.FINAL_SCORED.getChineseName());
+		List<StudentExamScore> sesList = q.list();
+		List<Student> stuList = studentDao.findByGrade(gradeDao.findById(gradeId));
+		List<Student> absentStuList = new ArrayList<>();
+		for(Student stu:stuList){
+			boolean stuAbsent = true;
+			for(StudentExamScore ses:sesList){
+				if(ses.getStudent().getId()==stu.getId()){
+					stuAbsent = false;
+					break;
+				}
+			}
+			if(stuAbsent) absentStuList.add(stu);
+		}
+		return absentStuList;
 	}
 
 }

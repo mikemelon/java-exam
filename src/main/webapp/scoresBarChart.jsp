@@ -64,6 +64,23 @@ body {
 				<img src="charts/scoresbarchart.action?classSearch=<s:property value="classSearch"/>&examNameSearch=<s:property value="examNameSearch"/>">
 				
 			</div>
+			
+			<div class="row">
+				<s:if test="examAbsentStudentList!=null && examAbsentStudentList.size()>0">
+					该班级该次考试缺考的学生有：
+					<table>
+						<s:iterator value="examAbsentStudentList" status="st">
+							<tr>
+								<td><s:property value="#st.index+1"/>.</td>
+								<td><s:property value="name"/>(学号：<s:property value="registerNo"/>)</td>
+							</tr>
+						</s:iterator>
+					</table>
+				</s:if>
+				<s:else>
+					该班级没有缺考学生。
+				</s:else>
+			</div>
 		</div>
 	</div>
 

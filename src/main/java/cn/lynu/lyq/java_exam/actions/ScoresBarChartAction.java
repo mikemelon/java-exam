@@ -104,10 +104,10 @@ public class ScoresBarChartAction extends ActionSupport {
 		double[][] data = new double[][] { scoreArray };
 		String[] rowKeys = {""};
 		String[] columnKeys = stuNameArraySorted;
-		System.out.println(">>>>>>>>>>学生名列表："+Arrays.toString(stuNameArraySorted));
-		System.out.println(">>>>>>>>>>学生名length："+stuNameArraySorted.length);
-		System.out.println(">>>>>>>>>>分数列表："+Arrays.toString(scoreArray));
-		System.out.println(">>>>>>>>>>分数length"+scoreArray.length);
+//		System.out.println(">>>>>>>>>>学生名列表："+Arrays.toString(stuNameArraySorted));
+//		System.out.println(">>>>>>>>>>学生名length："+stuNameArraySorted.length);
+//		System.out.println(">>>>>>>>>>分数列表："+Arrays.toString(scoreArray));
+//		System.out.println(">>>>>>>>>>分数length"+scoreArray.length);
 		
 		CategoryDataset dataset = DatasetUtilities.createCategoryDataset(rowKeys, columnKeys, data);
 
