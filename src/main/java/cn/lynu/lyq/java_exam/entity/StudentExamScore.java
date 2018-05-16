@@ -24,6 +24,7 @@ public class StudentExamScore {
 	private ExamStrategy examStrategy;
 	private int score;
 	private String examPhase;
+	private int timeUsed; //考试用时（单位：秒）
 	
 	public StudentExamScore() {}
 	
@@ -74,6 +75,14 @@ public class StudentExamScore {
 
 	public void setExamPhase(String examPhase) {
 		this.examPhase = examPhase;
+	}
+
+	public int getTimeUsed() {
+		return timeUsed;
+	}
+
+	public void setTimeUsed(int timeUsed) {
+		this.timeUsed = timeUsed;
 	}
 	
 }

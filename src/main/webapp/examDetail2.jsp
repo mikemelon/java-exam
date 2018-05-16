@@ -32,12 +32,24 @@
     	width: 80%;
     	margin: 0 auto;
     }
+    #examtime{
+    	position:fixed;
+    	bottom: 10px;
+    	right: 10px;
+    	background-color: #ee1111;
+    	color: #eeee11;
+    }
 </style>
 </head>
 <body>
 	<%@ include file="include/header.jsp" %>
 	<div class="container">
 	<form class="col s12" name="form1" method="post" action="examsummary">
+	<s:hidden name="remainingTime"></s:hidden>
+	<div id="examtime">
+		<div id="timeNotice"></div>
+		<a id="toggleTimeBtn" class="waves-effect waves-light btn-small" onclick="toggleShowTime()">关闭时间提示</a>
+	</div>
 	<h4>选择题</h4>
 	<table class="mytable">
 	<s:iterator value="choiceList" status="st" var="item">
@@ -48,7 +60,7 @@
 			</td>
 			<td><s:property value="@cn.lynu.lyq.java_exam.actions.ExamDetailShowAction2@showContentWithImage(content)" escapeHtml="false"/></td>
 			<td>
-				<span id="choice_answer_q<s:property value="#st.index+1"/>"class="blue-text text-darken-2">
+				<span id="choice_answer_q<s:property value="#st.index+1"/>" class="blue-text text-darken-2">
 					<s:property value="@cn.lynu.lyq.java_exam.actions.ExamDetailShowAction2@determineChoiceAnswer(#st.index)"/>
 				</span>
 			</td>
@@ -206,7 +218,28 @@
 				$("#check_judge_q"+idx).prop("checked",false);
 			}
 		}
+		
+		function toggleShowTime(){
+			$("#timeNotice").toggle();
+			if ( $("#timeNotice").is(":hidden") ){
+				$("#toggleTimeBtn").text("显示时间提示");
+			}else{
+				$("#toggleTimeBtn").text("关闭时间提示");
+			}
+		}
+		
+		var seconds = form1.remainingTime.value;//初始值
+		function updateTime(){
+			var s = seconds % 60; // 秒
+			var m = (seconds - s) / 60 % 60; // 分钟
+			var h =  ((seconds - s) / 60 - m ) / 60 % 24; // 小时
+			$("#timeNotice").html( "离考试结束还有：" + h + "小时" + m + "分钟" + s + "秒");
+			seconds--;
+		}
+		
+		setInterval(updateTime, 1000);
 	</script>
 	<%@ include file="include/footer.jsp" %>
+	<s:debug></s:debug>
 </body>
 </html>

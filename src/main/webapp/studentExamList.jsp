@@ -4,42 +4,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Java考试系统--考试列表</title>
-<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-<link type="text/css" rel="stylesheet" href="css/materialize.min.css">
-<link type="text/css" rel="stylesheet" href="css/material_icons.css">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style type="text/css">
-body {
-	font-family: Roboto, "Microsoft YaHei";
-}
-
-.mytable {
-	border-collapse: collapse;
-	border-bottom: 2px solid #ddd;
-}
-
-.mytable td {
-	padding: 5px 10px;
-}
-
-.namelink a {
-	text-decoration: none;
-}
-
-.namelink a:LINK {
-	color: #12f;
-}
-
-.namelink a:VISITED {
-	color: #a2e;
-}
-
-.namelink a:HOVER {
-	color: #17f;
-}
-</style>
+	<meta charset="UTF-8">
+	<title>Java考试系统--考试列表</title>
+	<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+	<link type="text/css" rel="stylesheet" href="css/materialize.min.css">
+	<link type="text/css" rel="stylesheet" href="css/material_icons.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style type="text/css">
+		body {
+			font-family: Roboto, "Microsoft YaHei";
+		}
+		
+		.mytable {
+			border-collapse: collapse;
+			border-bottom: 2px solid #ddd;
+		}
+		
+		.mytable td {
+			padding: 5px 10px;
+		}
+		
+		.namelink a {
+			text-decoration: none;
+		}
+		
+		.namelink a:LINK {
+			color: #12f;
+		}
+		
+		.namelink a:VISITED {
+			color: #a2e;
+		}
+		
+		.namelink a:HOVER {
+			color: #17f;
+		}
+	</style>
 </head>
 <body>
 	<%@ include file="include/header.jsp" %>

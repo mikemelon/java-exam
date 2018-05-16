@@ -25,6 +25,7 @@ import cn.lynu.lyq.java_exam.entity.BankChoiceQuestion;
 import cn.lynu.lyq.java_exam.entity.BankJudgeQuestion;
 import cn.lynu.lyq.java_exam.entity.Exam;
 import cn.lynu.lyq.java_exam.entity.ExamQuestion;
+import cn.lynu.lyq.java_exam.utils.QuestionUtils;
 
 @Component("examDetailShow2")
 @Scope("prototype")
@@ -42,6 +43,8 @@ public class ExamDetailShowAction2 extends ActionSupport {
     private List<BankJudgeQuestion> judgeList = new ArrayList<>();
     
 	private Map<QuestionType,List<Object>> examAnswerMap = new HashMap<>(); //正确答案
+	
+	private int remainingTime; //剩余时间
     
 	public List<BankChoiceQuestion> getChoiceList() {
 		return choiceList;
@@ -65,6 +68,14 @@ public class ExamDetailShowAction2 extends ActionSupport {
 
 	public void setJudgeList(List<BankJudgeQuestion> judgeList) {
 		this.judgeList = judgeList;
+	}
+	
+	public int getRemainingTime() {
+		return remainingTime;
+	}
+
+	public void setRemainingTime(int remainingTime) {
+		this.remainingTime = remainingTime;
 	}
 
 	@Override
@@ -90,6 +101,7 @@ public class ExamDetailShowAction2 extends ActionSupport {
 //        System.out.println("**********"+examId);
         
         Exam exam = examDao.findById(examId);
+        remainingTime = exam.getScheduledTime();
         List<ExamQuestion> eqList = examQuestionDao.findByExam(exam);
         
         choiceList=new ArrayList<>();
@@ -99,6 +111,16 @@ public class ExamDetailShowAction2 extends ActionSupport {
         for(ExamQuestion eq:eqList){
         	if(eq.getQuestionType()==QuestionType.CHOICE.ordinal()){
         		BankChoiceQuestion choiceQ=bankQuestionDao.findChoiceById(eq.getBankChoiceQuestion().getId());
+        		//
+        		choiceQ.setChoiceA(QuestionUtils.deleteOptionLetter(choiceQ.getChoiceA()));
+        		choiceQ.setChoiceB(QuestionUtils.deleteOptionLetter(choiceQ.getChoiceB()));
+        		choiceQ.setChoiceC(QuestionUtils.deleteOptionLetter(choiceQ.getChoiceC()));
+        		choiceQ.setChoiceD(QuestionUtils.deleteOptionLetter(choiceQ.getChoiceD()));
+        		choiceQ.setChoiceE(QuestionUtils.deleteOptionLetter(choiceQ.getChoiceE()));
+        		choiceQ.setChoiceF(QuestionUtils.deleteOptionLetter(choiceQ.getChoiceF()));
+        		choiceQ.setChoiceG(QuestionUtils.deleteOptionLetter(choiceQ.getChoiceG()));
+        		choiceQ.setChoiceH(QuestionUtils.deleteOptionLetter(choiceQ.getChoiceH()));
+        		//
         		choiceList.add(choiceQ);
         		
     			List<Object> answersList = examAnswerMap.get(QuestionType.CHOICE);
@@ -200,7 +222,7 @@ public class ExamDetailShowAction2 extends ActionSupport {
 			m.appendTail(sb);
 			return sb.toString();
 		} catch (Exception e) {
-System.out.println("replaceBlank exception:"+e);
+			System.out.println("replaceBlank exception:"+e);
 			e.printStackTrace();
 			return "";
 		}

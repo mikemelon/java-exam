@@ -17,6 +17,7 @@ public class Exam {
 	private String detail;
 	private Date examDate;
 	private Date createDate;
+	private int scheduledTime;//规定考试用时（单位：秒）
 	
 	public Exam(){}
 	public Exam(String name, String detail, int type){
@@ -60,5 +61,10 @@ public class Exam {
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
-	
+	public int getScheduledTime() {
+		return scheduledTime;
+	}
+	public void setScheduledTime(int scheduledTime) {
+		this.scheduledTime = scheduledTime;
+	}
 }
