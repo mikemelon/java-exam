@@ -50,7 +50,7 @@
 		<div id="timeNotice"></div>
 		<a id="toggleTimeBtn" class="waves-effect waves-light btn-small" onclick="toggleShowTime()">关闭时间提示</a>
 	</div>
-	<h4>选择题</h4>
+	<s:if test="choiceList!=null && choiceList.size()>0"><h4>选择题</h4></s:if>
 	<table class="mytable">
 	<s:iterator value="choiceList" status="st" var="item">
 		<tr>
@@ -65,7 +65,7 @@
 				</span>
 			</td>
 		</tr>
-		<tr><td colspan="3">
+		<tr style="border-bottom: 1px solid #eee;"><td colspan="3">
 			<table>
 				<tr>
 					<td width="60px">
@@ -116,7 +116,7 @@
 	</s:iterator>
 	</table>
 	
-	<h4>填空题</h4>
+	<s:if test="blankFillingList!=null && blankFillingList.size()>0"><h4>填空题</h4></s:if>
 	<table class="mytable">
 	<s:iterator value="blankFillingList" status="st" var="item">
 		<tr>
@@ -129,7 +129,7 @@
 	</s:iterator>
 	</table>
 	
-	<h4>判断题</h4>
+	<s:if test="judgeList!=null && judgeList.size()>0"><h4>判断题</h4></s:if>
 	<table class="mytable">
 	<s:iterator value="judgeList" status="st" var="item">
 		<tr>
