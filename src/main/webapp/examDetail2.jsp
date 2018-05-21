@@ -240,6 +240,5 @@
 		setInterval(updateTime, 1000);
 	</script>
 	<%@ include file="include/footer.jsp" %>
-	<s:debug></s:debug>
 </body>
 </html>

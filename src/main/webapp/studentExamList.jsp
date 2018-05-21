@@ -86,6 +86,7 @@
 					<tr>
 						<th>序号</th>
 						<th>考试名称</th>
+						<th>完成用时</th>
 						<th>考试类型</th>
 						<th>成绩</th>
 					</tr>
@@ -95,6 +96,13 @@
 							style="background-color:<s:if test="#st.odd">#efefef</s:if><s:else>#ffffff</s:else>">
 						<td><s:property value="#st.index+1" /></td>
 						<td><s:property value="exam.name" /></td>
+						<td>
+							<s:if test="timeUsed != 0">
+								<s:if test="timeUsed/3600 != 0"><s:property value="timeUsed/3600"/>小时</s:if>
+								<s:property value="(timeUsed-timeUsed/3600*60)/60" />分<s:property value="timeUsed%60" />秒
+							</s:if>
+							<s:else>用时未知</s:else>
+						</td>
 						<td><s:if test="exam.type==1">随机抽题组卷</s:if><s:else>固定组卷</s:else></td>
 						<td>
 							<a class="namelink"
@@ -149,6 +157,5 @@
 	    })
 	   	
 	</script>
-	<s:debug></s:debug>
 </body>
 </html>
