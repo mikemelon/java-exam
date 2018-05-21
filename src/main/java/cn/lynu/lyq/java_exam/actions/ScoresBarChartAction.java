@@ -2,7 +2,6 @@ package cn.lynu.lyq.java_exam.actions;
 
 import java.awt.Font;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Resource;

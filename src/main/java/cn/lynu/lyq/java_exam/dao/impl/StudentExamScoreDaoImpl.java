@@ -85,7 +85,7 @@ public class StudentExamScoreDaoImpl implements StudentExamScoreDao {
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	public List<StudentExamScore> findByStudentAndExamPhase(Student s, String examPhase) {
-		Query q=sessionFactory.getCurrentSession().createQuery("from StudentExamScore where student=? and examPhase=?");
+		Query q=sessionFactory.getCurrentSession().createQuery("from StudentExamScore where student=? and examPhase=? order by examEndTime desc");
 		q.setParameter(0, s);
 		q.setParameter(1, examPhase);
 		return q.list();

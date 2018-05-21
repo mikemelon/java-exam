@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cn.lynu.lyq.java_exam.dao.GradeDao;
 import cn.lynu.lyq.java_exam.entity.Grade;
-import cn.lynu.lyq.java_exam.entity.Student;
 
 @Component("gradeDao")
 @Transactional

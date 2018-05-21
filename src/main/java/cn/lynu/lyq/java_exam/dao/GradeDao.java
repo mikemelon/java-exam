@@ -3,7 +3,6 @@ package cn.lynu.lyq.java_exam.dao;
 import java.util.List;
 
 import cn.lynu.lyq.java_exam.entity.Grade;
-import cn.lynu.lyq.java_exam.entity.Student;
 
 public interface GradeDao {
 	

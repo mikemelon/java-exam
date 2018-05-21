@@ -66,6 +66,7 @@
 								"<s:property value="%{getText('{0,date,yyyy-MM-dd HH:mm:ss}',{examStartTime})}"/>",
 								<s:property value="exam.scheduledTime"/>)'>
 							<s:property value="exam.name" /></a>
+							<s:if test="examStartTime!=null"><span class="red-text text-darken-4">（考试已开始，请抓紧完成）</span></s:if>
 						</td>
 						<td><s:property value="exam.detail" /></td>
 						<td>
