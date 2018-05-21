@@ -1,6 +1,7 @@
 package cn.lynu.lyq.java_exam.actions;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
+import cn.lynu.lyq.java_exam.common.Constants;
 import cn.lynu.lyq.java_exam.dao.BankQuestionDao;
 import cn.lynu.lyq.java_exam.dao.ExamDao;
 import cn.lynu.lyq.java_exam.dao.ExamQuestionDao;
@@ -134,6 +136,8 @@ public class ExamCreateAction extends ActionSupport {
 		System.out.println("examDetail="+examDetail);
 		
 		Exam exam=new Exam(examName,examDetail,0); //固定抽题
+		exam.setCreateDate(new Date());
+		exam.setScheduledTime(Constants.DEFAULT_EXAM_SCHEDULED_TIME);
 		List<BankChoiceQuestion> choiceListSelected = (List<BankChoiceQuestion>)session.get("EXAM_CREATE_CHOICELIST");
 		List<BankBlankFillingQuestion> blankListSelected = (List<BankBlankFillingQuestion>)session.get("EXAM_CREATE_BLANKLIST");
 		List<BankJudgeQuestion> judgeListSelected = (List<BankJudgeQuestion>)session.get("EXAM_CREATE_JUDGELIST");

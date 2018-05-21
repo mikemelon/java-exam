@@ -1,6 +1,7 @@
 package cn.lynu.lyq.java_exam.actions;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
+import cn.lynu.lyq.java_exam.common.Constants;
 import cn.lynu.lyq.java_exam.common.ExamPhase;
 import cn.lynu.lyq.java_exam.dao.ExamDao;
 import cn.lynu.lyq.java_exam.dao.ExamQuestionDao;
@@ -166,6 +168,8 @@ public class ExamComposeRandomAction extends ActionSupport {
 					Student theStudent = studentDao.findById(sid);
 					
 					Exam theExam = new Exam(examName+"->"+theStudent.getName(), examName+"->"+theStudent.getName(),1);
+					theExam.setCreateDate(new Date());
+					theExam.setScheduledTime(Constants.DEFAULT_EXAM_SCHEDULED_TIME);
 					examDao.save(theExam);
 					
 					examDao.composeExamRandom(theExam, choiceQuestionNum, blankQuestionNum, judgeQuestionNum);
