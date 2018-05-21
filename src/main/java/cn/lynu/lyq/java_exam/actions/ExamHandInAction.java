@@ -1,5 +1,6 @@
 package cn.lynu.lyq.java_exam.actions;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -162,6 +163,12 @@ public class ExamHandInAction extends ActionSupport {
 			for(StudentExamScore ses : sesList){
 				ses.setExamPhase(ExamPhase.FINAL_SCORED.getChineseName());
 				ses.setScore(totalScore);
+				//更新考试结束时间
+				Date endDate = new Date();
+				ses.setExamEndTime(endDate);
+				if(ses.getExamStartTime()!=null){
+					ses.setTimeUsed((int)((endDate.getTime()-ses.getExamStartTime().getTime())/1000));
+				}
 				studentExamScoreDao.update(ses);
 			}
 			return SUCCESS;

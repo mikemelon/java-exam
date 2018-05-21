@@ -59,9 +59,14 @@
 					<tr
 						style="background-color:<s:if test="#st.odd">#efefef</s:if><s:else>#ffffff</s:else>">
 						<td><s:property value="#st.index+1" /></td>
-						<td><a class="namelink"
-							href="<s:url action="examdetail2"><s:param name="exam_id" value="%{exam.id}"></s:param><s:param name="exam_strategy_id" value="%{examStrategy.id}"></s:param></s:url>"><s:property
-									value="exam.name" /></a></td>
+						<td>
+							<a class="namelink" href=# 
+							onclick='beginExamConfirm("<s:url action="examdetail2"><s:param name="exam_id" value="%{exam.id}"></s:param><s:param name="exam_strategy_id" value="%{examStrategy.id}"></s:param></s:url>",
+								encodeURIComponent("<s:property value="exam.name" />"),
+								"<s:property value="%{getText('{0,date,yyyy-MM-dd HH:mm:ss}',{examStartTime})}"/>",
+								<s:property value="exam.scheduledTime"/>)'>
+							<s:property value="exam.name" /></a>
+						</td>
 						<td><s:property value="exam.detail" /></td>
 						<td>
 							包含选择题<font color="#b71c1c"><s:property value="#attr['EXAM_QUESTION_'+exam.id].CHOICE_LIST.size" /></font>题，
@@ -108,6 +113,24 @@
 	<script type="text/javascript" src="js/materialize.min.js"></script>
 	
 	<script>
+		function beginExamConfirm(examUrl,examName,examStartTime,scheduledTime){
+			var scheduledTimeInMin = scheduledTime/60;
+			if(examStartTime==""){
+				if(window.confirm("“确定”后，["+
+						decodeURIComponent(examName)
+						+"]即将计时开始，本次考试时间为"+scheduledTimeInMin+"分钟")){
+					window.location.href=examUrl;
+				}
+			}else{
+				var startTime = new Date(Date.parse(examStartTime));
+				if(window.confirm("["+
+						decodeURIComponent(examName)+"]，该考试已经于"
+						+startTime.toLocaleString()+"开始，“确定”后继续（总考试时间为"+scheduledTimeInMin+"分钟）")){
+					window.location.href=examUrl;
+				}
+			}
+		}
+	
 	    $(document).ready(function () {
 	        $('.modal-trigger').leanModal({
 	            dismissible: true, //是否点模态对话框外面就可以关闭
@@ -126,5 +149,6 @@
 	    })
 	   	
 	</script>
+	<s:debug></s:debug>
 </body>
 </html>

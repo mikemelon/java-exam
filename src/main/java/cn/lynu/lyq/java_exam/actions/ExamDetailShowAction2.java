@@ -1,6 +1,7 @@
 package cn.lynu.lyq.java_exam.actions;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,15 +17,19 @@ import org.springframework.stereotype.Component;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
+import cn.lynu.lyq.java_exam.common.ExamPhase;
 import cn.lynu.lyq.java_exam.common.QuestionType;
 import cn.lynu.lyq.java_exam.dao.BankQuestionDao;
 import cn.lynu.lyq.java_exam.dao.ExamDao;
 import cn.lynu.lyq.java_exam.dao.ExamQuestionDao;
+import cn.lynu.lyq.java_exam.dao.StudentExamScoreDao;
 import cn.lynu.lyq.java_exam.entity.BankBlankFillingQuestion;
 import cn.lynu.lyq.java_exam.entity.BankChoiceQuestion;
 import cn.lynu.lyq.java_exam.entity.BankJudgeQuestion;
 import cn.lynu.lyq.java_exam.entity.Exam;
 import cn.lynu.lyq.java_exam.entity.ExamQuestion;
+import cn.lynu.lyq.java_exam.entity.Student;
+import cn.lynu.lyq.java_exam.entity.StudentExamScore;
 import cn.lynu.lyq.java_exam.utils.QuestionUtils;
 
 @Component("examDetailShow2")
@@ -37,6 +42,8 @@ public class ExamDetailShowAction2 extends ActionSupport {
 	private ExamQuestionDao examQuestionDao;
 	@Resource 
 	private BankQuestionDao bankQuestionDao;
+	@Resource
+	private StudentExamScoreDao studentExamScoreDao;
 	
 	private List<BankChoiceQuestion> choiceList=new ArrayList<>();
     private List<BankBlankFillingQuestion> blankFillingList = new ArrayList<>();
@@ -89,7 +96,8 @@ public class ExamDetailShowAction2 extends ActionSupport {
 		
 		String	examIds=ctx.getParameters().get("exam_id").getValue();
 		String examStrategyIds = ctx.getParameters().get("exam_strategy_id").getValue();
-		if(examIds==null){//不是从试卷列表进入的，是从examDetail.jsp返回的
+		if(examIds==null){//不是从试卷列表进入的，是从examDetail2.jsp返回的
+			System.out.println("从examDetail2.jsp返回的");
 			examIds =(String) ctx.getSession().get("EXAM_ID");
 			examStrategyIds = (String) ctx.getSession().get("EXAM_STRATEGY_ID");
 		}else{//从试卷列表进入
@@ -102,6 +110,28 @@ public class ExamDetailShowAction2 extends ActionSupport {
         
         Exam exam = examDao.findById(examId);
         remainingTime = exam.getScheduledTime();
+        
+        //更新考试开始时间
+        Student s1=(Student)ctx.getSession().get("USER_INFO");
+        List<StudentExamScore> sesList=studentExamScoreDao.findByStudentAndExam(s1, exam);
+		if(sesList.size()>1){
+			this.addActionError("系统出错。您有关该次考试(exam_id="+exam.getId()+")的成绩多于一个。");
+			return ERROR;
+		}else if(sesList.get(0).getExamPhase().equals(ExamPhase.FINAL_SCORED.getChineseName())){
+			this.addActionError("您已经交过卷子，并得到成绩了。不允许再次交卷！");
+			return ERROR;
+		}else{
+			StudentExamScore ses = sesList.get(0);
+			Date examStartTime = ses.getExamStartTime();
+			Date nowTime = new Date();
+			if(examStartTime==null) {//只有没点进去过，才更新开始时间
+				ses.setExamStartTime(nowTime);
+			}else{
+				remainingTime -= (int) ((nowTime.getTime()-examStartTime.getTime())/1000);
+			}
+			studentExamScoreDao.update(ses);
+		}
+        
         List<ExamQuestion> eqList = examQuestionDao.findByExam(exam);
         
         choiceList=new ArrayList<>();

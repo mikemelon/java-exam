@@ -1,5 +1,7 @@
 package cn.lynu.lyq.java_exam.entity;
 
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,6 +26,8 @@ public class StudentExamScore {
 	private ExamStrategy examStrategy;
 	private int score;
 	private String examPhase;
+	private Date examStartTime;
+	private Date examEndTime;
 	private int timeUsed; //考试用时（单位：秒）
 	
 	public StudentExamScore() {}
@@ -71,6 +75,22 @@ public class StudentExamScore {
 
 	public String getExamPhase() {
 		return examPhase;
+	}
+
+	public Date getExamStartTime() {
+		return examStartTime;
+	}
+
+	public void setExamStartTime(Date examStartTime) {
+		this.examStartTime = examStartTime;
+	}
+
+	public Date getExamEndTime() {
+		return examEndTime;
+	}
+
+	public void setExamEndTime(Date examEndTime) {
+		this.examEndTime = examEndTime;
 	}
 
 	public void setExamPhase(String examPhase) {
