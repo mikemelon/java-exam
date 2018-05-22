@@ -102,7 +102,7 @@
 	<form class="col s12" name="form2" method="post" action="importstudent" enctype="multipart/form-data">
 	<table class="mytable">
 		<tr>
-			<td><span class="purple-text text-darken-2 comment">学生信息文件：（<a charset="utf-8" href="other/学生import.txt">导入格式示例</a>）</span></td>
+			<td><span class="purple-text text-darken-2 comment">学生信息文件：（<a href="other/学生import.txt">导入格式示例</a>）</span></td>
 			<td>
 			    <div class="file-field input-field">
                     <div class="btn">
