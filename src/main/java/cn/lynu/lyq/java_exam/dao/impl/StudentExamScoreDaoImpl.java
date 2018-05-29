@@ -70,17 +70,17 @@ public class StudentExamScoreDaoImpl implements StudentExamScoreDao {
 			ids = classId.split(",");
 			sb.append("(");
 			for(int i=0; i<ids.length; i++){
-				sb.append("ses.student.grade.id=?");
+				sb.append("ses.student.grade.id=?"+i);
 				if(i<ids.length-1) sb.append(" or ");
 				nPos++;
 			}
 			sb.append(") and ");
 		}
-		sb.append("ses.exam.name like ? and ses.examPhase=?  order by score desc");
+		sb.append("ses.exam.name like ?" + nPos + " and ses.examPhase=?" + (nPos+1) + "  order by score desc");
 		Query q=sessionFactory.getCurrentSession().createQuery(sb.toString());
-		for(int i=0; i<nPos; i++) q.setInteger(i, Integer.parseInt(ids[i].trim()));
-		q.setParameter(nPos++, examName+"%");
-		q.setParameter(nPos, examPhase);
+		for(int i=0; i<nPos; i++) q.setInteger(String.valueOf(i), Integer.parseInt(ids[i].trim()));
+		q.setParameter(String.valueOf(nPos), examName+"%");
+		q.setParameter(String.valueOf(nPos+1), examPhase);
 		return q.list();
 	}
 	
@@ -88,9 +88,9 @@ public class StudentExamScoreDaoImpl implements StudentExamScoreDao {
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	public List<StudentExamScore> findByStudentAndExamPhase(Student s, String examPhase) {
-		Query q=sessionFactory.getCurrentSession().createQuery("from StudentExamScore where student=? and examPhase=? order by examEndTime desc, exam.createDate desc");
-		q.setParameter(0, s);
-		q.setParameter(1, examPhase);
+		Query q=sessionFactory.getCurrentSession().createQuery("from StudentExamScore where student=?0 and examPhase=?1 order by examEndTime desc, exam.createDate desc");
+		q.setParameter("0", s);
+		q.setParameter("1", examPhase);
 		return q.list();
 	}
 	
@@ -141,8 +141,8 @@ public class StudentExamScoreDaoImpl implements StudentExamScoreDao {
 		logger.debug("classId="+classId);
 		logger.debug("examName="+examName);
 		Query q=sessionFactory.getCurrentSession().createQuery("from StudentExamScore ses where ses.exam.name like ?0 "
-				+ "and ses.student.grade.id=?1"
-				+ "and ses.examPhase=?2");
+				+ " and ses.student.grade.id=?1 "
+				+ " and ses.examPhase=?2");
 		int gradeId = Integer.parseInt(classId.trim());
 		q.setString("0", examName+"%");
 		q.setInteger("1",gradeId);

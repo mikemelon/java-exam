@@ -101,8 +101,8 @@ public class StudentDaoImpl implements StudentDao {
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	public List<Student> findByGrade(Grade g){
-		Query q=sessionFactory.getCurrentSession().createQuery("from Student where grade=?");
-		q.setParameter(0, g);
+		Query q=sessionFactory.getCurrentSession().createQuery("from Student where grade=?0");
+		q.setParameter("0", g);
 		return q.list();
 	}
 	

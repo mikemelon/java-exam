@@ -60,8 +60,8 @@ public class ExamQuestionDaoImpl implements ExamQuestionDao {
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	public List<ExamQuestion> findByBankChoiceQuestion(BankChoiceQuestion question) {
 		logger.debug("question="+question);
-		Query q=sessionFactory.getCurrentSession().createQuery("from ExamQuestion where bankChoiceQuestion=?");
-		q.setParameter(0, question);
+		Query q=sessionFactory.getCurrentSession().createQuery("from ExamQuestion where bankChoiceQuestion=?0");
+		q.setParameter("0", question);
 		return q.list();
 	}
 
@@ -69,8 +69,8 @@ public class ExamQuestionDaoImpl implements ExamQuestionDao {
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	public List<ExamQuestion> findByBankBlankFillingQuestion(BankBlankFillingQuestion question) {
-		Query q=sessionFactory.getCurrentSession().createQuery("from ExamQuestion where bankBlankFillingQuestion=?");
-		q.setParameter(0, question);
+		Query q=sessionFactory.getCurrentSession().createQuery("from ExamQuestion where bankBlankFillingQuestion=?0");
+		q.setParameter("0", question);
 		return q.list();
 	}
 
@@ -78,8 +78,8 @@ public class ExamQuestionDaoImpl implements ExamQuestionDao {
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	public List<ExamQuestion> findByBankJudgeQuestion(BankJudgeQuestion question) {
-		Query q=sessionFactory.getCurrentSession().createQuery("from ExamQuestion where bankJudgeQuestion=?");
-		q.setParameter(0, question);
+		Query q=sessionFactory.getCurrentSession().createQuery("from ExamQuestion where bankJudgeQuestion=?0");
+		q.setParameter("0", question);
 		return q.list();
 	}
 	
