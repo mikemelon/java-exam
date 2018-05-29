@@ -6,6 +6,8 @@ import javax.annotation.Resource;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +20,7 @@ import cn.lynu.lyq.java_exam.entity.Student;
 @Component("examQuestionAnswerDao")
 @Transactional
 public class ExamQuestionAnswerDaoImpl implements ExamQuestionAnswerDao {
+	private final static Logger logger = LoggerFactory.getLogger(ExamQuestionAnswerDaoImpl.class);
 	@Resource
 	private SessionFactory sessionFactory;
 	
@@ -44,17 +47,18 @@ public class ExamQuestionAnswerDaoImpl implements ExamQuestionAnswerDao {
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	public List<ExamQuestionAnswer> findByExamQuestion(ExamQuestion eq){
-		Query q=sessionFactory.getCurrentSession().createQuery("from ExamQuestionAnswer where examQuestion=?");
-		q.setParameter(0, eq);
+		Query q=sessionFactory.getCurrentSession().createQuery("from ExamQuestionAnswer where examQuestion=?0");
+		q.setParameter("0", eq);
 		return q.list();
 	}
 	
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	public ExamQuestionAnswer findByStudentAndExamQuestion(Student student, ExamQuestion examQuestion){
-		Query q=sessionFactory.getCurrentSession().createQuery("from ExamQuestionAnswer where student=? and examQuestion=?");
-		q.setParameter(0, student);
-		q.setParameter(1, examQuestion);
+		logger.debug("student="+student);
+		Query q=sessionFactory.getCurrentSession().createQuery("from ExamQuestionAnswer where student=?0 and examQuestion=?1");
+		q.setParameter("0", student);
+		q.setParameter("1", examQuestion);
 		return (ExamQuestionAnswer)q.uniqueResult();
 	}
 	
@@ -62,9 +66,9 @@ public class ExamQuestionAnswerDaoImpl implements ExamQuestionAnswerDao {
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	public List<ExamQuestionAnswer> findByStudentAndExam(Exam exam,Student student){
-		Query q=sessionFactory.getCurrentSession().createQuery("from ExamQuestionAnswer eqa where eqa.student=? and eqa.examQuestion.exam=?");
-		q.setParameter(0, student);
-		q.setParameter(1, exam);
+		Query q=sessionFactory.getCurrentSession().createQuery("from ExamQuestionAnswer eqa where eqa.student=?0 and eqa.examQuestion.exam=?1");
+		q.setParameter("0", student);
+		q.setParameter("1", exam);
 		return q.list();
 	}
 	

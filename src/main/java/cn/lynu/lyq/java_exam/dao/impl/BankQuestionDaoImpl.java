@@ -14,6 +14,8 @@ import javax.annotation.Resource;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +28,7 @@ import cn.lynu.lyq.java_exam.entity.BankQuestion;
 @Component("bankQuestionDao") 
 @Transactional
 public class BankQuestionDaoImpl implements BankQuestionDao {
+	private final static Logger logger = LoggerFactory.getLogger(BankQuestionDaoImpl.class);
 	@Resource
 	protected SessionFactory sessionFactory;
 	
@@ -208,8 +211,8 @@ public class BankQuestionDaoImpl implements BankQuestionDao {
 			}else{
 				answerQuery=answer;
 			}
-			System.out.println("answerQuery=["+answerQuery+"]");
-			System.out.println(answerQuery.length());
+			logger.debug("answerQuery=["+answerQuery+"]");
+			logger.debug("answerQuery.length()="+answerQuery.length());
 			query.setString("a", "%"+answerQuery+"%");
 		}
 		if(choiceNotNull){
@@ -322,11 +325,11 @@ public class BankQuestionDaoImpl implements BankQuestionDao {
 					if(content==null || content.equals("")){
 						continue; //每题开始行的######被忽略
 					}else{
-//						System.out.println("题干："+content);
-//						System.out.println("选项:"+Arrays.toString(choices));
-//						System.out.println("答案："+answer);
-//						System.out.println("知识点："+knowledgePoint);
-//						System.out.println();
+//						logger.debug("题干："+content);
+//						logger.debug("选项:"+Arrays.toString(choices));
+//						logger.debug("答案："+answer);
+//						logger.debug("知识点："+knowledgePoint);
+//						logger.debug();
 						
 						BankChoiceQuestion q=new BankChoiceQuestion(content,choices[0],choices[1],choices[2],choices[3],
 								choices[4],choices[5],choices[6],choices[7],answer,knowledgePoint);
@@ -386,7 +389,7 @@ public class BankQuestionDaoImpl implements BankQuestionDao {
 								break;
 						}
 					}else{  //不属于上述任何一种情况，则说明题干、选项、答案、知识点占用了多行的情况。
-//						System.out.println("第二行："+line);
+//						logger.debug("第二行："+line);
 						switch(type){
 							case CONTENT:
 								content+="\n"+line;
@@ -432,7 +435,7 @@ public class BankQuestionDaoImpl implements BankQuestionDao {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} 
-		System.out.println("共导入了"+cnt+"道选择题！");
+		logger.debug("共导入了"+cnt+"道选择题！");
 		return cnt;
 	}
 	
@@ -461,10 +464,10 @@ public class BankQuestionDaoImpl implements BankQuestionDao {
 					if(content==null || content.equals("")){
 						continue; //每题开始行的######被忽略
 					}else{
-//						System.out.println("题干："+content);
-//						System.out.println("答案："+answer);
-//						System.out.println("知识点："+knowledgePoint);
-//						System.out.println();
+//						logger.debug("题干："+content);
+//						logger.debug("答案："+answer);
+//						logger.debug("知识点："+knowledgePoint);
+//						logger.debug();
 						
 						BankBlankFillingQuestion q=null;
 						if(answer!=null && !answer.equals("")){
@@ -505,7 +508,7 @@ public class BankQuestionDaoImpl implements BankQuestionDao {
 						content = firstStringLineProcess(line);
 						type=ImportStringLineTypeForBlank.CONTENT;
 					}else{  //不属于上述任何一种情况，则说明题干、答案、知识点占用了多行的情况。
-//						System.out.println("第二行："+line);
+//						logger.debug("第二行："+line);
 						switch(type){
 							case CONTENT:
 								content+="\n"+line;
@@ -527,7 +530,7 @@ public class BankQuestionDaoImpl implements BankQuestionDao {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} 
-		System.out.println("共导入了"+cnt+"道填空题！");
+		logger.debug("共导入了"+cnt+"道填空题！");
 		return cnt;
 	}
 	
@@ -556,10 +559,10 @@ public class BankQuestionDaoImpl implements BankQuestionDao {
 					if(content==null || content.equals("")){
 						continue; //每题开始行的######被忽略
 					}else{
-//						System.out.println("题干："+content);
-//						System.out.println("答案："+answer);
-//						System.out.println("知识点："+knowledgePoint);
-//						System.out.println();
+//						logger.debug("题干："+content);
+//						logger.debug("答案："+answer);
+//						logger.debug("知识点："+knowledgePoint);
+//						logger.debug();
 						
 						BankJudgeQuestion q=new BankJudgeQuestion(content,answer,knowledgePoint);
 						
@@ -582,7 +585,7 @@ public class BankQuestionDaoImpl implements BankQuestionDao {
 						content = firstStringLineProcess(line);
 						type=ImportStringLineTypeForJudge.CONTENT;
 					}else{  //不属于上述任何一种情况，则说明题干、答案、知识点占用了多行的情况。
-//						System.out.println("第二行："+line);
+//						logger.debug("第二行："+line);
 						switch(type){
 							case CONTENT:
 								content+="\n"+line;
@@ -604,7 +607,7 @@ public class BankQuestionDaoImpl implements BankQuestionDao {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} 
-		System.out.println("共导入了"+cnt+"道判断题！");
+		logger.debug("共导入了"+cnt+"道判断题！");
 		return cnt;
 	}
 	

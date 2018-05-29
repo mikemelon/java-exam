@@ -13,6 +13,8 @@ import javax.annotation.Resource;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +28,7 @@ import cn.lynu.lyq.java_exam.entity.Student;
 @Transactional
 
 public class StudentDaoImpl implements StudentDao {
+	private final static Logger logger = LoggerFactory.getLogger(StudentDaoImpl.class);
 	@Resource
 	private SessionFactory sessionFactory;
 	@Resource
@@ -38,9 +41,9 @@ public class StudentDaoImpl implements StudentDao {
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	public Student findByRegNoAndPassword(String regNo, String password) {
-		Query q=sessionFactory.getCurrentSession().createQuery("from Student where registerNo=? and password=?");
-		q.setString(0, regNo);
-		q.setString(1, password);
+		Query q=sessionFactory.getCurrentSession().createQuery("from Student where registerNo=?0 and password=?1");
+		q.setString("0", regNo);
+		q.setString("1", password);
 		return (Student)q.uniqueResult();
 	}
 	
@@ -139,11 +142,11 @@ public class StudentDaoImpl implements StudentDao {
 				if( firstChar=='#')  continue; //忽略注释行
 				fieldNameLine=fieldNameLine.replace(" ", "");//将UTF-8的特殊空格替换掉，编码c2a0
 				fieldNames = fieldNameLine.trim().split("[\\s\\p{Punct}]+");//任何一个或多个空白字符或标点符号作为分隔符
-				System.out.println("fieldNameLine=["+fieldNameLine+"]");
+				logger.debug("fieldNameLine=["+fieldNameLine+"]");
 				if(fieldNames.length>1) break;
 			}while(true);
 			
-			System.out.println("fieldNames="+Arrays.toString(fieldNames));
+			logger.debug("fieldNames="+Arrays.toString(fieldNames));
 			
 			int regNoIdx=-1, nameIdx=-1, genderIdx=-1, gradeIdx=-1, passwordIdx=-1;
 			for(int i=0; i<fieldNames.length; i++){
@@ -164,7 +167,7 @@ public class StudentDaoImpl implements StudentDao {
 						passwordIdx=i;
 						break;
 					default:
-						System.out.println("非法的字段名,请使用"
+						logger.debug("非法的字段名,请使用"
 										   +Arrays.toString(fieldNames)+"这"
 										   +fieldNames.length+"个名称中的一个");
 						break;
@@ -199,7 +202,7 @@ public class StudentDaoImpl implements StudentDao {
 						password= fields[passwordIdx].trim();
 						password=password.replace(" ", "");
 					}
-					System.out.println("regNo="+regNo
+					logger.debug("regNo="+regNo
 							+ ",name="+name 
 							+ ",gender="+gender 
 							+ ",grade="+grade
@@ -221,7 +224,7 @@ public class StudentDaoImpl implements StudentDao {
 					sessionFactory.getCurrentSession().save(student);
 					cnt++;
 				}else{
-					System.out.println("该行“"+line+"” 的学生信息字段数少于说明中的字段数："
+					logger.debug("该行“"+line+"” 的学生信息字段数少于说明中的字段数："
 										+Arrays.toString(fieldNames));
 				}
 			}
@@ -231,7 +234,7 @@ public class StudentDaoImpl implements StudentDao {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("共读入了"+cnt+"个学生信息！");
+		logger.debug("共读入了"+cnt+"个学生信息！");
 		return cnt;
 	}
 

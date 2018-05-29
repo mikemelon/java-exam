@@ -7,6 +7,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -26,6 +28,7 @@ import cn.lynu.lyq.java_exam.entity.Exam;
 @Scope("prototype")
 public class ExamCreateAction extends ActionSupport {
 	private static final long serialVersionUID = 5887916965376081691L;
+	private final static Logger logger = LoggerFactory.getLogger(ExamCreateAction.class);
 	private String examName;
 	private String examDetail;
 	
@@ -132,8 +135,8 @@ public class ExamCreateAction extends ActionSupport {
 	public String executeForCreateExam() throws Exception{
 		ActionContext ctx=ActionContext.getContext();
 		Map<String,Object> session = ctx.getSession();
-		System.out.println("examName="+examName);
-		System.out.println("examDetail="+examDetail);
+		logger.debug("examName="+examName);
+		logger.debug("examDetail="+examDetail);
 		
 		Exam exam=new Exam(examName,examDetail,0); //固定抽题
 		exam.setCreateDate(new Date());

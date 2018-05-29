@@ -2,6 +2,8 @@ package cn.lynu.lyq.java_exam.actions;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +17,8 @@ import cn.lynu.lyq.java_exam.entity.Student;
 @Scope("prototype")
 public class UserChangePasswordAction extends ActionSupport {
 	private static final long serialVersionUID = -3797081971252346673L;
+	private final static Logger logger = LoggerFactory.getLogger(UserChangePasswordAction.class);
+	
 	private String oldPassword;
 	private String newPassword;
 	private String newPassword2;
@@ -71,6 +75,7 @@ public class UserChangePasswordAction extends ActionSupport {
 	public String execute() throws Exception {
 		//所有action如果直接访问，未登录则进入main.jsp
 		ActionContext ctx=ActionContext. getContext();
+		logger.info("用户更改密码");
 		if(ctx.getSession().containsKey("USER_INFO")==false){
 			this.addActionError("您还没有登录，请登录后重新进入");
 			return ERROR;

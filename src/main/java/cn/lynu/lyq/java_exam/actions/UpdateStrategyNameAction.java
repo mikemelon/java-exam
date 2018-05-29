@@ -2,6 +2,8 @@ package cn.lynu.lyq.java_exam.actions;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +16,7 @@ import cn.lynu.lyq.java_exam.entity.ExamStrategy;
 @Scope("prototype")
 public class UpdateStrategyNameAction extends ActionSupport{
 	private static final long serialVersionUID = 3877971759903674637L;
+	private final static Logger logger = LoggerFactory.getLogger(UpdateStrategyNameAction.class);
 	@Resource
 	private ExamStrategyDao examStrategyDao;
 	private String strategyName;
@@ -40,6 +43,7 @@ public class UpdateStrategyNameAction extends ActionSupport{
 	}
 	@Override
 	public String execute(){
+		logger.info("更新考试策略名称");
 		updatedStrategy = examStrategyDao.findById(strategyId);
 		updatedStrategy.setName(strategyName);
 		examStrategyDao.update(updatedStrategy);

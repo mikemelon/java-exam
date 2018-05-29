@@ -2,6 +2,8 @@ package cn.lynu.lyq.java_exam.actions;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +16,7 @@ import cn.lynu.lyq.java_exam.entity.ExamStrategy;
 @Scope("prototype")
 public class UpdateStrategyScoreAction extends ActionSupport{
 	private static final long serialVersionUID = -6798232379261444727L;
+	private final static Logger logger = LoggerFactory.getLogger(UpdateStrategyScoreAction.class);
 	@Resource
 	private ExamStrategyDao examStrategyDao;
 	private int score;
@@ -42,6 +45,7 @@ public class UpdateStrategyScoreAction extends ActionSupport{
 	}
 	
 	public String updateForChoice(){
+		logger.info("更新选择题策略");
 		updatedStrategy = examStrategyDao.findById(strategyId);
 		updatedStrategy.setChoicePerScore(score);
 		examStrategyDao.update(updatedStrategy);
@@ -49,6 +53,7 @@ public class UpdateStrategyScoreAction extends ActionSupport{
 	}
 	
 	public String updateForBlank(){
+		logger.info("更新填空题策略");
 		updatedStrategy = examStrategyDao.findById(strategyId);
 		updatedStrategy.setBlankPerScore(score);
 		examStrategyDao.update(updatedStrategy);
@@ -56,6 +61,7 @@ public class UpdateStrategyScoreAction extends ActionSupport{
 	}
 	
 	public String updateForJudge(){
+		logger.info("更新判断题策略");
 		updatedStrategy = examStrategyDao.findById(strategyId);
 		updatedStrategy.setJudgePerScore(score);
 		examStrategyDao.update(updatedStrategy);

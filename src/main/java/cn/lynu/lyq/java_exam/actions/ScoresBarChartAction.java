@@ -18,6 +18,8 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.general.DatasetUtilities;
 import org.jfree.ui.TextAnchor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -36,6 +38,7 @@ import cn.lynu.lyq.java_exam.misc.CustomColorBarRenderer;
 @Scope("prototype")
 public class ScoresBarChartAction extends ActionSupport {
 	private static final long serialVersionUID = 2217462899746164125L;
+	private final static Logger logger = LoggerFactory.getLogger(ScoresBarChartAction.class);
 	
 	private JFreeChart chart;
 	@Resource
@@ -62,8 +65,8 @@ public class ScoresBarChartAction extends ActionSupport {
 		ActionContext ctx =ActionContext.getContext();
 		String classSearch=ctx.getParameters().get("classSearch").getValue();
 		String examNameSearch=ctx.getParameters().get("examNameSearch").getValue();
-		System.out.println("classSearch=["+classSearch+"]");
-		System.out.println("examNameSearch=["+examNameSearch+"]");
+		logger.debug("classSearch=["+classSearch+"]");
+		logger.debug("examNameSearch=["+examNameSearch+"]");
 		
 //		Student theStudent =(Student)ctx.getSession().get("USER_INFO");
 //		List<Student> stuList = studentDao.findByGrade(theStudent.getGrade());
@@ -103,10 +106,10 @@ public class ScoresBarChartAction extends ActionSupport {
 		double[][] data = new double[][] { scoreArray };
 		String[] rowKeys = {""};
 		String[] columnKeys = stuNameArraySorted;
-//		System.out.println(">>>>>>>>>>学生名列表："+Arrays.toString(stuNameArraySorted));
-//		System.out.println(">>>>>>>>>>学生名length："+stuNameArraySorted.length);
-//		System.out.println(">>>>>>>>>>分数列表："+Arrays.toString(scoreArray));
-//		System.out.println(">>>>>>>>>>分数length"+scoreArray.length);
+//		logger.debug(">>>>>>>>>>学生名列表："+Arrays.toString(stuNameArraySorted));
+//		logger.debug(">>>>>>>>>>学生名length："+stuNameArraySorted.length);
+//		logger.debug(">>>>>>>>>>分数列表："+Arrays.toString(scoreArray));
+//		logger.debug(">>>>>>>>>>分数length"+scoreArray.length);
 		
 		CategoryDataset dataset = DatasetUtilities.createCategoryDataset(rowKeys, columnKeys, data);
 

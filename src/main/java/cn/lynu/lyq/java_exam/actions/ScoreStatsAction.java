@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +23,7 @@ import cn.lynu.lyq.java_exam.entity.Student;
 @Scope("prototype")
 public class ScoreStatsAction extends ActionSupport {
 	private static final long serialVersionUID = -1980837224909869714L;
+	private final static Logger logger = LoggerFactory.getLogger(ScoreStatsAction.class);
 	
 	@Resource
 	private GradeDao gradeDao;
@@ -86,6 +89,7 @@ public class ScoreStatsAction extends ActionSupport {
 		classSearch = classSearch!=null?classSearch:"";
 		examNameSearch = examNameSearch!=null?examNameSearch:"";
 		
+		logger.info("统计缺考考生");
 		//只有一个班级和一个考试名称选中时，返回缺考考生
 		if(!classSearch.equals("") && !classSearch.contains(",") && !examNameSearch.equals("")){  
 			examAbsentStudentList = studentExamScoreDao.getAbsentStudentsForExamName(classSearch,examNameList.get(Integer.parseInt(examNameSearch)-1));

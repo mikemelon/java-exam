@@ -14,6 +14,8 @@ import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.title.LegendTitle;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.general.DefaultPieDataset;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -35,6 +37,7 @@ import cn.lynu.lyq.java_exam.entity.Student;
 @Scope("prototype")
 public class QuestionPieChartAction extends ActionSupport {
 	private static final long serialVersionUID = 6053800919739644090L;
+	private final static Logger logger = LoggerFactory.getLogger(QuestionPieChartAction.class);
 
 	private JFreeChart chart;
 	
@@ -75,6 +78,7 @@ public class QuestionPieChartAction extends ActionSupport {
 	@Override
 	public String execute() throws Exception {
 		ActionContext ctx = ActionContext.getContext();
+		logger.info("饼状图");
 		Student theStudent =(Student)ctx.getSession().get("USER_INFO");
 		
 		String typeStr = ctx.getParameters().get("type").getValue();
@@ -123,7 +127,7 @@ public class QuestionPieChartAction extends ActionSupport {
 					if (answer!=null && type==1) {
 						answer = answer.substring(answer.lastIndexOf('[') + 1,answer.indexOf(']'));
 					}
-//					System.out.println("&&&&&&&&&&&&&&"+answer+"&&&&&&&&&&&&&&&");
+//					logger.debug("&&&&&&&&&&&&&&"+answer+"&&&&&&&&&&&&&&&");
 					if( answerMap.containsKey(answer)){
 						int cnt = answerMap.get(answer);
 						answerMap.put(answer, ++cnt);

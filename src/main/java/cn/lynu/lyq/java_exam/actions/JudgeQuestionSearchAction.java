@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +18,8 @@ import cn.lynu.lyq.java_exam.entity.BankJudgeQuestion;
 @Scope("prototype")
 public class JudgeQuestionSearchAction extends ActionSupport{
 	private static final long serialVersionUID = -1106576639902301220L;
+	private final static Logger logger = LoggerFactory.getLogger(JudgeQuestionSearchAction.class);
+	
 	private String contentSearch;
 	private String answerSearch;
 	private String knowledgeSearch;
@@ -72,9 +76,9 @@ public class JudgeQuestionSearchAction extends ActionSupport{
 	}
 	
 	public String executeForSearch(){//搜索后结果
-		System.out.println("contentSearch="+contentSearch);
-		System.out.println("answerSearch="+answerSearch);
-		System.out.println("knowledgeSearch="+knowledgeSearch);
+		logger.debug("contentSearch="+contentSearch);
+		logger.debug("answerSearch="+answerSearch);
+		logger.debug("knowledgeSearch="+knowledgeSearch);
 		questionList = bankQuestionDao.findJudgeForSearch(contentSearch,answerSearch,knowledgeSearch);
 		return SUCCESS;
 	}

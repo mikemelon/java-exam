@@ -7,6 +7,8 @@ import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -27,6 +29,7 @@ import cn.lynu.lyq.java_exam.entity.ExamQuestion;
 @Scope("prototype")
 public class ExamDetailShowAction extends ActionSupport {
 	private static final long serialVersionUID = 169605340756527528L;
+	private final static Logger logger = LoggerFactory.getLogger(ExamDetailShowAction.class);
 	@Resource
 	private ExamDao examDao;
 	@Resource
@@ -67,7 +70,7 @@ public class ExamDetailShowAction extends ActionSupport {
 		ActionContext ctx=ActionContext. getContext();
         String examIds=ctx.getParameters().get("exam_id").getValue();
         int examId=Integer.parseInt( examIds.trim());
-//        System.out.println("**********"+examId);
+        logger.debug("**********"+examId);
         
         Exam exam = examDao.findById(examId);
         List<ExamQuestion> eqList = examQuestionDao.findByExam(exam);

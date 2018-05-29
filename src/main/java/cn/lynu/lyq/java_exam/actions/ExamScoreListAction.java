@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +23,7 @@ import cn.lynu.lyq.java_exam.entity.StudentExamScore;
 public class ExamScoreListAction extends ActionSupport {
 
 	private static final long serialVersionUID = 4675761085855839420L;
-	
+	private final static Logger logger = LoggerFactory.getLogger(ExamScoreListAction.class);
 	private String classSearch;
 	private String examNameSearch; 
 	
@@ -76,6 +78,7 @@ public class ExamScoreListAction extends ActionSupport {
 	public String executeForSearch() throws Exception {
 		gradeList = gradeDao.findAll();
 		classSearch = classSearch!=null?classSearch:"";
+		logger.info("按照搜索条件检索成绩");
 		examScoreList = studentExamScoreDao.findByClassIdAndExamNameAndExamPhase(classSearch, examNameSearch, ExamPhase.FINAL_SCORED.getChineseName());
 		return SUCCESS;
 	}

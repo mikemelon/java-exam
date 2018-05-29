@@ -9,6 +9,8 @@ import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -36,6 +38,8 @@ import cn.lynu.lyq.java_exam.entity.StudentExamScore;
 public class ExamComposeAction extends ActionSupport {
 	
 	private static final long serialVersionUID = 625313130792094673L;
+	private final static Logger logger = LoggerFactory.getLogger(ExamComposeAction.class);
+	
 	@Resource
 	private ExamDao examDao;
 	@Resource
@@ -196,6 +200,7 @@ public class ExamComposeAction extends ActionSupport {
 	
 	private void getAllExamList(){
 		ActionContext ctx =ActionContext.getContext();
+		logger.info("获取所有固定抽题考试列表");
 		examList = examDao.findAllFixedExam();
 		
         for(Exam exam:examList){

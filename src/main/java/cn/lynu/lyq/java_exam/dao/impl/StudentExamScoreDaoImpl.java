@@ -7,6 +7,8 @@ import javax.annotation.Resource;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +25,7 @@ import cn.lynu.lyq.java_exam.entity.StudentExamScore;
 @Transactional
 
 public class StudentExamScoreDaoImpl implements StudentExamScoreDao {
+	private final static Logger logger = LoggerFactory.getLogger(StudentExamScoreDaoImpl.class);
 	@Resource
 	private SessionFactory sessionFactory;
 	@Resource
@@ -38,8 +41,8 @@ public class StudentExamScoreDaoImpl implements StudentExamScoreDao {
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	public List<StudentExamScore> findByStudent(Student s) {
-		Query q=sessionFactory.getCurrentSession().createQuery("from StudentExamScore where student=?");
-		q.setParameter(0, s);
+		Query q=sessionFactory.getCurrentSession().createQuery("from StudentExamScore where student=?0");
+		q.setParameter("0", s);
 		return q.list();
 	}
 	
@@ -47,8 +50,8 @@ public class StudentExamScoreDaoImpl implements StudentExamScoreDao {
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	public List<StudentExamScore> findByExamPhase(String examPhase) {
-		Query q=sessionFactory.getCurrentSession().createQuery("from StudentExamScore where examPhase=? order by score desc");
-		q.setParameter(0, examPhase);
+		Query q=sessionFactory.getCurrentSession().createQuery("from StudentExamScore where examPhase=?0 order by score desc");
+		q.setParameter("0", examPhase);
 		return q.list();
 	}
 	
@@ -95,9 +98,9 @@ public class StudentExamScoreDaoImpl implements StudentExamScoreDao {
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	public List<StudentExamScore> findByStudentAndExam(Student s, Exam e) {
-		Query q=sessionFactory.getCurrentSession().createQuery("from StudentExamScore where student=? and exam=?");
-		q.setParameter(0, s);
-		q.setParameter(1, e);
+		Query q=sessionFactory.getCurrentSession().createQuery("from StudentExamScore where student=?0 and exam=?1");
+		q.setParameter("0", s);
+		q.setParameter("1", e);
 		return q.list();
 	}
 	
@@ -135,13 +138,15 @@ public class StudentExamScoreDaoImpl implements StudentExamScoreDao {
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	public List<Student> getAbsentStudentsForExamName(String classId, String examName) {
-		Query q=sessionFactory.getCurrentSession().createQuery("from StudentExamScore ses where ses.exam.name like ? "
-				+ "and ses.student.grade.id=?"
-				+ "and ses.examPhase=?");
+		logger.debug("classId="+classId);
+		logger.debug("examName="+examName);
+		Query q=sessionFactory.getCurrentSession().createQuery("from StudentExamScore ses where ses.exam.name like ?0 "
+				+ "and ses.student.grade.id=?1"
+				+ "and ses.examPhase=?2");
 		int gradeId = Integer.parseInt(classId.trim());
-		q.setString(0, examName+"%");
-		q.setInteger(1,gradeId);
-		q.setString(2, ExamPhase.FINAL_SCORED.getChineseName());
+		q.setString("0", examName+"%");
+		q.setInteger("1",gradeId);
+		q.setString("2", ExamPhase.FINAL_SCORED.getChineseName());
 		List<StudentExamScore> sesList = q.list();
 		List<Student> stuList = studentDao.findByGrade(gradeDao.findById(gradeId));
 		List<Student> absentStuList = new ArrayList<>();

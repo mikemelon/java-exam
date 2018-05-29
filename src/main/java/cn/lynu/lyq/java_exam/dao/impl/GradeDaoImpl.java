@@ -6,6 +6,8 @@ import javax.annotation.Resource;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +19,7 @@ import cn.lynu.lyq.java_exam.entity.Grade;
 @Transactional
 
 public class GradeDaoImpl implements GradeDao {
+	private final static Logger logger = LoggerFactory.getLogger(GradeDaoImpl.class);
 	@Resource
 	private SessionFactory sessionFactory;
 	
@@ -43,8 +46,9 @@ public class GradeDaoImpl implements GradeDao {
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	public List<Grade> findByName(String name){
-		Query q=sessionFactory.getCurrentSession().createQuery("from Grade where name=?");
-		q.setString(0, name);
+		logger.debug("name="+name);
+		Query q=sessionFactory.getCurrentSession().createQuery("from Grade where name=?0");
+		q.setString("0", name);
 		return q.list();
 	}
 	

@@ -9,6 +9,8 @@ import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -33,6 +35,7 @@ import cn.lynu.lyq.java_exam.entity.StudentExamScore;
 public class StudentExamListAction extends ActionSupport {
 
 	private static final long serialVersionUID = 4675761085855839420L;
+	private final static Logger logger = LoggerFactory.getLogger(StudentExamListAction.class);
 	
 	private List<StudentExamScore> studentExamList;//未完成考试列表
 	private List<StudentExamScore> studentFinishedExamList; //已完成考试列表
@@ -60,6 +63,7 @@ public class StudentExamListAction extends ActionSupport {
 	@Override
 	public String execute() throws Exception {
 		ActionContext ctx =ActionContext.getContext();
+		logger.info("学生未考和已考列表");
 		if(ctx.getSession().containsKey("USER_INFO")){
 			Student stu=(Student)ctx.getSession().get("USER_INFO");
 			studentExamList = studentExamScoreDao.findByStudentAndExamPhase(stu,ExamPhase.PAPER_INITIALIZED.getChineseName());

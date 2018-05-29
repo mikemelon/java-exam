@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -30,7 +32,7 @@ import cn.lynu.lyq.java_exam.entity.StudentExamScore;
 @Scope("prototype")
 public class ExamHandInAction extends ActionSupport {
 	private static final long serialVersionUID = 952502008384628354L;
-	
+	private final static Logger logger = LoggerFactory.getLogger(ExamHandInAction.class);
 	int choiceScore = 0;
 	int blankScore =0; 
 	int judgeScore =0;
@@ -158,7 +160,7 @@ public class ExamHandInAction extends ActionSupport {
 				}
 			}
 			totalScore = choiceScore+blankScore+judgeScore;
-			System.out.println("总分="+(choiceScore+blankScore+judgeScore));
+			logger.debug("总分="+(choiceScore+blankScore+judgeScore));
 			
 			for(StudentExamScore ses : sesList){
 				ses.setExamPhase(ExamPhase.FINAL_SCORED.getChineseName());

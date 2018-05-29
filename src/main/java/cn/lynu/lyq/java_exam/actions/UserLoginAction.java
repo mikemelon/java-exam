@@ -2,6 +2,8 @@ package cn.lynu.lyq.java_exam.actions;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +16,7 @@ import cn.lynu.lyq.java_exam.entity.Student;
 @Scope("prototype")
 public class UserLoginAction extends ActionSupport {
 	private static final long serialVersionUID = 5090548832375142158L;
+	private final static Logger logger = LoggerFactory.getLogger(UserLoginAction.class);
 	
 	private String registerNo;
 	private String password;
@@ -42,6 +45,7 @@ public class UserLoginAction extends ActionSupport {
 
 	@Override
 	public String execute() throws Exception {
+		logger.info("用户登陆");
 		Student stu = studentDao.findByRegNoAndPassword(registerNo, password);
 		if(stu!=null){
 			username=stu.getName();
@@ -54,6 +58,7 @@ public class UserLoginAction extends ActionSupport {
 	}
 	
 	public String logout() throws Exception{
+		logger.info("用户退出登陆");
 		ActionContext ctx=ActionContext.getContext();
 		ctx.getSession().remove("USER_INFO");
 		this.addActionMessage("退出登陆成功！");

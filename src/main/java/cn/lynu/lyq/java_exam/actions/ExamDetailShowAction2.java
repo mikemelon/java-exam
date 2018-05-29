@@ -11,6 +11,8 @@ import java.util.regex.Pattern;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang.StringEscapeUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -36,6 +38,7 @@ import cn.lynu.lyq.java_exam.utils.QuestionUtils;
 @Scope("prototype")
 public class ExamDetailShowAction2 extends ActionSupport {
 	private static final long serialVersionUID = 7703825817401064333L;
+	private final static Logger logger = LoggerFactory.getLogger(ExamDetailShowAction2.class);
 	@Resource
 	private ExamDao examDao;
 	@Resource
@@ -97,7 +100,7 @@ public class ExamDetailShowAction2 extends ActionSupport {
 		String	examIds=ctx.getParameters().get("exam_id").getValue();
 		String examStrategyIds = ctx.getParameters().get("exam_strategy_id").getValue();
 		if(examIds==null){//不是从试卷列表进入的，是从examDetail2.jsp返回的
-			System.out.println("从examDetail2.jsp返回的");
+			logger.debug("从examDetail2.jsp返回的");
 			examIds =(String) ctx.getSession().get("EXAM_ID");
 			examStrategyIds = (String) ctx.getSession().get("EXAM_STRATEGY_ID");
 		}else{//从试卷列表进入
@@ -106,7 +109,7 @@ public class ExamDetailShowAction2 extends ActionSupport {
 		ctx.getSession().put("EXAM_ID", examIds);
 		ctx.getSession().put("EXAM_STRATEGY_ID", examStrategyIds);
         int examId=Integer.parseInt( examIds.trim());
-//        System.out.println("**********"+examId);
+        logger.debug("**********"+examId);
         
         Exam exam = examDao.findById(examId);
         remainingTime = exam.getScheduledTime();
@@ -201,10 +204,10 @@ public class ExamDetailShowAction2 extends ActionSupport {
     			eqIdMap.put(QuestionType.JUDGE, eqIdList);
         	}
         }
-        System.out.println(examAnswerMap);
+        logger.debug(examAnswerMap.toString());
         ctx.getSession().put("EXAM_ANSWER", examAnswerMap);
         ctx.getSession().put("EXAM_QUESTION_ID_MAP", eqIdMap);
-        System.out.println(eqIdMap);
+        logger.debug(eqIdMap.toString());
 		return SUCCESS;
 	}
 	
@@ -252,7 +255,7 @@ public class ExamDetailShowAction2 extends ActionSupport {
 			m.appendTail(sb);
 			return sb.toString();
 		} catch (Exception e) {
-			System.out.println("replaceBlank exception:"+e);
+			logger.debug("replaceBlank exception:"+e);
 			e.printStackTrace();
 			return "";
 		}

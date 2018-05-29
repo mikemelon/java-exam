@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +20,8 @@ import cn.lynu.lyq.java_exam.entity.Student;
 @Scope("prototype")
 public class StudentSelectAction extends ActionSupport {
 	private static final long serialVersionUID = -6429237140130313949L;
+	private final static Logger logger = LoggerFactory.getLogger(StudentSelectAction.class);
+	
 	private int examSelect;
 	private int strategySelect;
 
@@ -111,21 +115,21 @@ public class StudentSelectAction extends ActionSupport {
 		ActionContext ctx = ActionContext.getContext();
 		selectStudentFor = ctx.getParameters().get("select_student_for").getValue();
 		
-		System.out.println("examSelect=" + examSelect + ",strategySelect=" + strategySelect);
+		logger.debug("examSelect=" + examSelect + ",strategySelect=" + strategySelect);
 		studentList = studentDao.findAll();
 		return SUCCESS;
 	}
 
 	public String executeForStudentList() throws Exception {
-		System.out.println("examSelect=" + examSelect + ",strategySelect=" + strategySelect);
-		System.out.println("genderSearch=" + genderSearch);
+		logger.debug("examSelect=" + examSelect + ",strategySelect=" + strategySelect);
+		logger.debug("genderSearch=" + genderSearch);
 		studentList = studentDao.findStudentForSearch(regNoSearch, nameSearch, genderSearch, gradeSearch);
 		return SUCCESS;
 	}
 
 	public String executeForGetStudentList() {
 		ActionContext ctx = ActionContext.getContext();
-		System.out.println(">>>>>>>>>>>>>>>>studentChecked=" + Arrays.toString(studentChecked));
+		logger.debug(">>>>>>>>>>>>>>>>studentChecked=" + Arrays.toString(studentChecked));
 		ctx.getSession().put("EXAM_STUDENT_IDS", studentChecked);
 		if (selectStudentFor != null && selectStudentFor.equals("exam_compose")) {
 			return "exam_compose";

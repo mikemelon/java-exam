@@ -9,6 +9,8 @@ import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -35,6 +37,7 @@ import cn.lynu.lyq.java_exam.entity.Student;
 @Scope("prototype")
 public class ExamDetailShowWithAnswerAction extends ActionSupport {
 	private static final long serialVersionUID = 8639928264880549463L;
+	private final static Logger logger = LoggerFactory.getLogger(ExamDetailShowWithAnswerAction.class);
 	@Resource
 	private ExamDao examDao;
 	@Resource
@@ -140,7 +143,7 @@ public class ExamDetailShowWithAnswerAction extends ActionSupport {
         int stuId=Integer.parseInt( stuIds.trim());
         int examId=Integer.parseInt( examIds.trim());
         int examStrategyId=Integer.parseInt( examStrategyIds.trim());
-//        System.out.println("**********"+examId);
+        logger.debug("**********"+examId);
         
         student = studentDao.findById(stuId);
         exam = examDao.findById(examId);
@@ -166,10 +169,10 @@ public class ExamDetailShowWithAnswerAction extends ActionSupport {
     				eqIdList = new ArrayList<Integer>();
     			}
     			answersList.add(choiceQ.getAnswer());
-    			System.out.println("***********"+stuId+"******************");
-    			System.out.println("***********"+eq.getId()+"******************");
+    			logger.debug("***********"+stuId+"******************");
+    			logger.debug("***********"+eq.getId()+"******************");
     			ExamQuestionAnswer eqa = examQuestionAnswerDao.findByStudentAndExamQuestion(student,eq);
-    			System.out.println("**********************eqa_answer=****"+eqa.getAnswer());
+    			logger.debug("**********************eqa_answer=****"+eqa.getAnswer());
     			questionAnswersList.add(eqa.getAnswer());
     			
     			examQuestionAnswerMap.put(QuestionType.CHOICE, questionAnswersList);

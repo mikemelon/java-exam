@@ -7,6 +7,8 @@ import java.util.Map;
 
 import org.apache.struts2.dispatcher.HttpParameters;
 import org.apache.struts2.dispatcher.Parameter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -17,8 +19,8 @@ import cn.lynu.lyq.java_exam.common.QuestionType;
 @Component("examSummary")
 @Scope("prototype")
 public class ExamSummaryAction extends ActionSupport {
-	
 	private static final long serialVersionUID = 4348538623304933327L;
+	private final static Logger logger = LoggerFactory.getLogger(ExamSummaryAction.class);
 	
 	private Map<QuestionType,List<Object>> submittedAnswerMap = new HashMap<>();
 	
@@ -43,6 +45,7 @@ public class ExamSummaryAction extends ActionSupport {
 	@Override
 	public String execute(){
 		ActionContext ctx=ActionContext.getContext();
+		logger.info("统计已答问题个数");
 		Map<String,Object> session =ctx.getSession();
 		@SuppressWarnings("unchecked")
 		Map<QuestionType,List<Object>> answerMap = (Map<QuestionType,List<Object>>)session.get("EXAM_ANSWER");
@@ -102,7 +105,7 @@ public class ExamSummaryAction extends ActionSupport {
 		for(int i=0; judgeAnswerList!=null && i<judgeAnswerList.size(); i++){
 			Parameter p = params.get("judge_q"+(i+1));
 			String value=p.getValue();
-//			System.out.println(p.getName()+":"+value);
+//			logger.debug(p.getName()+":"+value);
 			if(p.isDefined()==false || value.trim().equals("")){
 				judgeSubmmitedList.add(null);
 			}else{

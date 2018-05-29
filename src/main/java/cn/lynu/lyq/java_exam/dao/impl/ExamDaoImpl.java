@@ -11,6 +11,8 @@ import javax.annotation.Resource;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +29,7 @@ import cn.lynu.lyq.java_exam.entity.ExamQuestion;
 @Component("examDao")
 @Transactional
 public class ExamDaoImpl implements ExamDao {
+	private final static Logger logger = LoggerFactory.getLogger(ExamDaoImpl.class);
 	@Resource
 	private SessionFactory sessionFactory;
 	@Resource
@@ -97,9 +100,9 @@ public class ExamDaoImpl implements ExamDao {
 		List<BankBlankFillingQuestion> listBlankFillingExtracted = extractRandomQuestions(listBlankFilling,blankFillingNum);
 		List<BankJudgeQuestion> listJudgeExtracted = extractRandomQuestions(listJudge,judgeNum);
 		
-		System.out.println(listChoiceExtracted);
-		System.out.println(listBlankFillingExtracted);
-		System.out.println(listJudgeExtracted);
+		logger.debug("listChoiceExtracted="+listChoiceExtracted);
+		logger.debug("listBlankFillingExtracted="+listBlankFillingExtracted);
+		logger.debug("listJudgeExtracted="+listJudgeExtracted);
 		
 		for(BankChoiceQuestion q:listChoiceExtracted){
 			examQuestionDao.save(new ExamQuestion(exam,q));
@@ -126,7 +129,7 @@ public class ExamDaoImpl implements ExamDao {
 				list.remove(q);
 			}
 		}else{
-			System.out.println("抽取的题目数量:"+num+"，超过了题库中的该题型["
+			logger.debug("抽取的题目数量:"+num+"，超过了题库中的该题型["
 								+list.get(0).getClass().getSimpleName()+"]的题目数:"
 								+szOriginal+"，该题型暂不抽题");
 		}

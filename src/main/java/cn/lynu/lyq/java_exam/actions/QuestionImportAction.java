@@ -4,6 +4,8 @@ import java.io.File;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -13,8 +15,9 @@ import cn.lynu.lyq.java_exam.dao.BankQuestionDao;
 @Component("questionImport")
 @Scope("prototype")
 public class QuestionImportAction extends ActionSupport {
-
 	private static final long serialVersionUID = -3795645550612592706L;
+	private final static Logger logger = LoggerFactory.getLogger(QuestionImportAction.class);
+	
 	private File choiceImportFile;
 	private String choiceImportFileFileName;//文件名
 	private String choiceImportFileContentType;//文件类型
@@ -108,25 +111,28 @@ public class QuestionImportAction extends ActionSupport {
 
 	@Override
 	public String execute() throws Exception {  //只针对选择题
+		logger.info("导入选择题");
 		int cnt = bankQuestionDao.importChoiceFromTxt(choiceImportFile);
-		System.out.println("choiceImportFile="+choiceImportFile);
-		System.out.println("choiceFilePath="+choiceFilePath);
+		logger.debug("choiceImportFile="+choiceImportFile);
+		logger.debug("choiceFilePath="+choiceFilePath);
 		this.addActionMessage(cnt+"道选择题已经导入题库");
 		return SUCCESS;
 	}
 	
 	public String executeForBlank() throws Exception {
+		logger.info("导入填空题");
 		int cnt = bankQuestionDao.importBlankFromTxt(blankImportFile);
-		System.out.println("blankImportFile="+blankImportFile);
-		System.out.println("blankFilePath="+blankFilePath);
+		logger.debug("blankImportFile="+blankImportFile);
+		logger.debug("blankFilePath="+blankFilePath);
 		this.addActionMessage(cnt+"道填空题已经导入题库");
 		return SUCCESS;
 	}
 	
 	public String executeForJudge() throws Exception {
+		logger.info("导入判断题");
 		int cnt = bankQuestionDao.importJudgeFromTxt(judgeImportFile);
-		System.out.println("judgeImportFile="+judgeImportFile);
-		System.out.println("judgeFilePath="+judgeFilePath);
+		logger.debug("judgeImportFile="+judgeImportFile);
+		logger.debug("judgeFilePath="+judgeFilePath);
 		this.addActionMessage(cnt+"道判断题已经导入题库");
 		return SUCCESS;
 	}

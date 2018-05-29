@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +20,7 @@ import cn.lynu.lyq.java_exam.entity.Exam;
 public class ExamListShowAction extends ActionSupport {
 
 	private static final long serialVersionUID = 4675761085855839420L;
+	private final static Logger logger = LoggerFactory.getLogger(ExamListShowAction.class);
 	@Resource
 	private ExamDao examDao;
 	
@@ -35,6 +38,7 @@ public class ExamListShowAction extends ActionSupport {
 	public String execute() throws Exception {
 		ActionContext ctx =ActionContext.getContext();
 		if(ctx.getSession().containsKey("USER_INFO")){
+			logger.info("显示所有固定组卷考试");
 			examList = examDao.findAllFixedExam();
 			return SUCCESS;
 		}else{

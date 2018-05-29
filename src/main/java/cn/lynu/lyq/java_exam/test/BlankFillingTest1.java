@@ -13,7 +13,7 @@ public class BlankFillingTest1 {
 //			m.re
 //		}
 //		String str2 = str.replaceAll("[_]{2,}", "<input type=\"text\">");
-//		System.out.println(str2);
+//		logger.debug(str2);
 
 		Pattern p = Pattern.compile("cat");
 		 Matcher m = p.matcher("one cat two cats in the yard");

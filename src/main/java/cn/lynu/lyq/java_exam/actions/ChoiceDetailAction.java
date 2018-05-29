@@ -2,6 +2,8 @@ package cn.lynu.lyq.java_exam.actions;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +18,8 @@ import cn.lynu.lyq.java_exam.entity.BankChoiceQuestion;
 public class ChoiceDetailAction extends ActionSupport {
 	
 	private static final long serialVersionUID = 3023312680596200270L;
+	private final static Logger logger = LoggerFactory.getLogger(ChoiceDetailAction.class);
+	
 	private BankChoiceQuestion question;
 	@Resource 
 	private BankQuestionDao bankQuestionDao;
@@ -31,6 +35,7 @@ public class ChoiceDetailAction extends ActionSupport {
 	public String execute() throws Exception {
 		ActionContext ctx = ActionContext.getContext();
 		String qid = ctx.getParameters().get("qid").getValue();
+		logger.info("根据id查找选择题详细");
 		question = bankQuestionDao.findChoiceById(Integer.parseInt(qid.trim()));
 		
 		//显示前，如果有类似"A."的字符，就删掉

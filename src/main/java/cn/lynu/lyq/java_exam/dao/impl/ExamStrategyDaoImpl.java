@@ -6,6 +6,8 @@ import javax.annotation.Resource;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +19,7 @@ import cn.lynu.lyq.java_exam.entity.ExamStrategy;
 @Component("examStrategyDao")
 @Transactional
 public class ExamStrategyDaoImpl implements ExamStrategyDao {
+	private final static Logger logger = LoggerFactory.getLogger(ExamStrategyDaoImpl.class);
 	@Resource
 	private SessionFactory sessionFactory;
 	
@@ -36,8 +39,9 @@ public class ExamStrategyDaoImpl implements ExamStrategyDao {
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	public List<ExamStrategy> findByExam(Exam exam) {
-		Query q=sessionFactory.getCurrentSession().createQuery("from ExamStrategy where exam=?");
-		q.setParameter(0, exam);
+		logger.debug("exam="+exam);
+		Query q=sessionFactory.getCurrentSession().createQuery("from ExamStrategy where exam=?0");
+		q.setParameter("0", exam);
 		return q.list();
 	}
 	

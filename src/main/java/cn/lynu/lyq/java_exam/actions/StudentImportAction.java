@@ -4,6 +4,8 @@ import java.io.File;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -13,8 +15,9 @@ import cn.lynu.lyq.java_exam.dao.StudentDao;
 @Component("studentImport")
 @Scope("prototype")
 public class StudentImportAction extends ActionSupport {
-	
 	private static final long serialVersionUID = 3132888016394172355L;
+	private final static Logger logger = LoggerFactory.getLogger(StudentImportAction.class);
+	
 	private File studentImportFile;
 	private String studentImportFileFileName;//文件名
 	private String studentImportFileContentType;//文件类型
@@ -50,9 +53,10 @@ public class StudentImportAction extends ActionSupport {
 
 	@Override
 	public String execute() throws Exception {  
+		logger.info("学生信息导入");
 		int cnt = studentDao.importFromTxt(studentImportFile);
-		System.out.println("studentImportFile="+studentImportFile);
-		System.out.println("studentFilePath="+studentFilePath);
+		logger.debug("studentImportFile="+studentImportFile);
+		logger.debug("studentFilePath="+studentFilePath);
 		this.addActionMessage(cnt+"条学生信息已经导入");
 		return SUCCESS;
 	}

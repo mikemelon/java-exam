@@ -8,7 +8,7 @@
 	<!-- 当struts的配置文件修改后，系统是否自动重新加载该文件，默认为false，开发阶段应打开 -->
 	<constant name="struts.configuration.xml.reload" value="true"></constant>
 	<!-- 开发模式下使用，可以打印出更详细的错误信息 -->
-	<constant name="struts.devMode" value="true"></constant>
+	<constant name="struts.devMode" value="false"></constant>
 	<!-- 使用Spring管理Action -->
 	<constant name="struts.objectFactory" value="spring" />
 	<!-- 开启页面中的静态方法调用 -->

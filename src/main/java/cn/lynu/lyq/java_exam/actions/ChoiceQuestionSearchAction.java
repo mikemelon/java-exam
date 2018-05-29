@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +17,7 @@ import cn.lynu.lyq.java_exam.entity.BankChoiceQuestion;
 @Scope("prototype")
 public class ChoiceQuestionSearchAction extends ActionSupport{
 	private static final long serialVersionUID = -1106576639902301220L;
+	private final static Logger logger = LoggerFactory.getLogger(ChoiceQuestionSearchAction.class);
 	private String contentSearch;
 	private String choiceSearch;
 	private String answerSearch;
@@ -33,7 +36,7 @@ public class ChoiceQuestionSearchAction extends ActionSupport{
 	}
 
 	public void setContentSearch(String contentSearch) {
-		System.out.println("setting contentSearch========================"+contentSearch);
+		logger.debug("setting contentSearch========================"+contentSearch);
 		this.contentSearch = contentSearch;
 	}
 
@@ -58,7 +61,7 @@ public class ChoiceQuestionSearchAction extends ActionSupport{
 	}
 	
 	public void setAnswerSearch2(String answerSearch2) {
-		System.out.println("setting answerSearch2========================"+answerSearch2);
+		logger.debug("setting answerSearch2========================"+answerSearch2);
 		this.answerSearch2 = answerSearch2;
 	}
 	
@@ -114,11 +117,11 @@ public class ChoiceQuestionSearchAction extends ActionSupport{
 		if(answerSearch2!=null && answerSearch2.equals("")){//对于checkbox不选时，不提交的问题，做判断修正
 			answerSearch = "";
 		}
-		System.out.println("contentSearch="+contentSearch);
-		System.out.println("choiceSearch="+choiceSearch);
-		System.out.println("answerSearch="+answerSearch);
-		System.out.println("answerSearch2="+answerSearch2);
-		System.out.println("knowledgeSearch="+knowledgeSearch);
+		logger.debug("contentSearch="+contentSearch);
+		logger.debug("choiceSearch="+choiceSearch);
+		logger.debug("answerSearch="+answerSearch);
+		logger.debug("answerSearch2="+answerSearch2);
+		logger.debug("knowledgeSearch="+knowledgeSearch);
 		questionList = bankQuestionDao.findChoiceForSearch(contentSearch,choiceSearch,answerSearch,knowledgeSearch);
 		return SUCCESS;
 	}

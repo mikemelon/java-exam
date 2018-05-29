@@ -1,5 +1,7 @@
 package cn.lynu.lyq.java_exam.actions;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -10,6 +12,7 @@ import com.opensymphony.xwork2.ActionSupport;
 public class SimpleTestAction extends ActionSupport {
 	
 	private static final long serialVersionUID = 4075728253429075870L;
+	private final static Logger logger = LoggerFactory.getLogger(SimpleTestAction.class);
 	private String answerSearch;
 	private String answerSearch2;
 	public String getAnswerSearch() {
@@ -26,8 +29,8 @@ public class SimpleTestAction extends ActionSupport {
 	}
 	@Override
 	public String execute() throws Exception {
-		System.out.println(">>>>>>>>>>>>>answerSearch========"+answerSearch);
-		System.out.println(">>>>>>>>>>>>>answerSearch2========"+answerSearch2);
+		logger.debug(">>>>>>>>>>>>>answerSearch========"+answerSearch);
+		logger.debug(">>>>>>>>>>>>>answerSearch2========"+answerSearch2);
 		return SUCCESS;
 	}
 

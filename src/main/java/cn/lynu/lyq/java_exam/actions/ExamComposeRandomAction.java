@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -28,6 +30,7 @@ import cn.lynu.lyq.java_exam.entity.StudentExamScore;
 public class ExamComposeRandomAction extends ActionSupport {
 
 	private static final long serialVersionUID = -9026822432724575083L;
+	private final static Logger logger = LoggerFactory.getLogger(ExamComposeRandomAction.class);
 	@Resource
 	private StudentDao studentDao;
 	@Resource
@@ -151,6 +154,7 @@ public class ExamComposeRandomAction extends ActionSupport {
 	public String executeForCreateStudentExam() throws Exception{
 		//让画面仍然显示student列表
 		ActionContext ctx =ActionContext.getContext();
+		logger.info("为选择的学生生成试卷");
 		int[] studentIds = (int[])ctx.getSession().get("EXAM_STUDENT_IDS");
 		if(studentIds!=null){
 			for(int sid:studentIds){

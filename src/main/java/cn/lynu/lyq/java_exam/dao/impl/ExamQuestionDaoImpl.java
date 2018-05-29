@@ -6,6 +6,8 @@ import javax.annotation.Resource;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +23,7 @@ import cn.lynu.lyq.java_exam.entity.ExamQuestion;
 @Transactional
 
 public class ExamQuestionDaoImpl implements ExamQuestionDao {
+	private final static Logger logger = LoggerFactory.getLogger(ExamQuestionDaoImpl.class);
 	@Resource
 	private SessionFactory sessionFactory;
 	
@@ -47,8 +50,8 @@ public class ExamQuestionDaoImpl implements ExamQuestionDao {
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	public List<ExamQuestion> findByExam(Exam exam) {
-		Query q=sessionFactory.getCurrentSession().createQuery("from ExamQuestion where exam=?");
-		q.setParameter(0, exam);
+		Query q=sessionFactory.getCurrentSession().createQuery("from ExamQuestion where exam=?0");
+		q.setParameter("0", exam);
 		return q.list();
 	}
 	
@@ -56,6 +59,7 @@ public class ExamQuestionDaoImpl implements ExamQuestionDao {
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	public List<ExamQuestion> findByBankChoiceQuestion(BankChoiceQuestion question) {
+		logger.debug("question="+question);
 		Query q=sessionFactory.getCurrentSession().createQuery("from ExamQuestion where bankChoiceQuestion=?");
 		q.setParameter(0, question);
 		return q.list();
