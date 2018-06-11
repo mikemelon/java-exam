@@ -25,6 +25,7 @@ import cn.lynu.lyq.java_exam.entity.BankChoiceQuestion;
 import cn.lynu.lyq.java_exam.entity.BankJudgeQuestion;
 import cn.lynu.lyq.java_exam.entity.Exam;
 import cn.lynu.lyq.java_exam.entity.ExamQuestion;
+import cn.lynu.lyq.java_exam.entity.Student;
 
 @Component("examDao")
 @Transactional
@@ -66,6 +67,17 @@ public class ExamDaoImpl implements ExamDao {
 		List<String> examNameList = new ArrayList<>(examNameSet);
 		Collections.sort(examNameList);
 		return examNameList;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
+	public List<Exam> findByStudentNameAndExamNameAlike(String studentName, String examName){
+		Query q=sessionFactory.getCurrentSession().createQuery("from Exam where name like ?0 and name like ?1");
+		q.setString("0", "%"+studentName);
+		q.setString("1", examName+"%");
+		List<Exam> examList = q.list();
+		return examList;
 	}
 	
 	@Override
