@@ -100,7 +100,7 @@
 						<td>
 							<s:if test="timeUsed != 0">
 								<s:if test="timeUsed/3600 != 0"><s:property value="timeUsed/3600"/>小时</s:if>
-								<s:property value="(timeUsed-timeUsed/3600*60)/60" />分<s:property value="timeUsed%60" />秒
+								<s:property value="(timeUsed-timeUsed/3600*3600)/60" />分<s:property value="timeUsed%60" />秒
 							</s:if>
 							<s:else>用时未知</s:else>
 						</td>
