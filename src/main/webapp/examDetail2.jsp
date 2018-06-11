@@ -324,6 +324,11 @@
 			var h =  ((seconds - s ) / 60 - m ) / 60 % 24; // 小时
 			$("#timeNotice").html( "离考试结束还有：" + h + "小时" + m + "分钟" + s + "秒");
 			seconds--;
+			
+			if(seconds<0) {
+				alert("考试时间已经到了，点击确定后将自动跳转到交卷页面！(请在出现的页面里点击【正式交卷】！)");
+				form1.submit();
+			}
 		}
 		
 		setInterval(updateTime, 1000);
