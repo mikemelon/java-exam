@@ -25,6 +25,7 @@ import cn.lynu.lyq.java_exam.entity.Exam;
 import cn.lynu.lyq.java_exam.entity.ExamStrategy;
 import cn.lynu.lyq.java_exam.entity.Student;
 import cn.lynu.lyq.java_exam.entity.StudentExamScore;
+import cn.lynu.lyq.java_exam.utils.PropertyUtils;
 @Component("examComposeRandom")
 @Scope("prototype")
 public class ExamComposeRandomAction extends ActionSupport {
@@ -173,7 +174,7 @@ public class ExamComposeRandomAction extends ActionSupport {
 					
 					Exam theExam = new Exam(examName+"->"+theStudent.getName(), examName+"->"+theStudent.getName(),1);
 					theExam.setCreateDate(new Date());
-					theExam.setScheduledTime(Constants.DEFAULT_EXAM_SCHEDULED_TIME);
+					theExam.setScheduledTime(Integer.parseInt(PropertyUtils.getProperty(Constants.DEFAULT_EXAM_SCHEDULED_TIME)));
 					examDao.save(theExam);
 					
 					examDao.composeExamRandom(theExam, choiceQuestionNum, blankQuestionNum, judgeQuestionNum);

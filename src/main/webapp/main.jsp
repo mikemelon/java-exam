@@ -120,6 +120,10 @@
 	    </div>
 	</div>
 	
+	<s:if test="#session['USER_INFO']!=null && #session['USER_INFO'].role==1">
+	<a href="modifysettings"><i class="fas fa-wrench fa-lg right blue-text"></i></a>
+	</s:if>
+	
 	<%@ include file="include/footer.jsp" %>
 	
 	<!-- 用户登陆对话框 -->

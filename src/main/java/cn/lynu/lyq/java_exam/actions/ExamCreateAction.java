@@ -23,6 +23,7 @@ import cn.lynu.lyq.java_exam.entity.BankBlankFillingQuestion;
 import cn.lynu.lyq.java_exam.entity.BankChoiceQuestion;
 import cn.lynu.lyq.java_exam.entity.BankJudgeQuestion;
 import cn.lynu.lyq.java_exam.entity.Exam;
+import cn.lynu.lyq.java_exam.utils.PropertyUtils;
 
 @Component("examCreate")
 @Scope("prototype")
@@ -140,7 +141,7 @@ public class ExamCreateAction extends ActionSupport {
 		
 		Exam exam=new Exam(examName,examDetail,0); //固定抽题
 		exam.setCreateDate(new Date());
-		exam.setScheduledTime(Constants.DEFAULT_EXAM_SCHEDULED_TIME);
+		exam.setScheduledTime(Integer.parseInt(PropertyUtils.getProperty(Constants.DEFAULT_EXAM_SCHEDULED_TIME)));
 		List<BankChoiceQuestion> choiceListSelected = (List<BankChoiceQuestion>)session.get("EXAM_CREATE_CHOICELIST");
 		List<BankBlankFillingQuestion> blankListSelected = (List<BankBlankFillingQuestion>)session.get("EXAM_CREATE_BLANKLIST");
 		List<BankJudgeQuestion> judgeListSelected = (List<BankJudgeQuestion>)session.get("EXAM_CREATE_JUDGELIST");

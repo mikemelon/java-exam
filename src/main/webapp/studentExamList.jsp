@@ -107,7 +107,13 @@
 						<td><s:if test="exam.type==1">随机抽题组卷</s:if><s:else>固定组卷</s:else></td>
 						<td>
 							<a class="namelink"
-							href="<s:url action="examdetailwithanswer"><s:param name="stu_id" value="%{student.id}"></s:param><s:param name="exam_id" value="%{exam.id}"></s:param><s:param name="exam_strategy_id" value="%{examStrategy.id}"></s:param></s:url>">
+							<s:if test='examDetailAllowed'>
+							href="<s:url action="examdetailwithanswer"><s:param name="stu_id" value="%{student.id}"></s:param><s:param name="exam_id" value="%{exam.id}"></s:param><s:param name="exam_strategy_id" value="%{examStrategy.id}"></s:param></s:url>"
+							</s:if>
+							<s:else>
+							href="javascript:void(0)"
+							</s:else>
+							>
 								<s:property value="score" />
 							</a>
 						</td>

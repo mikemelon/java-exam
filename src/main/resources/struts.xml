@@ -20,6 +20,14 @@
 		<global-results>
 			<result name="error">main.jsp</result>
 		</global-results>
+		
+		<!-- 系统设置 -->
+		<action name="modifysettings" class="modifySettings">
+			<result>changeSettings.jsp</result>
+		</action>
+		<action name="changesettings" class="modifySettings" method="executeForUpdate">
+			<result>changeSettings.jsp</result>
+		</action>
 
 		<!-- 考试管理 -->
 		<action name="examlist" class="examListShow"><!-- deprecated, 主页上被studentexamlist的action代替 -->

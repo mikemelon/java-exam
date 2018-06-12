@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
+import cn.lynu.lyq.java_exam.common.Constants;
 import cn.lynu.lyq.java_exam.common.ExamPhase;
 import cn.lynu.lyq.java_exam.common.QuestionType;
 import cn.lynu.lyq.java_exam.dao.BankQuestionDao;
@@ -32,6 +33,7 @@ import cn.lynu.lyq.java_exam.entity.Exam;
 import cn.lynu.lyq.java_exam.entity.ExamQuestion;
 import cn.lynu.lyq.java_exam.entity.Student;
 import cn.lynu.lyq.java_exam.entity.StudentExamScore;
+import cn.lynu.lyq.java_exam.utils.PropertyUtils;
 import cn.lynu.lyq.java_exam.utils.QuestionUtils;
 
 @Component("examDetailShow2")
@@ -55,6 +57,7 @@ public class ExamDetailShowAction2 extends ActionSupport {
 	private Map<QuestionType,List<Object>> examAnswerMap = new HashMap<>(); //正确答案
 	
 	private int remainingTime; //剩余时间
+	private boolean autoSubmitFlag; //是否自动提交
     
 	public List<BankChoiceQuestion> getChoiceList() {
 		return choiceList;
@@ -86,6 +89,14 @@ public class ExamDetailShowAction2 extends ActionSupport {
 
 	public void setRemainingTime(int remainingTime) {
 		this.remainingTime = remainingTime;
+	}
+	
+	public boolean isAutoSubmitFlag() {
+		return autoSubmitFlag;
+	}
+
+	public void setAutoSubmitFlag(boolean autoSubmitFlag) {
+		this.autoSubmitFlag = autoSubmitFlag;
 	}
 
 	@Override
@@ -134,6 +145,9 @@ public class ExamDetailShowAction2 extends ActionSupport {
 			}
 			studentExamScoreDao.update(ses);
 		}
+		
+		//是否自动提交
+		autoSubmitFlag=Boolean.parseBoolean(PropertyUtils.getProperty(Constants.EXAM_TIMEOUT_AUTOSUBMIT));
         
         List<ExamQuestion> eqList = examQuestionDao.findByExam(exam);
         

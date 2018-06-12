@@ -12,25 +12,21 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class PropertyUtils {
-	
+	private final static Logger logger = LoggerFactory.getLogger(PropertyUtils.class);
 	private static InputStream is;
 	private static OutputStream os;
-	
-	static{
-		try {
-			File propFile = new File(new URL(PropertyUtils.class.getResource("/")+"mysetting.properties").toURI());
-			System.out.println(propFile.getAbsolutePath());
-			is = new FileInputStream(propFile);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		} 
-	}
+	private static File propFile;
 	
 	public static String getProperty(String key){
 		Properties prop = new Properties();
 		try {
+			propFile = new File(new URL(PropertyUtils.class.getResource("/")+"mysetting.properties").toURI());
+			logger.info(propFile.getAbsolutePath());
+			is = new FileInputStream(propFile);
 			prop.load(is);
 			return prop.getProperty(key);
 		} catch (Exception e) {
@@ -42,13 +38,14 @@ public class PropertyUtils {
 	public static void setProperty(String key, String value){
 		Properties prop = new Properties();
 		try {
+			propFile = new File(new URL(PropertyUtils.class.getResource("/")+"mysetting.properties").toURI());
+			is = new FileInputStream(propFile);
 			prop.load(is);
 			
 			System.out.println(prop.keySet());
 			prop.setProperty(key, value);
-			File propFile = new File(new URL(PropertyUtils.class.getResource("/")+"mysetting.properties").toURI());
 			os = new FileOutputStream(propFile);
-			prop.store(os, "modified at "+ new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));
+			prop.store(os, "modified at "+ new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -67,7 +64,7 @@ public class PropertyUtils {
 		
 		String test1 = getProperty("lyqtest1");
 		System.out.println(test1);
-		setProperty("lyqtest0000","mmmmmmmmmmmmm");
+		setProperty("lyqtest1","bbbbb");
 
 	}
 

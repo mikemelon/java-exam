@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
+import cn.lynu.lyq.java_exam.common.Constants;
 import cn.lynu.lyq.java_exam.common.ExamPhase;
 import cn.lynu.lyq.java_exam.common.QuestionType;
 import cn.lynu.lyq.java_exam.dao.BankQuestionDao;
@@ -29,6 +30,7 @@ import cn.lynu.lyq.java_exam.entity.Exam;
 import cn.lynu.lyq.java_exam.entity.ExamQuestion;
 import cn.lynu.lyq.java_exam.entity.Student;
 import cn.lynu.lyq.java_exam.entity.StudentExamScore;
+import cn.lynu.lyq.java_exam.utils.PropertyUtils;
 
 @Component("studentExamList")
 @Scope("prototype")
@@ -47,6 +49,8 @@ public class StudentExamListAction extends ActionSupport {
 	@Resource 
 	private BankQuestionDao bankQuestionDao;
 	
+	private boolean examDetailAllowed;
+	
 	public List<StudentExamScore> getStudentExamList() {
 		return studentExamList;
 	}
@@ -59,11 +63,18 @@ public class StudentExamListAction extends ActionSupport {
 	public void setStudentFinishedExamList(List<StudentExamScore> studentFinishedExamList) {
 		this.studentFinishedExamList = studentFinishedExamList;
 	}
+	public boolean isExamDetailAllowed() {
+		return examDetailAllowed;
+	}
+	public void setExamDetailAllowed(boolean examDetailAllowed) {
+		this.examDetailAllowed = examDetailAllowed;
+	}
 	
 	@Override
 	public String execute() throws Exception {
 		ActionContext ctx =ActionContext.getContext();
 		logger.info("学生未考和已考列表");
+		examDetailAllowed = Boolean.parseBoolean(PropertyUtils.getProperty(Constants.EXAM_DETAIL_ALLOWED));
 		if(ctx.getSession().containsKey("USER_INFO")){
 			Student stu=(Student)ctx.getSession().get("USER_INFO");
 			studentExamList = studentExamScoreDao.findByStudentAndExamPhase(stu,ExamPhase.PAPER_INITIALIZED.getChineseName());
