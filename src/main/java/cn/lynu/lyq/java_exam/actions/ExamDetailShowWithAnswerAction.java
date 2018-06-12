@@ -32,6 +32,7 @@ import cn.lynu.lyq.java_exam.entity.ExamQuestion;
 import cn.lynu.lyq.java_exam.entity.ExamQuestionAnswer;
 import cn.lynu.lyq.java_exam.entity.ExamStrategy;
 import cn.lynu.lyq.java_exam.entity.Student;
+import cn.lynu.lyq.java_exam.utils.QuestionUtils;
 
 @Component("examDetailShowWithAnswer")
 @Scope("prototype")
@@ -158,6 +159,16 @@ public class ExamDetailShowWithAnswerAction extends ActionSupport {
         for(ExamQuestion eq:eqList){
         	if(eq.getQuestionType()==QuestionType.CHOICE.ordinal()){
         		BankChoiceQuestion choiceQ=bankQuestionDao.findChoiceById(eq.getBankChoiceQuestion().getId());
+        		//
+        		choiceQ.setChoiceA(QuestionUtils.deleteOptionLetter(choiceQ.getChoiceA()));
+        		choiceQ.setChoiceB(QuestionUtils.deleteOptionLetter(choiceQ.getChoiceB()));
+        		choiceQ.setChoiceC(QuestionUtils.deleteOptionLetter(choiceQ.getChoiceC()));
+        		choiceQ.setChoiceD(QuestionUtils.deleteOptionLetter(choiceQ.getChoiceD()));
+        		choiceQ.setChoiceE(QuestionUtils.deleteOptionLetter(choiceQ.getChoiceE()));
+        		choiceQ.setChoiceF(QuestionUtils.deleteOptionLetter(choiceQ.getChoiceF()));
+        		choiceQ.setChoiceG(QuestionUtils.deleteOptionLetter(choiceQ.getChoiceG()));
+        		choiceQ.setChoiceH(QuestionUtils.deleteOptionLetter(choiceQ.getChoiceH()));
+        		//
         		choiceList.add(choiceQ);
         		
     			List<Object> answersList = examAnswerMap.get(QuestionType.CHOICE);
