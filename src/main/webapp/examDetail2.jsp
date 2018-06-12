@@ -38,6 +38,24 @@
     	right: 10px;
     	background-color: #ee1111;
     	color: #eeee11;
+    	padding: 10px;
+    	border-radius: 5px;
+    	font-size: medium;
+    }
+    #positioner{
+    	position:fixed;
+    	top: 80px; 
+    	right: 10px;
+    	width: 10%;
+    	color: #1111ee;
+    	background-color: #c0ca33;
+    	padding: 10px;
+    	border-radius: 5px;
+    	font-size: medium;
+    }
+    .answeredTag{
+    	background-color: #1f1;
+    	color:#1d1;
     }
 </style>
 </head>
@@ -50,16 +68,39 @@
 		<div id="timeNotice"></div>
 		<a id="toggleTimeBtn" class="waves-effect waves-light btn-small" onclick="toggleShowTime()">关闭时间提示</a>
 	</div>
+	<div id="positioner">
+		<div id="positioner-content">
+			<s:if test="choiceList!=null && choiceList.size()>0">选择题:<br>
+				<s:iterator value="choiceList" status="st" var="item">
+				<a id="choiceTag<s:property value='#st.index+1'/>" href="#choice<s:property value='#st.index+1'/>">第<s:property value='#st.index+1'/>题</a>&nbsp;
+				</s:iterator>
+			</s:if>
+			<s:if test="blankFillingList!=null && blankFillingList.size()>0"><br><hr>填空题:<br>
+				<s:iterator value="blankFillingList" status="st" var="item">
+				<a  id="blankFillingTag<s:property value='#st.index+1'/>" href="#blankFilling<s:property value='#st.index+1'/>">第<s:property value='#st.index+1'/>题</a>&nbsp;
+				</s:iterator>
+			</s:if>
+			<s:if test="judgeList!=null && judgeList.size()>0"><br><hr>判断题:<br>
+				<s:iterator value="judgeList" status="st" var="item">
+				<a id="judgeTag<s:property value='#st.index+1'/>" href="#judge<s:property value='#st.index+1'/>">第<s:property value='#st.index+1'/>题</a>&nbsp;
+				</s:iterator>
+			</s:if>
+			<hr>
+			<a href="javascript:void(0)">未答</a>&nbsp;
+			<a class="answeredTag" href="javascript:void(0)">已答</a> &nbsp;
+		</div>
+		<a id="togglePositionerBtn" class="brown-text text-darken-4 waves-effect waves-light btn-small" onclick="toggleShowPositioner()">关闭题目定位辅助</a>
+	</div>
 	<s:if test="choiceList!=null && choiceList.size()>0"><h4>选择题</h4></s:if>
 	<table class="mytable">
 	<s:iterator value="choiceList" status="st" var="item">
-		<tr>
-			<td width="40px" valign="top">
+		<tr id="choice<s:property value="#st.index+1"/>" style="height:200px;">
+			<td width="40px" style="vertical-align:bottom;">
 				<span class="blue-text text-lighten-2" style="display:inline-block;width:30px;margin-top:1px;">
 				<s:property value="#st.index+1"/>.</span>
 			</td>
-			<td><s:property value="@cn.lynu.lyq.java_exam.actions.ExamDetailShowAction2@showContentWithImage(content)" escapeHtml="false"/></td>
-			<td>
+			<td style="vertical-align:bottom;"><s:property value="@cn.lynu.lyq.java_exam.actions.ExamDetailShowAction2@showContentWithImage(content)" escapeHtml="false"/></td>
+			<td style="vertical-align:bottom;">
 				<span id="choice_answer_q<s:property value="#st.index+1"/>" class="blue-text text-darken-2">
 					<s:property value="@cn.lynu.lyq.java_exam.actions.ExamDetailShowAction2@determineChoiceAnswer(#st.index)"/>
 				</span>
@@ -119,8 +160,8 @@
 	<s:if test="blankFillingList!=null && blankFillingList.size()>0"><h4>填空题</h4></s:if>
 	<table class="mytable">
 	<s:iterator value="blankFillingList" status="st" var="item">
-		<tr>
-			<td>
+		<tr id="blankFilling<s:property value='#st.index+1'/>"  style="height: 200px;">
+			<td  style="vertical-align:bottom;border-bottom: 1px solid #eee;">
 				<span class="blue-text text-lighten-2" style="display:inline-block;width:30px;"><s:property value="#st.index+1"/>.</span>
 				<span><s:property value="@cn.lynu.lyq.java_exam.actions.ExamDetailShowAction2@replaceBlank(content,#st.index+1)" escapeHtml="false"/>
 				</span>
@@ -132,13 +173,13 @@
 	<s:if test="judgeList!=null && judgeList.size()>0"><h4>判断题</h4></s:if>
 	<table class="mytable">
 	<s:iterator value="judgeList" status="st" var="item">
-		<tr>
-			<td>
+		<tr id="judge<s:property value='#st.index+1'/>"  style="height:200px;border-bottom: 1px solid #eee;">
+			<td style="vertical-align:bottom;">
 				<span class="blue-text text-lighten-2" style="display:inline-block;width:30px;">
 				<s:property value="#st.index+1"/>.</span>
 				<span><s:property value="content"/></span>
 			</td>
-			<td width="150">
+			<td width="150"  style="vertical-align:bottom;">
 				<span class="switch">
                     <label>
                        	 错误
@@ -150,7 +191,7 @@
                     </label>
                 </span>
 			</td>
-			<td width="50">
+			<td width="50"  style="vertical-align:bottom;">
 				<span class="teal-text text-lighten-1" id="judge_answer_q<s:property value="#st.index+1"/>">
 		        	未答
 		        </span>
@@ -177,9 +218,36 @@
 	<script type="text/javascript" src="js/materialize.min.js"></script>
 	<script type="text/javascript">
 	
-	<s:iterator value="judgeList" status="st" var="item">
-	setSwitch(<s:property value="#st.index+1"/>);
-	</s:iterator>
+		<s:iterator value="judgeList" status="st" var="item">
+		setSwitch(<s:property value="#st.index+1"/>);
+		</s:iterator>
+		
+		setQuestionTags();
+		
+		function setQuestionTags(){
+			var choiceIdx = 0, blankFillingIdx = 0, judgeIdx = 0;
+			
+			<s:iterator value="choiceList" status="st1" var="item">
+				choiceIdx = "<s:property value='#st1.index+1'/>";
+				if($("#choice_answer_q"+choiceIdx).text().trim()!=""){
+					$("#choiceTag"+choiceIdx).addClass("answeredTag");
+				}
+			</s:iterator>
+			
+			<s:iterator value="blankFillingList" status="st2" var="item">
+				blankFillingIdx = "<s:property value='#st2.index+1'/>";
+				if($("#blankFilling"+blankFillingIdx+" input").val().trim()!=""){
+					$("#blankFillingTag"+blankFillingIdx).addClass("answeredTag");
+				}
+			</s:iterator>
+			
+			<s:iterator value="judgeList" status="st3" var="item">
+				judgeIdx = "<s:property value='#st3.index+1'/>";
+				if($("#judge_q"+judgeIdx).val().trim()!=""){
+					$("#judgeTag"+judgeIdx).addClass("answeredTag");
+				}
+			</s:iterator>
+		}
 	
 		function changeChoice(idx,isMultiple){
 			if(isMultiple){
@@ -197,6 +265,17 @@
 			}else{
 				$("#choice_answer_q"+idx).text(document.form1["choice_q"+idx].value);
 			}
+			$("#choiceTag"+idx).addClass("answeredTag");
+		}
+		
+		//暂未考虑一个填空题有两个空的情况
+		function changeBlank(idx){
+			var currentBlankAnswer= $("#blankFilling"+idx+" input").val();
+			if(currentBlankAnswer.trim()!=""){
+				$("#blankFillingTag"+idx).addClass("answeredTag");	
+			}else{
+				$("#blankFillingTag"+idx).removeClass("answeredTag");	
+			}
 		}
 		
 		function changeSwitch(idx){
@@ -207,6 +286,7 @@
 				$("#judge_q"+idx).val("F");
 				$("#judge_answer_q"+idx).html("<i class='fas fa-times fa-2x'></i>");
 			}
+			$("#judgeTag"+idx).addClass("answeredTag");
 		}
 		
 		function setSwitch(idx){
@@ -228,11 +308,20 @@
 			}
 		}
 		
+		function toggleShowPositioner(){
+			$("#positioner-content").toggle();
+			if ( $("#positioner-content").is(":hidden") ){
+				$("#togglePositionerBtn").text("显示题目定位辅助");
+			}else{
+				$("#togglePositionerBtn").text("关闭题目定位辅助");
+			}
+		}
+		
 		var seconds = form1.remainingTime.value;//初始值
 		function updateTime(){
 			var s = seconds % 60; // 秒
 			var m = (seconds - s) / 60 % 60; // 分钟
-			var h =  ((seconds - s) / 60 - m ) / 60 % 24; // 小时
+			var h =  ((seconds - s ) / 60 - m ) / 60 % 24; // 小时
 			$("#timeNotice").html( "离考试结束还有：" + h + "小时" + m + "分钟" + s + "秒");
 			seconds--;
 		}

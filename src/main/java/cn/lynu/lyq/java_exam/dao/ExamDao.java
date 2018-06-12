@@ -6,7 +6,6 @@ import cn.lynu.lyq.java_exam.entity.BankBlankFillingQuestion;
 import cn.lynu.lyq.java_exam.entity.BankChoiceQuestion;
 import cn.lynu.lyq.java_exam.entity.BankJudgeQuestion;
 import cn.lynu.lyq.java_exam.entity.Exam;
-import cn.lynu.lyq.java_exam.entity.Student;
 
 public interface ExamDao {
 

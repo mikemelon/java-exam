@@ -220,7 +220,7 @@ public class ExamDetailShowAction2 extends ActionSupport {
 	 * @return 替换后的字符串
 	 */
 	@SuppressWarnings("unchecked")
-	public static String replaceBlank(String content, int quesitonNo){
+	public static String replaceBlank(String content, int questionNo){
 		try {
 			ActionContext ctx=ActionContext.getContext();
 			Map<String,Object> sessionMap = ctx.getSession();
@@ -230,7 +230,7 @@ public class ExamDetailShowAction2 extends ActionSupport {
 			List<Object> blankAnswerList =  (List<Object>)submittedAnswerMap.get(QuestionType.BLANK_FILLING);
 			List<String> blankAnswerListForCurrentQ = null;
 			if(blankAnswerList !=null ){
-				blankAnswerListForCurrentQ = (List<String>)blankAnswerList.get(quesitonNo-1);
+				blankAnswerListForCurrentQ = (List<String>)blankAnswerList.get(questionNo-1);
 			}
 			content = StringEscapeUtils.escapeHtml(content);
 			
@@ -239,9 +239,9 @@ public class ExamDetailShowAction2 extends ActionSupport {
 			StringBuffer sb = new StringBuffer();
 			int i=1;
 			while (m.find()) {
-				String idStr="'q"+quesitonNo+"_blank"+i+"'";
+				String idStr="'q"+questionNo+"_blank"+i+"'";
 				String replacement ="<input type='text' id="+idStr
-						+ " name="+idStr+ " style='font-size: 18px; width:200px; text-align:center;' placeholder='输入答案' ";
+						+ " name="+idStr+ " style='font-size: 18px; width:200px; text-align:center;' placeholder='输入答案' onchange='changeBlank("+questionNo+")'" ;
 				if(blankAnswerListForCurrentQ!=null && blankAnswerListForCurrentQ.size()>0){
 					String currentBlankAnswer = blankAnswerListForCurrentQ.get(i-1);
 					currentBlankAnswer = currentBlankAnswer!=null?currentBlankAnswer:"";

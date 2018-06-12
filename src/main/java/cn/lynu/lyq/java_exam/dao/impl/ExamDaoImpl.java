@@ -25,7 +25,6 @@ import cn.lynu.lyq.java_exam.entity.BankChoiceQuestion;
 import cn.lynu.lyq.java_exam.entity.BankJudgeQuestion;
 import cn.lynu.lyq.java_exam.entity.Exam;
 import cn.lynu.lyq.java_exam.entity.ExamQuestion;
-import cn.lynu.lyq.java_exam.entity.Student;
 
 @Component("examDao")
 @Transactional
