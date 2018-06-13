@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
 
+import org.jfree.util.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +26,7 @@ public class PropertyUtils {
 		Properties prop = new Properties();
 		try {
 			propFile = new File(new URL(PropertyUtils.class.getResource("/")+"mysetting.properties").toURI());
-			logger.info(propFile.getAbsolutePath());
+			logger.debug(propFile.getAbsolutePath());
 			is = new FileInputStream(propFile);
 			prop.load(is);
 			return prop.getProperty(key);
@@ -42,7 +43,7 @@ public class PropertyUtils {
 			is = new FileInputStream(propFile);
 			prop.load(is);
 			
-			System.out.println(prop.keySet());
+			Log.debug(prop.keySet());
 			prop.setProperty(key, value);
 			os = new FileOutputStream(propFile);
 			prop.store(os, "modified at "+ new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));

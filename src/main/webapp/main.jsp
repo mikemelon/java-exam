@@ -135,13 +135,13 @@
                     <div class="input-field col s11" style="margin: 0 auto;">
                         <!-- i class="material-icons prefix">account_circle</i-->
                         <i class="fas fa-user fa-3x prefix"></i>
-                        <input type="text" placeholder="输入学号" id="registerNo" name="registerNo" class="validate" style="font-size:large">
+                        <input type="text" placeholder="输入学号" id="registerNo" name="registerNo" class="validate" style="font-size:large" autocomplete="off">
                         <label for="registerNo">学号</label>
                     </div>
                     <div class="input-field col s11">
                         <!-- i class="material-icons prefix">phone</i-->
                         <i class="fas fa-key fa-3x prefix"></i>
-                        <input type="password" placeholder="输入密码" id="password" name="password" class="validate" style="font-size:large">
+                        <input type="password" placeholder="输入密码" id="password" name="password" class="validate" style="font-size:large" autocomplete="off">
                         <label for="password">密码</label>
                     </div>
                 </div>
