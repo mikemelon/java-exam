@@ -5,8 +5,8 @@ import java.io.FileOutputStream;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
-import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
@@ -38,8 +38,8 @@ public class PDFGenerateTest1 {
 		doc.add(new Paragraph("Hello World!你好，世界",fontChinese));
 		doc.add(new Paragraph("You are Welcome!"));
 		
-		Image img = Image.getInstance("C:\\Users\\mikemelon\\Pictures\\1.png");
-		doc.add(img);
+//		Image img = Image.getInstance("C:\\Users\\mikemelon\\Pictures\\1.png");
+//		doc.add(img);
 		
 		doc.newPage();    
 		doc.add(new Phrase("Phrase page"));    
@@ -78,19 +78,38 @@ public class PDFGenerateTest1 {
 		doc.add(new Chunk("D. Java BE",fontEn));
 		doc.add(Chunk.NEWLINE);
 		doc.add(new Chunk("答案:B",fontCn));
+		doc.add(Chunk.NEWLINE);
+		addChunkForChineseAndEnglish("这是一个Java语言的关键字main、abstract，false的测试！数组int[] k={1,2,3,4}",doc,fontCn,fontEn);
 		
 	}
 	
-	public static void addChunkForChineseAndEnglish(String str, Document doc, Font fontCn, Font fontEn){
+	public static void addChunkForChineseAndEnglish(String str, Document doc, Font fontCn, Font fontEn) throws DocumentException{
 		StringBuilder sb = new StringBuilder();
 		char[] chars = str.toCharArray();
 		for(int i=0; i<chars.length; i++){
-			if(i==0)
+			if(i==0){
 				sb.append(chars[i]);
-			else{
-//				if(isChinese(chars[i]))
+			}else{
+				if(isChinese(chars[i]) && !isChinese(chars[i-1])){
+					doc.add(new Chunk(sb.toString(),fontEn));
+					sb = new StringBuilder();
+					sb.append(chars[i]);
+				}else if(!isChinese(chars[i]) && isChinese(chars[i-1])){
+					doc.add(new Chunk(sb.toString(),fontCn));
+					sb = new StringBuilder();
+					sb.append(chars[i]);
+				}else{
+					sb.append(chars[i]);
+				}
 			}
 			
+			if(i==chars.length-1){
+				if(isChinese(chars[i])){
+					doc.add(new Chunk(sb.toString(),fontCn));
+				}else{
+					doc.add(new Chunk(sb.toString(),fontEn));
+				}
+			}
 		}
 		
 	}
