@@ -82,14 +82,17 @@
 	</div>
 	<s:if test="choiceList!=null && choiceList.size()>0"><h4>选择题</h4></s:if>
 	<table class="mytable">
+	
 	<s:iterator value="choiceList" status="st" var="item">
+		<tr style="border-radius:2px; box-shadow: 5px 5px 3px #aaa;"><td>
+		<table>
 		<tr id="choice<s:property value="#st.index+1"/>" style="height:200px;">
-			<td width="40px" style="vertical-align:bottom;">
+			<td width="40px" style="vertical-align:middle;">
 				<span class="blue-text text-lighten-2" style="display:inline-block;width:30px;margin-top:1px;">
 				<s:property value="#st.index+1"/>.</span>
 			</td>
-			<td style="vertical-align:bottom;"><s:property value="@cn.lynu.lyq.java_exam.actions.ExamDetailShowAction2@showContentWithImage(content)" escapeHtml="false"/></td>
-			<td style="vertical-align:bottom;">
+			<td style="vertical-align:middle;"><s:property value="@cn.lynu.lyq.java_exam.actions.ExamDetailShowAction2@showContentWithImage(content)" escapeHtml="false"/></td>
+			<td style="vertical-align:middle;">
 				<span id="choice_answer_q<s:property value="#st.index+1"/>" class="blue-text text-darken-2">
 					<s:property value="@cn.lynu.lyq.java_exam.actions.ExamDetailShowAction2@determineChoiceAnswer(#st.index)"/>
 				</span>
@@ -143,14 +146,16 @@
 				</tr>
 			</table>
 		</td></tr>
+		</table>
+		</td></tr>
 	</s:iterator>
 	</table>
 	
 	<s:if test="blankFillingList!=null && blankFillingList.size()>0"><h4>填空题</h4></s:if>
 	<table class="mytable">
 	<s:iterator value="blankFillingList" status="st" var="item">
-		<tr id="blankFilling<s:property value='#st.index+1'/>"  style="height: 200px;">
-			<td  style="vertical-align:bottom;border-bottom: 1px solid #eee;">
+		<tr id="blankFilling<s:property value='#st.index+1'/>"  style="height: 200px;margin: 50px;border-radius:2px; box-shadow: 5px 5px 3px #aaa;">
+			<td  style="vertical-align:middle;border-bottom: 1px solid #eee;">
 				<span class="blue-text text-lighten-2" style="display:inline-block;width:30px;"><s:property value="#st.index+1"/>.</span>
 				<span><s:property value="@cn.lynu.lyq.java_exam.actions.ExamDetailShowAction2@replaceBlank(content,#st.index+1)" escapeHtml="false"/>
 				</span>
@@ -162,8 +167,8 @@
 	<s:if test="judgeList!=null && judgeList.size()>0"><h4>判断题</h4></s:if>
 	<table class="mytable">
 	<s:iterator value="judgeList" status="st" var="item">
-		<tr id="judge<s:property value='#st.index+1'/>"  style="height:200px;border-bottom: 1px solid #eee;">
-			<td style="vertical-align:bottom;">
+		<tr id="judge<s:property value='#st.index+1'/>"  style="height:200px;border-bottom: 1px solid #eee;border-radius:2px; box-shadow: 5px 5px 3px #aaa;">
+			<td style="vertical-align:middle;">
 				<span class="blue-text text-lighten-2" style="display:inline-block;width:30px;">
 				<s:property value="#st.index+1"/>.</span>
 				<span><s:property value="content"/></span>
