@@ -15,6 +15,8 @@
 	<constant name="struts.ognl.allowStaticMethodAccess" value="true" />
 	<!-- 是否开启动态方法调用 -->
 	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	
+	<constant name="struts.action.excludePattern" value="/websocket/broadcast"></constant>
 
 	<package name="javaexam" namespace="/" extends="struts-default,json-default">
 		<global-results>
@@ -27,6 +29,14 @@
 		</action>
 		<action name="changesettings" class="modifySettings" method="executeForUpdate">
 			<result>changeSettings.jsp</result>
+		</action>
+		
+		<!-- 设置和发送广播（推送）消息 -->
+		<action name="pushbroadcastmessage" class="pushBroadcastMessage">
+			<result>broadcastMessage.jsp</result>
+		</action>
+		<action name="sendpushmessage" class="pushBroadcastMessage" method="executeForSend">
+			<result>broadcastMessage.jsp</result>
 		</action>
 
 		<!-- 考试管理 -->

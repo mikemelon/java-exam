@@ -35,10 +35,11 @@ public class ScoreRecaculateTest {
 		ExamQuestionAnswerDao examQuestionAnswerDao = (ExamQuestionAnswerDao) context.getBean("examQuestionAnswerDao");
 		StudentExamScoreDao studentExamScoreDao = (StudentExamScoreDao) context.getBean("studentExamScoreDao");
 		BankQuestionDao bankQuestionDao = (BankQuestionDao) context.getBean("bankQuestionDao");
-		List<Student> stuList = studentDao.findByGrade(gradeDao.findById(6));
+		List<Student> stuList = studentDao.findByGrade(gradeDao.findById(7));
 		int cnt = 0;
 		for (Student s1 : stuList) {
-			List<Exam> examList = examDao.findByStudentNameAndExamNameAlike(s1.getName(), "2018年6月8日面向对象随机乱序25道选择题");
+//			List<Exam> examList = examDao.findByStudentNameAndExamNameAlike(s1.getName(), "2018年6月8日面向对象随机乱序25道选择题");
+			List<Exam> examList = examDao.findByStudentNameAndExamNameAlike(s1.getName(), "2018年6月22日面向对象选择题乱序");
 			if (examList.size() != 1) {
 				System.out.println(s1.getName() + ":该学生缺考，或考试次数不对！" + examList.size());
 				continue;
@@ -67,7 +68,7 @@ public class ScoreRecaculateTest {
 					}
 				}
 //				System.out.println("qCnt="+qCnt+"/correctQCnt="+correctQCnt);
-				int realScore = correctQCnt*4;
+				int realScore = correctQCnt*5;
 				if(ses.getScore()==realScore){
 					System.out.println("木问题！！！！！！！！！！！！！！");
 				}else{

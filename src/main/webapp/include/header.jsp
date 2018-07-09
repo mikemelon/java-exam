@@ -28,6 +28,18 @@
 						        onclick="loginform.action='logout';loginform.submit();">退出登陆</a></li>
 						    </ul>
 					    </li>
+					    <script>
+					    	var ws = new WebSocket("ws://" + window.location.host +  "<%=request.getContextPath()%>/websocket/broadcast");
+					    	ws.onopen=function(){
+								//console.log("websocket open");
+							}
+							ws.onmessage=function(evt){
+								//console.log("websocket getmessage:"+evt.data);
+								var $toastContent = $('<span class="yellow-text lighten-5"><h4>'+evt.data+'</h4></span>');
+							    Materialize.toast($toastContent, 8000, 'rounded');
+							}	
+								
+					    </script>
                         </s:else>
                         <li><a href="#">签到</a></li>
                         <li class="active"><a href="#">考试</a></li>

@@ -121,7 +121,8 @@
 	</div>
 	
 	<s:if test="#session['USER_INFO']!=null && #session['USER_INFO'].role==1">
-	<a href="modifysettings"><i class="fas fa-wrench fa-lg right blue-text"></i></a>
+	<a href="modifysettings"><i class="fas fa-wrench fa-lg right blue-text"></i></a> | 
+	<a href="pushbroadcastmessage"><i class="fas fa-share-square fa-lg right red-text"></i></a>
 	</s:if>
 	
 	<%@ include file="include/footer.jsp" %>
