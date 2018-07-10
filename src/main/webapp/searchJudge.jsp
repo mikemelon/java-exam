@@ -50,7 +50,7 @@ body {
 			<input type="hidden" name="answerSearch2">
 				<div class="row">
                     <div class="input-field col l3 m4 s12">
-                        <i class="material-icons prefix small">info_outline</i>
+                        <i class="far fa-comment fa-lg  prefix"></i>
                         <input type="text" placeholder="输入题干包含的内容" id="contentSearch" name="contentSearch" 
                         value="<s:property value="contentSearch"/>" 
                         class="validate" style="font-size:large">
@@ -65,7 +65,7 @@ body {
                         <label for="answerSearchF"><i class='fas fa-times fa-2x'></i></label>
                     </div>
                     <div class="input-field col l3 m4 s12">
-                        <i class="material-icons prefix small">description</i>
+                        <i class="far fa-file fa-lg prefix"></i>
                         <input type="text" placeholder="输入知识点" id="knowledgeSearch" name="knowledgeSearch" 
                         value="<s:property value="knowledgeSearch"/>" 
                         class="validate" style="font-size:large">
@@ -74,7 +74,7 @@ body {
                     <div class="input-field col l3 m4 s12 vertical-align">
 						<button class="red darken-4 waves-effect waves-teal btn-flat" type="submit">
 							<span class="yellow-text text-lighten-1">搜索
-			        		<i class="material-icons right">search</i></span>
+			        		<i class="fas fa-search fa-lg right"></i></span>
 			    		</button>
 			        </div>
                 </div>
@@ -112,7 +112,7 @@ body {
 			<ul class="pagination">
 				<li <s:if test="pageIndex lt 1">class="disabled"</s:if><s:else>class="waves-effect"</s:else>>
 					<a href="#!" <s:if test="pageIndex gt 0">onclick="selectPage(<s:property value="pageIndex"/>)"</s:if>>
-					<i class="material-icons">chevron_left</i></a>
+					<i class="fas fa-chevron-left fa-xs"></i></a>
 				</li>
 				<s:iterator var="item" begin="1" end="totalPage">
 				  <s:if test="pageIndex==top-1"><li class="active"><a href="#!"><s:property/></a></li></s:if>
@@ -120,7 +120,7 @@ body {
 				</s:iterator>
 				<li <s:if test="pageIndex gt (totalPage-2)">class="disabled"</s:if><s:else>class="waves-effect"</s:else>>
 					<a href="#!" <s:if test="pageIndex lt (totalPage-1)">onclick="selectPage(<s:property value="pageIndex+2"/>)"</s:if>>
-					<i class="material-icons">chevron_right</i></a>
+					<i class="fas fa-chevron-right fa-xs"></i></a>
 				</li>
 			</ul>
 			</s:if>

@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Java考试系统--试题类型</title>
 <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+<link type="text/css" rel="stylesheet" href="css/fontawesome-all.min.css">
 <link type="text/css" rel="stylesheet" href="css/materialize.min.css">
 <link type="text/css" rel="stylesheet" href="css/material_icons.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,6 +20,9 @@ body {
 }
 .my-opacity:hover{
 	opacity:1;
+}
+a{
+	color: #2e7d32;
 }
 </style>
 </head>
@@ -36,8 +40,9 @@ body {
 							<a href="<s:url action="searchchoice"/>"><img class="activator" src="images/choicequestion1.jpg"></a>
 						</div>
 						<div class="card-content">
-							<span class="card-title activator grey-text text-darken-4">选择题<i
-								class="material-icons right">more_vert</i></span>
+							<a href="<s:url action="searchchoice"/>">
+							<span class="card-title activator light-green-text text-darken-4">选择题
+							<i class="fas fa-sign-in-alt fa-lg right light-green-text"></i></span></a>
 							<p><a href="<s:url action="searchchoice"/>">列出和搜索选择题</a></p>
 						</div>
 					</div>
@@ -49,8 +54,9 @@ body {
 							<a href="<s:url action="searchblank"/>"><img class="activator" src="images/blankquestion1.jpg"></a>
 						</div>
 						<div class="card-content">
-							<span class="card-title activator grey-text text-darken-4">填空题<i
-								class="material-icons right">more_vert</i></span>
+							<a href="<s:url action="searchblank"/>">
+							<span class="card-title activator light-green-text text-darken-4">填空题
+							<i class="fas fa-sign-in-alt fa-lg right light-green-text"></i></span></a>
 							<p><a href="<s:url action="searchblank"/>">列出和搜索填空题</a></p>
 						</div>
 					</div>
@@ -62,8 +68,9 @@ body {
 							<a href="<s:url action="searchjudge"/>"><img class="activator" src="images/judgequestion1.jpg"></a>
 						</div>
 						<div class="card-content">
-							<span class="card-title activator grey-text text-darken-4">判断题<i
-								class="material-icons right">more_vert</i></span>
+							<a href="<s:url action="searchjudge"/>">
+							<span class="card-title activator light-green-text text-darken-4">判断题
+							<i class="fas fa-sign-in-alt fa-lg right light-green-text"></i></span></a>
 							<p><a href="<s:url action="searchjudge"/>">列出和搜索判断题</a></p>
 						</div>
 					</div>

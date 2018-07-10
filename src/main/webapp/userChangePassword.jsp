@@ -43,40 +43,7 @@ body {
 <s:head/>
 </head>
 <body>
-	<header>
-	    <div class="navbar-fixed">
-	        <nav class="lime darken-1">
-	            <div class="container">
-	                <div class="nav-wrapper">
-	                    <a href="main.jsp" class="brand-logo">Java教学网站</a>
-	                    <ul id="nav-mobile4" class="right hide-on-med-and-down">
-	                        <li>
-								<div class="chip">
-									<a href="#" class="dropdown-button" data-activates="user_dropdown" data-induration="3000"
-       								data-beloworigin="true" data-hover="true">
-							        <img src="images/soccer4.jpg" alt="大黄鸭">
-							        	<s:property value="#session.USER_INFO.name"/>
-							        </a>
-							    </div>
-							    <ul class="dropdown-content yellow lighten-5" id="user_dropdown">
-							        <li><a href="#" class="indigo-text text-darken-2">修改密码</a></li>
-							        <li><a href="#"class="indigo-text text-darken-2" >修改信息</a></li>
-							        <li class="divider"></li>
-							        <li><a href="#" class="indigo-text text-darken-2" 
-							        onclick="loginform.action='logout';loginform.submit();">退出登陆</a></li>
-							    </ul>
-						    </li>
-	                        <li><a href="#">签到</a></li>
-	                        <li class="active"><a href="#">考试</a></li>
-	                        <li><a href="#">作业</a></li>
-	                        <li><a href="#">微课</a></li>
-	                    </ul>
-	                </div>
-	            </div>
-	        </nav>
-	    </div>
-
-	</header>
+	<%@ include file="include/header.jsp" %>
 	
 	<div id="main">
 		<div class="container" style="height: 350px;">
@@ -117,32 +84,7 @@ body {
 		</div>
 	</div>
 	
-	<footer class="page-footer lime darken-1">
-	    <div class="container">
-	        <div class="row">
-	            <div class="col l6 s12">
-	                <h5 class="white-text">关于这个Java网站</h5>
-	                <p class="grey-text text-lighten-4">希望能帮助你掌握好Java，也希望你为这个站点的成长能贡献力量。</p>
-	            </div>
-	            <div class="col l4 offset-l2 s12">
-	                <h5 class="white-text">其他Java学习站点</h5>
-	                <ul>
-	                    <li><a class="grey-text text-lighten-3" href="#!">百度知道</a></li>
-	                    <li><a class="grey-text text-lighten-3" href="#!">SegmentFault</a></li>
-	                    <li><a class="grey-text text-lighten-3" href="#!">StackOverflow</a></li>
-	                    <li><a class="grey-text text-lighten-3" href="#!">ItEye</a></li>
-	                </ul>
-	            </div>
-	        </div>
-	    </div>
-	    <div class="footer-copyright">
-	        <div class="container">
-	            © 2016 洛阳师范学院电子商务学院    &nbsp;作者: lyq
-	            <a class="grey-text text-lighten-4 right" href="mailto:mikemelon@sina.com">跟我联系</a>
-	        </div>
-	    </div>
-	</footer>
-	<form name="loginform" method="post"></form>
+	<%@ include file="include/footer.jsp" %>
 	
 	<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
 	<script type="text/javascript" src="js/materialize.min.js"></script>

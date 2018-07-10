@@ -45,6 +45,7 @@ public class PDFGenerateTest2 {
 		}
 		doc.close();
 		context.close();
+		pdfWriter.close();
 	}
 	
 	public static void addChoiceQuestionAndAnswer(Document doc, BankChoiceQuestion bq) throws Exception{

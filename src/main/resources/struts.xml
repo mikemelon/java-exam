@@ -28,7 +28,7 @@
 			<result>changeSettings.jsp</result>
 		</action>
 		<action name="changesettings" class="modifySettings" method="executeForUpdate">
-			<result>changeSettings.jsp</result>
+			<result>main.jsp</result>
 		</action>
 		
 		<!-- 设置和发送广播（推送）消息 -->

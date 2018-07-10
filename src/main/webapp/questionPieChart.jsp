@@ -243,31 +243,6 @@ body {
 
 	<%@ include file="include/footer.jsp"%>
 	
-	<!-- 用户登陆对话框 -->
-	<div id="logindialog" class="modal modal-fixed-footer" style="height: 360px;">
-        <div class="modal-content">
-            <h4>输入登录信息</h4>
-            <form name="loginform1" method="post" action="login" class="col s12" style="margin-top: 40px;">
-            	<div class="row">
-                    <div class="input-field col s11" style="margin: 0 auto;">
-                        <i class="material-icons prefix">account_circle</i>
-                        <input type="text" placeholder="输入学号" id="registerNo" name="registerNo" class="validate" style="font-size:large">
-                        <label for="registerNo">学号</label>
-                    </div>
-                    <div class="input-field col s11">
-                        <i class="material-icons prefix">phone</i>
-                        <input type="password" placeholder="输入密码" id="password" name="password" class="validate" style="font-size:large">
-                        <label for="password">密码</label>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="modal-footer">
-            <a href="#" onclick="loginform1.submit();"
-            class="waves-effect waves-light btn btn-flat modal-action modal-close">确定</a>
-        </div>
-    </div>
-    
     <!-- 饼图对话框 -->
 	<div id="chartdialog" class="modal" style="height: 750px; width:950px;">
         <div class="modal-content" style="text-align:center;padding 0 auto;">

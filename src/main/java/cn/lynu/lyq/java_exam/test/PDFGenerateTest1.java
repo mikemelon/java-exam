@@ -20,7 +20,7 @@ public class PDFGenerateTest1 {
 		PdfWriter pdfWriter	= PdfWriter.getInstance(doc, new FileOutputStream("c:\\HelloWorld.pdf"));
 		doc.open();
 		
-		Font font = new Font(Font.FontFamily.HELVETICA,18,Font.BOLD);
+//		Font font = new Font(Font.FontFamily.HELVETICA,18,Font.BOLD);
 		BaseFont bfChinese = BaseFont.createFont("STSong-Light,Bold", "UniGB-UCS2-H", BaseFont.NOT_EMBEDDED);
 		//也可以使用Windows系统字体(TrueType)  
         bfChinese = BaseFont.createFont("C:/WINDOWS/Fonts/SIMKAI.TTF", BaseFont.IDENTITY_H,BaseFont.NOT_EMBEDDED);  
@@ -59,6 +59,7 @@ public class PDFGenerateTest1 {
 		addChoiceQuestionAndAnswer(doc);
 		
 		doc.close();
+		pdfWriter.close();
 	}
 	
 	public static void addChoiceQuestionAndAnswer(Document doc) throws Exception{

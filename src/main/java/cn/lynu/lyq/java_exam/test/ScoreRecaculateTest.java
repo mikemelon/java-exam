@@ -67,7 +67,7 @@ public class ScoreRecaculateTest {
 						if(realAnswer.equals(stuAnswer)) correctQCnt++;
 					}
 				}
-//				System.out.println("qCnt="+qCnt+"/correctQCnt="+correctQCnt);
+				System.out.println("qCnt="+qCnt+"/correctQCnt="+correctQCnt);
 				int realScore = correctQCnt*5;
 				if(ses.getScore()==realScore){
 					System.out.println("木问题！！！！！！！！！！！！！！");
