@@ -24,20 +24,20 @@
 			padding: 5px 10px;
 		}
 		
-		.namelink a {
+		.namelink {
 			text-decoration: none;
 		}
 		
-		.namelink a:LINK {
-			color: #12f;
+		.namelink:LINK {
+			color: #2e7d32;
 		}
 		
-		.namelink a:VISITED {
+		.namelink:VISITED {
 			color: #a2e;
 		}
 		
-		.namelink a:HOVER {
-			color: #17f;
+		.namelink:HOVER {
+			color: #8bc34a;
 		}
 	</style>
 </head>
@@ -45,7 +45,7 @@
 	<%@ include file="include/header.jsp" %>
 	<div id="main">
 		<div class="container" style="min-height: 350px;">
-			<h4 style="text-align:center;" class="teal-text text-lighten-3">待参加考试列表</h4>
+			<h4 style="text-align:center;" class="light-green-text text-darken-1">待参加考试列表</h4>
 			<table class="mytable">
 				<thead>
 					<tr>
@@ -57,7 +57,7 @@
 				</thead>
 				<s:iterator value="studentExamList" status="st" var="item">
 					<tr
-						style="background-color:<s:if test="#st.odd">#efefef</s:if><s:else>#ffffff</s:else>">
+						style="background-color:<s:if test="#st.odd">#aaffaa</s:if><s:else>#ffffff</s:else>">
 						<td><s:property value="#st.index+1" /></td>
 						<td>
 							<a class="namelink" href=# 
@@ -81,7 +81,7 @@
 				</s:iterator>
 			</table>
 			
-			<h4 style="text-align:center;" class="teal-text text-lighten-3">已完成考试列表</h4>
+			<h4 style="text-align:center;" class="light-green-text text-darken-1">已完成考试列表</h4>
 			<table class="mytable">
 				<thead>
 					<tr>

@@ -21,6 +21,9 @@
         .my-opacity:hover{
         	opacity:1;
         }
+        a{
+			color: #2e7d32;
+		}
     </style>
 </head>
 <body>
@@ -36,8 +39,9 @@
 		                    <a href="<s:url action="studentexamlist"/>"><img class="activator" src="images/exampaper2.jpg"></a>
 		                </div>
 		                <div class="card-content">
-		                    <span class="card-title activator grey-text text-darken-4">试题列表
-		                    <i class="fas fa-sign-in-alt fa-lg right blue-text"></i></span>
+		                    <a href="<s:url action="studentexamlist"/>">
+		                    <span class="card-title activator light-green-text text-darken-4">试题列表
+		                    <i class="fas fa-sign-in-alt fa-lg right light-green-text"></i></span></a>
 		                    <p><a href="<s:url action="studentexamlist"/>">列出所有已有的试题列表</a></p>
 		                </div>
 		            </div>
@@ -49,8 +53,9 @@
 		                    <a href="questionByKnowledge.jsp"><img class="activator" src="images/categories2.jpg"></a>
 		                </div>
 		                <div class="card-content">
-		                    <span class="card-title activator grey-text text-darken-4">章节练习
-		                    <i class="fas fa-sign-in-alt fa-lg right blue-text"></i></span>
+		                	<a href="questionByKnowledge.jsp">
+		                    <span class="card-title activator light-green-text text-darken-4">章节练习
+		                    <i class="fas fa-sign-in-alt fa-lg right light-green-text"></i></span></a>
 		                    <p><a href="questionByKnowledge.jsp">按照章节知识点分类进行练习</a></p>
 		                </div>
 		            </div>
@@ -63,8 +68,9 @@
 		                    <a href="questionTypes.jsp"><img class="activator" src="images/questiontype2.jpg"></a>
 		                </div>
 		                <div class="card-content">
-		                    <span class="card-title activator grey-text text-darken-4">题型练习
-		                    <i class="fas fa-sign-in-alt fa-lg right blue-text"></i></span>
+		                	<a href="questionTypes.jsp">
+		                    <span class="card-title activator light-green-text text-darken-4">题型练习
+		                    <i class="fas fa-sign-in-alt fa-lg right light-green-text"></i></span></a>
 		                    <p><a href="questionTypes.jsp">按选择题、填空题、判断题分别练习</a></p>
 		                </div>
 		            </div>
@@ -78,8 +84,9 @@
 		                    <a href="examComposeTypes.jsp"><img class="activator" src="images/papergenerator2.jpg"></a>
 		                </div>
 		                <div class="card-content">
-		                    <span class="card-title activator grey-text text-darken-4">抽题组卷
-		                    <i class="fas fa-sign-in-alt fa-lg right blue-text"></i></span>
+		                	<a href="examComposeTypes.jsp">
+		                    <span class="card-title activator light-green-text text-darken-4">抽题组卷
+		                    <i class="fas fa-sign-in-alt fa-lg right light-green-text"></i></span></a>
 		                    <p><a href="examComposeTypes.jsp">从题库中根据策略抽题组卷</a></p>
 		                </div>
 		            </div>
@@ -93,8 +100,9 @@
 		                    <a href="importData.jsp"><img class="activator" src="images/importexport2.jpg"></a>
 		                </div>
 		                <div class="card-content">
-		                    <span class="card-title activator grey-text text-darken-4">导入导出
-		                    <i class="fas fa-sign-in-alt fa-lg right blue-text"></i></span>
+		                	<a href="importData.jsp">
+		                    <span class="card-title activator light-green-text text-darken-4">导入导出
+		                    <i class="fas fa-sign-in-alt fa-lg right light-green-text"></i></span></a>
 		                    <p><a href="importData.jsp">用户、试题等数据的导入导出</a></p>
 		                </div>
 		            </div>
@@ -108,8 +116,9 @@
 		                    <a href="statsTypes.jsp"><img class="activator" src="images/datastats2.png"></a>
 		                </div>
 		                <div class="card-content">
-		                    <span class="card-title activator grey-text text-darken-4">试题分析
-		                    <i class="fas fa-sign-in-alt fa-lg right blue-text"></i></span>
+		                    <a href="statsTypes.jsp">
+		                    <span class="card-title activator light-green-text text-darken-4">试题分析
+		                    <i class="fas fa-sign-in-alt fa-lg right light-green-text"></i></span></a>
 		                    <p><a href="statsTypes.jsp">按照题型、知识点等进行统计分析</a></p>
 		                </div>
 		            </div>
@@ -121,8 +130,8 @@
 	</div>
 	
 	<s:if test="#session['USER_INFO']!=null && #session['USER_INFO'].role==1">
-	<a href="modifysettings"><i class="fas fa-wrench fa-lg right blue-text"></i></a> | 
-	<a href="pushbroadcastmessage"><i class="fas fa-share-square fa-lg right red-text"></i></a>
+	<a href="modifysettings" title="修改系统设置"><i class="fas fa-wrench fa-lg right blue-text"></i></a> | 
+	<a href="pushbroadcastmessage" title="向在线用户推送广播消息"><i class="fas fa-share-square fa-lg right red-text"></i></a>
 	</s:if>
 	
 	<%@ include file="include/footer.jsp" %>

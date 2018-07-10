@@ -3,7 +3,7 @@
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <header>
     <div class="navbar-fixed">
-        <nav class="lime darken-1">
+        <nav class="light-green darken-1">
             <div class="container">
                 <div class="nav-wrapper">
                     <a href="main.jsp" class="brand-logo">Java考试网站</a>
@@ -14,7 +14,7 @@
                         <s:else>
                         <li>
 							<div class="chip">
-								<a href="#" class="dropdown-button" data-activates="user_dropdown" data-induration="3000"
+								<a href="#" class="dropdown-button" style="color:#d50000;" data-activates="user_dropdown" data-induration="3000"
       								data-beloworigin="true" data-hover="true">
 						        <img src="images/soccer4.jpg" alt="大黄鸭">
 						        	<s:property value="#session['USER_INFO'].name"/>
@@ -29,6 +29,7 @@
 						    </ul>
 					    </li>
 					    <script>
+					    	//登录成功后，开启与服务器的WebSocket连接，等待接收推送消息
 					    	var ws = new WebSocket("ws://" + window.location.host +  "<%=request.getContextPath()%>/websocket/broadcast");
 					    	ws.onopen=function(){
 								//console.log("websocket open");
@@ -38,7 +39,6 @@
 								var $toastContent = $('<span class="yellow-text lighten-5"><h4>'+evt.data+'</h4></span>');
 							    Materialize.toast($toastContent, 8000, 'rounded');
 							}	
-								
 					    </script>
                         </s:else>
                         <li><a href="#">签到</a></li>

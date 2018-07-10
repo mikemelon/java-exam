@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
 <title>Java考试系统--试卷详细（含答案）</title>
 <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
 <link type="text/css" rel="stylesheet" href="css/materialize.min.css">
@@ -45,15 +45,15 @@ h2 {
 <body>
 	<%@ include file="include/header.jsp"%>
 	<div id="main">
-		<h4 style="text-align:center;" class="teal-text text-lighten-3">
+		<h5 style="text-align:center;" class="light-green-text text-darken-1">
 			<s:property value="student.name"/>的"<s:property value="exam.name"/>"考试(exam_id=<s:property value="exam.id"/>)的答卷情况如下：
-		</h4>
+		</h5>
 		<hr>
-		<h4 style="text-align:center; ">
+		<h5 style="text-align:center; ">
 			选择题(共<s:property value="%{examQuestionAnswerMap.CHOICE.size()}" />题，每题
 			<s:property value="examStrategy.choicePerScore" />
 			分)
-		</h4>
+		</h5>
 		<table class="mytable">
 
 			<s:iterator value="choiceList" status="st" var="item">
@@ -99,11 +99,11 @@ h2 {
 			</s:iterator>
 		</table>
 
-		<h4 style="text-align:center; ">
+		<h5 style="text-align:center; ">
 			填空题(共<s:property value="%{examQuestionAnswerMap.BLANK_FILLING.size()}" />题，每空
 			<s:property value="examStrategy.blankPerScore" />
 			分)
-		</h4>
+		</h5>
 		<table class="mytable">
 			<s:iterator value="blankFillingList" status="st" var="item">
 				<tr
@@ -124,11 +124,11 @@ h2 {
 			</s:iterator>
 		</table>
 
-		<h4 style="text-align:center; ">
+		<h5 style="text-align:center; ">
 			判断题(共<s:property value="%{examQuestionAnswerMap.JUDGE.size()}" />题，每题
 			<s:property value="examStrategy.judgePerScore" />
 			分)
-		</h4>
+		</h5>
 		<table class="mytable">
 			<s:iterator value="judgeList" status="st" var="item">
 				<tr

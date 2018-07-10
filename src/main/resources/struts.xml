@@ -15,7 +15,7 @@
 	<constant name="struts.ognl.allowStaticMethodAccess" value="true" />
 	<!-- 是否开启动态方法调用 -->
 	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
-	
+	<!-- 需排除作为ServerEndpint的websocket相关的action -->
 	<constant name="struts.action.excludePattern" value="/websocket/broadcast"></constant>
 
 	<package name="javaexam" namespace="/" extends="struts-default,json-default">
