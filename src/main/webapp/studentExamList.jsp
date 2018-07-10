@@ -57,7 +57,7 @@
 				</thead>
 				<s:iterator value="studentExamList" status="st" var="item">
 					<tr
-						style="background-color:<s:if test="#st.odd">#aaffaa</s:if><s:else>#ffffff</s:else>">
+						style="background-color:<s:if test="#st.odd">#efefef</s:if><s:else>#ffffff</s:else>">
 						<td><s:property value="#st.index+1" /></td>
 						<td>
 							<a class="namelink" href=# 
