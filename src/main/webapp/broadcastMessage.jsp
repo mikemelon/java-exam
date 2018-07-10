@@ -27,6 +27,8 @@
 				</table>
 				<input type="button" value="确定发送" onclick="ajaxPost()">
 			</form>
+			<div id="sendUserList">
+			</div>
 		</div>
 	</div>
 	<%@ include file="include/footer.jsp" %>
@@ -39,6 +41,18 @@
 					{message:form1.message.value},
 					function(data,status){
 						console.log(data);
+						var showHtml="<table><caption>已发送在线用户列表("+data.length+"人次)</caption>";
+						showHtml+="<thead><tr><th>编号</th><th>姓名</th><th>学号</th><th>性别</th><th>班级</th></tr></thead>";
+						for(var i=0; i<data.length; i++){
+							showHtml+="<tr style='background:"+(i%2==0?"#efefef":"#ffffff")+";'>";
+							showHtml+="<td>"+(i+1)+"</td>";
+							showHtml+="<td>"+(!data[i].name?'':data[i].name)+"</td>";
+							showHtml+="<td>"+(!data[i].registerNo?'':data[i].registerNo)+"</td>";
+							showHtml+="<td>"+(!data[i].gender?'女':'男')+"</td>";
+							showHtml+="<td>"+(!data[i].grade?'':(!data[i].grade.name?'':data[i].grade.name))+"</td></tr>";
+						}
+						showHtml+="</tbody></table>";
+						$('#sendUserList').html(showHtml);
 					});
 		}
 	</script>

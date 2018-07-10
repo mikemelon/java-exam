@@ -24,18 +24,22 @@ import cn.lynu.lyq.java_exam.entity.Student;
 @ServerEndpoint(value="/websocket/broadcast",configurator=GetHttpSessionConfigurator.class)
 public class BroadcastServer {
 	private Session session;
+	private Student student;
 	private final static Logger logger = LoggerFactory.getLogger(BroadcastServer.class);
 	
 	private static List<BroadcastServer> broadcastList = new CopyOnWriteArrayList<>();
+	private static List<Student> broadcastStudentList = new CopyOnWriteArrayList<>();
 	
 	@OnOpen
 	public void onOpen(Session session, EndpointConfig config){
 		logger.debug("BroadcastServer onOpen");
-		this.session = session;
 		HttpSession httpSession = (HttpSession)config.getUserProperties().get(HttpSession.class.getName());
 		Student student = (Student)httpSession.getAttribute("USER_INFO");
 		if(student!=null){
+			this.session = session;
+			this.student = student;
 			broadcastList.add(this);
+			broadcastStudentList.add(student);
 		}
 	}
 	
@@ -49,6 +53,8 @@ public class BroadcastServer {
 	public void onClose(){
 		logger.debug("BroadcastServer onClose");
 		broadcastList.remove(this);
+		if(student!=null)
+			broadcastStudentList.remove(student);
 	}
 	
 	@OnError
@@ -56,10 +62,11 @@ public class BroadcastServer {
 		logger.debug("websocket onError:"+t.getMessage());
 	}
 	
-	public static void broadcastMessage(String message){
+	public static List<Student> broadcastMessage(String message){
 		for(BroadcastServer item:broadcastList){
-			item.session.getAsyncRemote().sendText(message);
+			item.session.getAsyncRemote().sendText(message!=null?message:"");
 		}
+		return broadcastStudentList;
 	}
 	
 	//

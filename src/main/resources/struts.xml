@@ -36,7 +36,9 @@
 			<result>broadcastMessage.jsp</result>
 		</action>
 		<action name="sendpushmessage" class="pushBroadcastMessage" method="executeForSend">
-			<result>broadcastMessage.jsp</result>
+			<result type="json">
+				<param name="root">broadcastStudentList</param>
+			</result>
 		</action>
 
 		<!-- 考试管理 -->

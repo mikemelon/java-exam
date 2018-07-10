@@ -13,7 +13,7 @@ public class SimpleTestAction extends ActionSupport {
 	
 	private static final long serialVersionUID = 4075728253429075870L;
 	private final static Logger logger = LoggerFactory.getLogger(SimpleTestAction.class);
-	private String answerSearch;
+	private String answerSearch="aaaa";
 	private String answerSearch2;
 	public String getAnswerSearch() {
 		return answerSearch;

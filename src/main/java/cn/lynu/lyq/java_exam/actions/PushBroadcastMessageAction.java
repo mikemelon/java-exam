@@ -1,5 +1,7 @@
 package cn.lynu.lyq.java_exam.actions;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
@@ -20,6 +22,8 @@ public class PushBroadcastMessageAction extends ActionSupport {
 	private final static Logger logger = LoggerFactory.getLogger(PushBroadcastMessageAction.class);
 
 	private String message;
+	
+	private List<Student> broadcastStudentList;
 
 	public String getMessage() {
 		return message;
@@ -27,6 +31,14 @@ public class PushBroadcastMessageAction extends ActionSupport {
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+	
+	public List<Student> getBroadcastStudentList() {
+		return broadcastStudentList;
+	}
+
+	public void setBroadcastStudentList(List<Student> broadcastStudentList) {
+		this.broadcastStudentList = broadcastStudentList;
 	}
 
 	@Override
@@ -50,7 +62,7 @@ public class PushBroadcastMessageAction extends ActionSupport {
 
 	public String executeForSend() {
 		logger.info("开始发送广播消息");
-		BroadcastServer.broadcastMessage(message);
+		broadcastStudentList = BroadcastServer.broadcastMessage(message);
 		return SUCCESS;
 	}
 }
