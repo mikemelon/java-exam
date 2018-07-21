@@ -48,6 +48,14 @@
 		<action name="studentexamlist" class="studentExamList">
 			<result>studentExamList.jsp</result>
 		</action>
+		<action name="downloadexportedfile" class="downloadExportedFile">
+			<result type="stream">
+				<param name="inputName">inputStream</param>
+				<param name="contentDisposition">attachment;filename=${fileName}</param>
+				<param name="bufferSize">8192</param>
+			</result>
+		</action>
+		
 		<action name="examdetail2" class="examDetailShow2">
 			<result>examDetail2.jsp</result>
 		</action>

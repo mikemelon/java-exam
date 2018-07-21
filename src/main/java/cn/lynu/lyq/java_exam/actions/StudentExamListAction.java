@@ -80,31 +80,31 @@ public class StudentExamListAction extends ActionSupport {
 			studentExamList = studentExamScoreDao.findByStudentAndExamPhase(stu,ExamPhase.PAPER_INITIALIZED.getChineseName());
 			
 			for(StudentExamScore ses:studentExamList){
-					Exam exam = ses.getExam();
-			        List<ExamQuestion> eqList = examQuestionDao.findByExam(exam);
-			        
-			        ArrayList<BankChoiceQuestion> choiceList=new ArrayList<>();
-			        ArrayList<BankBlankFillingQuestion> blankFillingList = new ArrayList<>();
-			        ArrayList<BankJudgeQuestion> judgeList = new ArrayList<>();
-			        for(ExamQuestion eq:eqList){
-			        	if(eq.getQuestionType()==QuestionType.CHOICE.ordinal()){
-			        		choiceList.add(bankQuestionDao.findChoiceById(eq.getBankChoiceQuestion().getId()));
-			        	}else if(eq.getQuestionType()==QuestionType.BLANK_FILLING.ordinal()){
-			        		blankFillingList.add(bankQuestionDao.findBlankFillingById(eq.getBankBlankFillingQuestion().getId()));
-			        	}else if(eq.getQuestionType()==QuestionType.JUDGE.ordinal()){
-			        		judgeList.add(bankQuestionDao.findJudgeById(eq.getBankJudgeQuestion().getId()));
-			        	}
-			        }
-			        Map<String,Object> eqListMap = new HashMap<>();
-			        eqListMap.put("CHOICE_LIST", choiceList);
-			        eqListMap.put("BLANK_LIST", blankFillingList);
-			        int blankCnt=0;
-			        for(BankBlankFillingQuestion bq:blankFillingList){
-			        	blankCnt+=countBlank(bq.getContent());
-			        }
-			        eqListMap.put("BLANK_CNT", blankCnt);
-			        eqListMap.put("JUDGE_LIST", judgeList);
-			        ctx.put("EXAM_QUESTION_"+exam.getId(), eqListMap);
+				Exam exam = ses.getExam();
+		        List<ExamQuestion> eqList = examQuestionDao.findByExam(exam);
+		        
+		        ArrayList<BankChoiceQuestion> choiceList=new ArrayList<>();
+		        ArrayList<BankBlankFillingQuestion> blankFillingList = new ArrayList<>();
+		        ArrayList<BankJudgeQuestion> judgeList = new ArrayList<>();
+		        for(ExamQuestion eq:eqList){
+		        	if(eq.getQuestionType()==QuestionType.CHOICE.ordinal()){
+		        		choiceList.add(bankQuestionDao.findChoiceById(eq.getBankChoiceQuestion().getId()));
+		        	}else if(eq.getQuestionType()==QuestionType.BLANK_FILLING.ordinal()){
+		        		blankFillingList.add(bankQuestionDao.findBlankFillingById(eq.getBankBlankFillingQuestion().getId()));
+		        	}else if(eq.getQuestionType()==QuestionType.JUDGE.ordinal()){
+		        		judgeList.add(bankQuestionDao.findJudgeById(eq.getBankJudgeQuestion().getId()));
+		        	}
+		        }
+		        Map<String,Object> eqListMap = new HashMap<>();
+		        eqListMap.put("CHOICE_LIST", choiceList);
+		        eqListMap.put("BLANK_LIST", blankFillingList);
+		        int blankCnt=0;
+		        for(BankBlankFillingQuestion bq:blankFillingList){
+		        	blankCnt+=countBlank(bq.getContent());
+		        }
+		        eqListMap.put("BLANK_CNT", blankCnt);
+		        eqListMap.put("JUDGE_LIST", judgeList);
+		        ctx.put("EXAM_QUESTION_"+exam.getId(), eqListMap);
 			}
 			
 			studentFinishedExamList = studentExamScoreDao.findByStudentAndExamPhase(stu,ExamPhase.FINAL_SCORED.getChineseName());

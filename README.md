@@ -10,16 +10,16 @@ Java实现的包含题库编辑、抽题组卷、试题分析、在线考试等�
 - 章节知识点的分层和树状展示
 - 管理广播消息的推送、系统设置的修改
 
-目前项目的主要技术包含:
+目前项目基于以下平台（框架、库）:
 - JDK 1.8
+- Tomcat 8.0 (with WebSocket)
 - Hibernate 5.1 
 - Struts 2.5
 - Spring 4.3
 - JFreeChart 1.0.19
 - Maven
 - Materialize v0.97.6 (CSS)
-- Font Awesome 5.0.13
-- Tomcat 8.0 WebSocket
+- Font Awesome 5.1.1
 
 项目主要在Eclipse JEE下开发。
 
@@ -60,5 +60,3 @@ Java实现的包含题库编辑、抽题组卷、试题分析、在线考试等�
 
 - (在线考试中)
 ![image](screenshots/screenshot_exam1.png)
-
-目前代码行数约为：13000行 (2018-07-11)

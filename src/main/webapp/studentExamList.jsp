@@ -7,6 +7,7 @@
 	<meta charset="UTF-8">
 	<title>Java考试系统--考试列表</title>
 	<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+	<link type="text/css" rel="stylesheet" href="css/fontawesome-all.min.css">
 	<link type="text/css" rel="stylesheet" href="css/materialize.min.css">
 	<link type="text/css" rel="stylesheet" href="css/material_icons.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -94,7 +95,7 @@
 				</thead>
 				<s:iterator value="studentFinishedExamList" status="st" var="item">
 					<tr
-							style="background-color:<s:if test="#st.odd">#efefef</s:if><s:else>#ffffff</s:else>">
+							style="background-color:<s:if test="#st.odd">#efefef</s:if><s:else>#fefefe</s:else>">
 						<td><s:property value="#st.index+1" /></td>
 						<td><s:property value="exam.name" /></td>
 						<td>
@@ -116,12 +117,20 @@
 							>
 								<s:property value="score" />
 							</a>
+							<s:if test='examDetailAllowed'>
+								<button class="teal right tooltipped" data-position="right" data-tooltip="导出为word文档(*.docx)" 
+								style="border: 0;border-radius: 5px;" onclick="downloadExportFile('<s:url action="downloadexportedfile"><s:param name="stu_id" value="%{student.id}"></s:param><s:param name="exam_id" value="%{exam.id}"></s:param><s:param name="exam_strategy_id" value="%{examStrategy.id}"></s:param></s:url>')">
+									<span class="yellow-text text-lighten-1">导出
+        							<i class="fas fa-file-export fa-sm yellow-text"></i></span>
+								</button>
+							</s:if>
 						</td>
 					</tr>
 				</s:iterator>
 			</table>
 		</div>
 	</div>
+	<form name="myform"></form>
 	<%@ include file="include/footer.jsp" %>
 	
 	<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
@@ -144,6 +153,10 @@
 					window.location.href=examUrl;
 				}
 			}
+		}
+		
+		function downloadExportFile(downloadUrl){
+			location.href=downloadUrl;
 		}
 	
 	    $(document).ready(function () {
