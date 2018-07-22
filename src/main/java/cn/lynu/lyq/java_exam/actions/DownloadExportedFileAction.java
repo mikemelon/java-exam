@@ -1,8 +1,8 @@
 package cn.lynu.lyq.java_exam.actions;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,10 +16,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
 
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.util.Units;
+import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
+import org.apache.struts2.ServletActionContext;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTFonts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
@@ -33,6 +39,7 @@ import cn.lynu.lyq.java_exam.dao.BankQuestionDao;
 import cn.lynu.lyq.java_exam.dao.ExamDao;
 import cn.lynu.lyq.java_exam.dao.ExamQuestionAnswerDao;
 import cn.lynu.lyq.java_exam.dao.ExamQuestionDao;
+import cn.lynu.lyq.java_exam.dao.ExamStrategyDao;
 import cn.lynu.lyq.java_exam.dao.StudentDao;
 import cn.lynu.lyq.java_exam.entity.BankBlankFillingQuestion;
 import cn.lynu.lyq.java_exam.entity.BankChoiceQuestion;
@@ -40,6 +47,7 @@ import cn.lynu.lyq.java_exam.entity.BankJudgeQuestion;
 import cn.lynu.lyq.java_exam.entity.Exam;
 import cn.lynu.lyq.java_exam.entity.ExamQuestion;
 import cn.lynu.lyq.java_exam.entity.ExamQuestionAnswer;
+import cn.lynu.lyq.java_exam.entity.ExamStrategy;
 import cn.lynu.lyq.java_exam.entity.Student;
 import cn.lynu.lyq.java_exam.utils.QuestionUtils;
 
@@ -57,6 +65,8 @@ public class DownloadExportedFileAction extends ActionSupport {
 	private ExamDao examDao;
 	@Resource
 	private StudentDao studentDao;
+	@Resource
+	private ExamStrategyDao examStrategyDao;
 	@Resource
 	private ExamQuestionDao examQuestionDao;
 	@Resource
@@ -94,15 +104,16 @@ public class DownloadExportedFileAction extends ActionSupport {
         int stuId=Integer.parseInt( stuIds.trim());
         int examId=Integer.parseInt( examIds.trim());
         int examStrategyId=Integer.parseInt( examStrategyIds.trim());
-        logger.info("**********"+stuId);
-        logger.info("**********"+examId);
-        logger.info("**********"+examStrategyId);
+        logger.debug("**********"+stuId);
+        logger.debug("**********"+examId);
+        logger.debug("**********"+examStrategyId);
 		
 		
 		Student student = studentDao.findById(stuId);
         Exam exam = examDao.findById(examId);
         
         List<ExamQuestion> eqList = examQuestionDao.findByExam(exam);
+        ExamStrategy examStrategy = examStrategyDao.findById(examStrategyId);
         
         choiceList=new ArrayList<>();
         blankFillingList = new ArrayList<>();
@@ -193,19 +204,28 @@ public class DownloadExportedFileAction extends ActionSupport {
     			eqIdMap.put(QuestionType.JUDGE, eqIdList);
         	}
         }
-        
-        String tmpFilePath = generateDocxFromPaper( choiceList, blankFillingList, judgeList, examQuestionAnswerMap );
+        String paperName = exam.getName();
+        String tmpFilePath = generateDocxFromPaper( paperName, choiceList, blankFillingList, judgeList, examQuestionAnswerMap, examStrategy );
         
         inputStream = new FileInputStream(tmpFilePath);
-		logger.info("*******inputStream="+inputStream);
-		fileName=new String((exam.getName()+".docx").getBytes(),"ISO8859-1");
+		logger.debug("*******inputStream="+inputStream);
+		fileName=new String((paperName+".docx").getBytes(),"ISO8859-1");
 		return SUCCESS;
 	}
 	
-	private String generateDocxFromPaper(List<BankChoiceQuestion> choiceList,	List<BankBlankFillingQuestion> blankFillingList,
-	 List<BankJudgeQuestion> judgeList,  Map<QuestionType,List<Object>> examQuestionAnswerMap){
+	private String generateDocxFromPaper(String paperName, List<BankChoiceQuestion> choiceList,	List<BankBlankFillingQuestion> blankFillingList,
+	 List<BankJudgeQuestion> judgeList,  Map<QuestionType,List<Object>> examQuestionAnswerMap, ExamStrategy examStrategy){
 		
 		XWPFDocument xdoc = new XWPFDocument();
+		//试卷标题
+		XWPFParagraph xparaTitle = xdoc.createParagraph();
+		xparaTitle.setAlignment(ParagraphAlignment.CENTER);
+		XWPFRun titleRun = xparaTitle.createRun();
+		titleRun.setFontFamily("KaiTi");//貌似不起作用？
+		titleRun.setBold(true);
+		titleRun.setFontSize(20);
+		titleRun.setText(paperName);
+		
 		XWPFParagraph xpara = xdoc.createParagraph();
 		
 		//选择题
@@ -213,7 +233,7 @@ public class DownloadExportedFileAction extends ActionSupport {
 			xpara = xdoc.createParagraph();
 			XWPFRun run = xpara.createRun();
 			run.setBold(true); // 加粗
-			run.setText("选择题：");
+			run.setText("选择题：（共"+choiceList.size()+"个小题，每小题"+examStrategy.getChoicePerScore()+"分）");
 			
 			for(int i=0; i<choiceList.size(); i++){
 				//题号
@@ -224,7 +244,9 @@ public class DownloadExportedFileAction extends ActionSupport {
 				//题干
 				BankChoiceQuestion bq = choiceList.get(i);
 				run = xpara.createRun();
-				run.setText(bq.getContent());
+				//run.setText(bq.getContent());
+				showContentWithImageInDoc(run, bq.getContent());
+				
 				//选项A
 				xpara = xdoc.createParagraph();
 				run = xpara.createRun();
@@ -272,7 +294,7 @@ public class DownloadExportedFileAction extends ActionSupport {
 			xpara = xdoc.createParagraph();
 			XWPFRun run = xpara.createRun();
 			run.setBold(true); // 加粗
-			run.setText("填空题：");
+			run.setText("填空题：（共"+blankFillingList.size()+"个小题，每小题"+examStrategy.getBlankPerScore()+"分）");
 			
 			for(int i=0; i<blankFillingList.size(); i++){
 				//题号
@@ -303,7 +325,7 @@ public class DownloadExportedFileAction extends ActionSupport {
 			xpara = xdoc.createParagraph();
 			XWPFRun run = xpara.createRun();
 			run.setBold(true); // 加粗
-			run.setText("判断题：");
+			run.setText("判断题：（共"+judgeList.size()+"个小题，每小题"+examStrategy.getJudgePerScore()+"分）");
 			
 			for(int i=0; i<judgeList.size(); i++){
 				//题号
@@ -400,5 +422,53 @@ public class DownloadExportedFileAction extends ActionSupport {
 			answerList.add(answer.trim().substring(3,endIdx));
 		}
 		return answerList;
+	}
+	
+	/*
+	 * 如果选择题的题干中有 “[[[xxxx.xxx]]]”的图片，则替换为<img src='images/xxxx.xxx'>的Html标签，否则原样返回
+	 */
+	public  static void showContentWithImageInDoc(XWPFRun run, String content){
+//		content = StringEscapeUtils.escapeHtml(content);
+		Pattern pattern = Pattern.compile("\\[{3}\\w+\\.\\w+\\]{3}"); //匹配 “[[[xxxx.xxx]]]”
+		Matcher matcher = pattern.matcher(content);
+		String picFileName = null;
+		if(matcher.find()){
+			picFileName = matcher.group();
+			picFileName = picFileName.substring(3, picFileName.length()-3);
+			String beforePicNameContent = content.substring(0,matcher.start());
+			String afterPicNameContent = content.substring(matcher.end());
+			
+			run.setText(beforePicNameContent);
+			run.addCarriageReturn();
+			String picFilePath = ServletActionContext.getServletContext().getRealPath("images/"+picFileName);
+			addPictureToRun(run, new File(picFilePath));
+			run.setText(afterPicNameContent);
+			run.addCarriageReturn();
+		}else{
+			run.setText(content);
+		}
+	}
+	
+	public static void addPictureToRun(XWPFRun run, File picFile){
+		try {
+			BufferedImage bi = ImageIO.read(picFile);
+			FileInputStream fis = new FileInputStream(picFile);
+			
+			int picType = XWPFDocument.PICTURE_TYPE_PNG;
+			if(picFile.getName().endsWith(".jpg")){
+				picType = XWPFDocument.PICTURE_TYPE_JPEG;
+			}else if(picFile.getName().endsWith(".png")){
+				picType = XWPFDocument.PICTURE_TYPE_PNG;
+			}else if(picFile.getName().endsWith("gif")){
+				picType = XWPFDocument.PICTURE_TYPE_GIF;
+			}
+//			System.out.println(bi.getWidth());
+//			System.out.println(bi.getHeight());
+			run.addPicture(fis, picType, picFile.getAbsolutePath(), Units.toEMU(bi.getWidth()*0.6667), 
+					Units.toEMU(bi.getHeight()*0.6667));
+			fis.close();
+		} catch (InvalidFormatException|IOException e) {
+			e.printStackTrace();
+		} 
 	}
 }
