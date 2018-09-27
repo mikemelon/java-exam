@@ -1,5 +1,5 @@
 # java-exam
-Java实现的包含题库编辑、抽题组卷、试题分析、在线考试等模块的Web教育系统。
+Java实现的包含题库编辑、抽题组卷、试题分析、在线考试等模块的Web考试系统。
 
 已经实现的主要功能有：
 - 在线考试（包含限定时间设置），支持选择题、填空题、判断题三种题型，自动判分
@@ -21,11 +21,11 @@ Java实现的包含题库编辑、抽题组卷、试题分析、在线考试等�
 - Materialize v0.97.6 (CSS)
 - Font Awesome 5.1.1
 
-项目主要在Eclipse JEE下开发。
+项目在Eclipse JEE下开发。
 
 数据库设计：
-- (MySQL导出)
-![image](screenshots/db_design1.bmp)
+- (MySQL Workbench导出)
+![image](screenshots/db_design1.png)
 
 - (简版)
 ![image](screenshots/db_design2.png)
