@@ -34,7 +34,7 @@
 	<hr>
 	<table class="mytable">
 		<tr>
-			<td style="width: 210px;max-width:210px;"><span class="purple-text text-darken-2 comment">选择题：（<a href="other/选择题import.txt">导入格式示例</a>）</span></td>
+			<td style="width: 210px;max-width:210px;"><span class="purple-text text-darken-2 comment">选择题：（<a href="other/选择题import.txt" download="选择题import.txt">导入格式示例</a>）</span></td>
 			<td>
 			    <div class="file-field input-field">
                     <div class="btn">
@@ -55,7 +55,7 @@
     		</td>
 		</tr>
 		<tr>
-			<td style="width: 210px;max-width:210px;"><span class="purple-text text-darken-2 comment">填空题：（<a href="other/填空题import.txt">导入格式示例</a>）</span></td>
+			<td style="width: 210px;max-width:210px;"><span class="purple-text text-darken-2 comment">填空题：（<a href="other/填空题import.txt" download="填空题import.txt">导入格式示例</a>）</span></td>
 			<td>
 			    <div class="file-field input-field">
                     <div class="btn">
@@ -76,7 +76,7 @@
     		</td>
 		</tr>
 		<tr>
-			<td style="width: 210px;max-width:210px;"><span class="purple-text text-darken-2 comment">判断题：（<a href="other/判断题import.txt">导入格式示例</a>）</span></td>
+			<td style="width: 210px;max-width:210px;"><span class="purple-text text-darken-2 comment">判断题：（<a href="other/判断题import.txt" download="判断题import.txt">导入格式示例</a>）</span></td>
 			<td>
 			    <div class="file-field input-field">
                     <div class="btn">
@@ -103,7 +103,7 @@
 	<form class="col s12" name="form2" method="post" action="importstudent" enctype="multipart/form-data">
 	<table class="mytable">
 		<tr>
-			<td style="width: 210px;max-width:210px;"><span class="purple-text text-darken-2 comment">学生信息文件：（<a href="other/学生import.txt">导入格式示例</a>）</span></td>
+			<td style="width: 210px;max-width:210px;"><span class="purple-text text-darken-2 comment">学生信息文件：（<a href="other/学生import.txt" download="学生import.txt">导入格式示例</a>）</span></td>
 			<td>
 			    <div class="file-field input-field">
                     <div class="btn">

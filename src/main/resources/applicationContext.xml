@@ -19,7 +19,7 @@
    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
   		<!-- property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/-->
   		<property name="driverClassName" value="net.sf.log4jdbc.DriverSpy"/>
-  		<property name="url" value="jdbc:mysql://localhost:3306/examdb?serverTimezone=UTC"/>
+  		<property name="url" value="jdbc:mysql://localhost:3306/examdb?serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=UTF-8"/>
   		<!-- property name="url" value="jdbc:log4jdbc:mysql://localhost:3306/examdb?serverTimezone=UTC"/-->
   		<property name="username" value="root"/>
   		<property name="password" value="root"/>
