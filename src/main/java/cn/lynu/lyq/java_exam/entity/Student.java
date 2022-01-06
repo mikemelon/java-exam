@@ -38,6 +38,15 @@ public class Student {
 		this.grade = grade;
 	}
 
+	public Student(String name, String registerNo, boolean gender, String password, int role, Grade grade){
+		this.name = name;
+		this.registerNo = registerNo;
+		this.gender = gender;
+		this.password = password;
+		this.role = role;
+		this.grade = grade;
+	}
+
 	public int getId() {
 		return id;
 	}

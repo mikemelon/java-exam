@@ -79,7 +79,9 @@
 		<action name="logout" class="userLogin" method="logout">
 			<result>main.jsp</result>
 		</action>
-
+		<action name="register" class="userRegister">
+			<result>main.jsp</result>
+		</action>
 		<action name="changepassword" class="userChangePassWord">
 			<result name="input">userChangePassword.jsp</result>
 			<result>main.jsp</result>

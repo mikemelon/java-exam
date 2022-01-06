@@ -37,7 +37,6 @@ public class BlankFillingDetailAction extends ActionSupport {
 		String qid = ctx.getParameters().get("qid").getValue();
 		logger.info("根据id查找填空题详细信息");
 		question = bankQuestionDao.findBlankFillingById(Integer.parseInt(qid.trim()));
-		
 		return SUCCESS;
 	}
 	

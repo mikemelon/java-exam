@@ -10,6 +10,7 @@
     <link type="text/css" rel="stylesheet" href="css/fontawesome-all.min.css">
     <link type="text/css" rel="stylesheet" href="css/materialize.min.css">
     <link type="text/css" rel="stylesheet" href="css/material_icons.css">
+	<link type="text/css" rel="stylesheet" href="css/layui.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style type="text/css">
         body {
@@ -137,7 +138,9 @@
     
 	<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
 	<script type="text/javascript" src="js/materialize.min.js"></script>
-	
+	<script type="text/javascript" src="layui.js"></script>
+
+
 	<script>
 	    $(document).ready(function () {
 	        $('.modal-trigger').leanModal({
@@ -154,6 +157,7 @@
 	        $(".collapsible").collapsible({
 	            accordion: true
 	        });
+			layui.use('form')
 	    })
 	   	
 	</script>
