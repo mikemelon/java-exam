@@ -1,11 +1,10 @@
 package cn.lynu.lyq.java_exam.entity;
 
+import lombok.Data;
+
 import java.util.Date;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 
 @MappedSuperclass
 public abstract class BankQuestion {
@@ -23,7 +22,15 @@ public abstract class BankQuestion {
 	private String knowledgePoint;//知识点
 	private String memo;
 	private int composeFlag;//组卷标志：（目前只用于题目是否参与随机组卷，1表示用于随机组卷）
-	
+	@ManyToOne(cascade = CascadeType.DETACH)
+	@JoinColumn(name="course_id")
+	private Course course;
+	public void setCourse(Course course) {
+		this.course = course;
+	}
+	public Course getCourse() {
+		return course;
+	}
 	public int getId() {
 		return id;
 	}

@@ -37,6 +37,7 @@ public class JspFilter implements Filter {
 				&& url.endsWith("userChangePassword.jsp")==false
 				&& url.endsWith("register.jsp") == false
 				&& url.endsWith("userList.jsp") == false
+				&& url.endsWith("courseList.jsp") == false
 			) { // 这里可以排除掉一些特殊的允许直接地址栏（或重定向）访问的jsp
 			httpServletRequest.getRequestDispatcher("/main.jsp").forward(request, response);
 			return;

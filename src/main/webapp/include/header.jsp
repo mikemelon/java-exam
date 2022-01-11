@@ -12,7 +12,7 @@
                         <s:if test="#session['USER_INFO']==null">
                             <li>
 <%--                            <li><a href="#register_elem" class="waves-effect waves-light btn modal-trigger">注册</a></li>--%>
-                            <li><a href="register.jsp" class="btn">注册</a></li>
+                            <li><a href="registerPage.action" class="btn">注册</a></li>
 
 
                             </li>

@@ -50,28 +50,35 @@
     <div class="container" style="margin-top: 20px;">
         <form name="form1" method="post" action="blanksearchlist">
             <div class="row">
-                <div class="input-field col l3 m4 s12">
+                <div class="input-field col l3 m3 s12">
                     <i class="far fa-comment fa-lg  prefix"></i>
                     <input type="text" placeholder="输入题干包含的内容" id="contentSearch" name="contentSearch"
                            value="<s:property value="contentSearch"/>"
                            class="validate" style="font-size:large">
                     <label for="contentSearch">题干内容</label>
                 </div>
-                <div class="input-field col l3 m4 s12">
+                <div class="input-field col l3 m3 s12">
                     <i class="far fa-question-circle fa-lg prefix"></i>
                     <input type="text" placeholder="输入答案中包含的内容" id="answerSearch" name="answerSearch"
                            value="<s:property value="answerSearch"/>"
                            class="validate" style="font-size:large">
                     <label for="answerSearch">答案内容</label>
                 </div>
-                <div class="input-field col l3 m4 s12">
+                <div class="input-field col l3 m3 s12">
                     <i class="far fa-file fa-lg prefix"></i>
                     <input type="text" placeholder="输入知识点" id="knowledgeSearch" name="knowledgeSearch"
                            value="<s:property value="knowledgeSearch"/>"
                            class="validate" style="font-size:large">
                     <label for="password">知识点</label>
                 </div>
-                <div class="input-field col l3 m4 s12 vertical-align">
+                <div class="input-field col l2 m3 s12">
+                    <i class="far fa-file fa-lg prefix"></i>
+                    <input type="text" placeholder="输入课程" id="CourseSearch" name="CourseSearch"
+                           value="<s:property value="CourseSearch"/>"
+                           class="validate" style="font-size:large">
+                    <label for="CourseSearch">课程</label>
+                </div>
+                <div class="input-field col l3 m3 s12 vertical-align">
                     <button class="red darken-4 waves-effect waves-teal btn-flat" type="submit">
 							<span class="yellow-text text-lighten-1">搜索
 			        		<i class="fas fa-search fa-lg right"></i></span>
@@ -95,6 +102,8 @@
                 <th>题干</th>
                 <th width="80px">答案</th>
                 <th>知识点</th>
+                <th>课程</th>
+
             </tr>
             </thead>
             <s:iterator value="questionList" status="st" var="item">
@@ -127,6 +136,8 @@
                         <s:if test="answer8 != null"><br><s:property value="answer8"/></s:if>
                     </td>
                     <td><s:property value="knowledgePoint"/></td>
+                    <td><s:property value="course.name"/></td>
+
                 </tr>
             </s:iterator>
         </table>

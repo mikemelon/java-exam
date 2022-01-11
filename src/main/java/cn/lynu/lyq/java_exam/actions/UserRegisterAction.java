@@ -5,6 +5,8 @@ import cn.lynu.lyq.java_exam.dao.StudentDao;
 import cn.lynu.lyq.java_exam.entity.Grade;
 import cn.lynu.lyq.java_exam.entity.Student;
 import com.opensymphony.xwork2.ActionSupport;
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.context.annotation.Scope;
@@ -15,11 +17,13 @@ import java.util.List;
 
 @Component("userRegister")
 @Scope("prototype")
+@Slf4j
 public class UserRegisterAction extends ActionSupport {
     public String RegisterNo;
     public String Password;
     public Boolean Sex;
     public String name;
+    public int gradeId;
     public List<Grade> gradeList;
     public int role;
     public void setSex(String value){
@@ -34,15 +38,14 @@ public class UserRegisterAction extends ActionSupport {
     @Override
     public String execute() throws Exception {
         gradeList = gradeDao.findAll();
-        Grade grade = gradeList.get(0);
-        studentDao.save(new Student(name, RegisterNo, Sex, Password, role, grade));
-        logger.info("新用户注册");
-        this.addActionMessage("用户注册成功，请点击登录");
         return SUCCESS;
     }
 
-    public String registerPage() throws Exception {
-        gradeList = gradeDao.findAll();
+    public String registerStudent() throws Exception {
+        Grade grade = gradeDao.findById(gradeId);
+        studentDao.save(new Student(name, RegisterNo, Sex, Password, role, grade));
+        logger.info("新用户注册");
+        this.addActionMessage("用户注册成功，请点击登录");
         return SUCCESS;
     }
 }

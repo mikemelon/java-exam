@@ -72,6 +72,16 @@
 			<result>examHandIn.jsp</result>
 		</action>
 
+
+		<!--课程相关-->
+		<action name="courseList" class="Course">
+			<result>courseList.jsp</result>
+		</action>
+		<action name="delCourse" class="Course" method="delCourse">
+			<result type="chain">
+				<param name="actionName">courseList</param>
+			</result>
+		</action>
 		<!-- 登录，登出 -->
 		<action name="login" class="userLogin">
 			<result>main.jsp</result>
@@ -79,9 +89,11 @@
 		<action name="logout" class="userLogin" method="logout">
 			<result>main.jsp</result>
 		</action>
-		<action name="register" class="userRegister">
-			<result name="input">register.jsp</result>
+		<action name="register" class="userRegister" method="registerStudent">
 			<result>main.jsp</result>
+		</action>
+		<action name="registerPage" class="userRegister">
+			<result>register.jsp</result>
 		</action>
 		<action name="changepassword" class="userChangePassWord">
 			<result name="input">userChangePassword.jsp</result>

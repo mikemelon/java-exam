@@ -1,6 +1,7 @@
 package cn.lynu.lyq.java_exam.dao.impl;
 
 import cn.lynu.lyq.java_exam.dao.CourseDao;
+import cn.lynu.lyq.java_exam.entity.BankChoiceQuestion;
 import cn.lynu.lyq.java_exam.entity.Course;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
@@ -39,6 +40,12 @@ public class CourseDaoImpl implements CourseDao {
         return q.list();
     }
 
+    @Override
+    public int countAllCourse() {
+        Object obj = sessionFactory.getCurrentSession().createQuery("select count(*) from Course").uniqueResult();
+        return ((Number)obj).intValue();
+    }
+
 
     @SuppressWarnings("unchecked")
     @Override
@@ -48,6 +55,17 @@ public class CourseDaoImpl implements CourseDao {
         Query q=sessionFactory.getCurrentSession().createQuery("from Course where name=?0");
         q.setString("0", name);
         return q.list();
+    }
+
+    @Override
+    public List<Course> findAllWithPage(int pageIndex, int pageSize) {
+        Query q=sessionFactory.getCurrentSession().createQuery("from Course");
+        int firstResult = pageIndex*pageSize;
+        q.setFirstResult(firstResult);
+        q.setMaxResults(pageSize);
+        @SuppressWarnings("unchecked")
+        List<Course> list=(List<Course>)q.list();
+        return list;
     }
 
     @Override

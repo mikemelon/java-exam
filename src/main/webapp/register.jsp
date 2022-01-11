@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Java考试系统--数据导入</title>
+    <title>Java考试系统--用户注册</title>
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
     <link type="text/css" rel="stylesheet" href="css/fontawesome-all.min.css">
     <link type="text/css" rel="stylesheet" href="css/materialize.min.css">
@@ -57,8 +57,10 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">班级</label>
                     <div class="layui-input-block">
-                        <select name="grade" lay-filter="grade">
-                            <option value="0">一班</option>
+                        <select name="gradeId" lay-filter="grade">
+                            <s:iterator value="gradeList" var="item">
+                                <option value="<s:property value="id"/>"><s:property value="name" /></option>
+                            </s:iterator>
                         </select>
                     </div>
                 </div>
