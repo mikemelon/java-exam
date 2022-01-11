@@ -1,6 +1,6 @@
 package cn.lynu.lyq.java_exam.entity;
 
-import lombok.Data;
+
 
 import java.util.Date;
 
@@ -8,6 +8,7 @@ import javax.persistence.*;
 
 @MappedSuperclass
 public abstract class BankQuestion {
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
@@ -31,6 +32,7 @@ public abstract class BankQuestion {
 	public Course getCourse() {
 		return course;
 	}
+
 	public int getId() {
 		return id;
 	}

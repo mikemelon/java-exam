@@ -19,31 +19,36 @@ public class BankBlankFillingQuestion extends BankQuestion {
 	
 	public BankBlankFillingQuestion(){}
 	
-	public BankBlankFillingQuestion(String content,String answer,String knowledgePoint) {
+	public BankBlankFillingQuestion(String content,String answer,String knowledgePoint, Course course) {
 		setContent(content);
 		setAnswer(answer);
 		setKnowledgePoint(knowledgePoint);
 		setComposeFlag(1); //默认允许题目参与随机抽题
+		setCourse(course);
 	}
 	
-	public BankBlankFillingQuestion(String content,String answer, String answer2,String knowledgePoint) {
+	public BankBlankFillingQuestion(String content,String answer, String answer2,String knowledgePoint, Course course) {
 		setContent(content);
 		setAnswer(answer);
 		this.answer2 = answer2;
 		setKnowledgePoint(knowledgePoint);
 		setComposeFlag(1); //默认允许题目参与随机抽题
+		setCourse(course);
+
 	}
 	
-	public BankBlankFillingQuestion(String content,String answer, String answer2, String answer3,String knowledgePoint) {
+	public BankBlankFillingQuestion(String content,String answer, String answer2, String answer3,String knowledgePoint, Course course) {
 		setContent(content);
 		setAnswer(answer);
 		this.answer2 = answer2;
 		this.answer3 = answer3;
 		setKnowledgePoint(knowledgePoint);
 		setComposeFlag(1); //默认允许题目参与随机抽题
+		setCourse(course);
+
 	}
 	
-	public BankBlankFillingQuestion(String content,String answer, String answer2, String answer3, String answer4,String knowledgePoint) {
+	public BankBlankFillingQuestion(String content,String answer, String answer2, String answer3, String answer4,String knowledgePoint, Course course) {
 		setContent(content);
 		setAnswer(answer);
 		this.answer2 = answer2;
@@ -51,6 +56,8 @@ public class BankBlankFillingQuestion extends BankQuestion {
 		this.answer4 = answer4;
 		setKnowledgePoint(knowledgePoint);
 		setComposeFlag(1); //默认允许题目参与随机抽题
+		setCourse(course);
+
 	}
 
 	public String getAnswer2() {

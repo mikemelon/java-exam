@@ -11,6 +11,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import cn.lynu.lyq.java_exam.dao.CourseDao;
+import cn.lynu.lyq.java_exam.entity.*;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -21,17 +23,15 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.lynu.lyq.java_exam.dao.BankQuestionDao;
-import cn.lynu.lyq.java_exam.entity.BankBlankFillingQuestion;
-import cn.lynu.lyq.java_exam.entity.BankChoiceQuestion;
-import cn.lynu.lyq.java_exam.entity.BankJudgeQuestion;
-import cn.lynu.lyq.java_exam.entity.BankQuestion;
-@Component("bankQuestionDao") 
+
+@Component("bankQuestionDao")
 @Transactional
 public class BankQuestionDaoImpl implements BankQuestionDao {
 	private final static Logger logger = LoggerFactory.getLogger(BankQuestionDaoImpl.class);
 	@Resource
 	protected SessionFactory sessionFactory;
-	
+	@Resource
+	private CourseDao courseDao;
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
@@ -87,7 +87,19 @@ public class BankQuestionDaoImpl implements BankQuestionDao {
 		Object obj = sessionFactory.getCurrentSession().createQuery("select count(*) from BankJudgeQuestion").uniqueResult();
 		return ((Number)obj).intValue();
 	}
-	
+
+	@Override
+	public Course queryCourse(String name) {
+		List<Course> courses = courseDao.findAll();
+		if (courses.size()>0){
+			return courses.get(0);
+		}else {
+			Course course = new Course(name);
+			courseDao.save(course);
+			return course;
+		}
+	}
+
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	public List<BankChoiceQuestion> findAllChoice() {
@@ -313,6 +325,7 @@ public class BankQuestionDaoImpl implements BankQuestionDao {
 			String[] choices=new String[8];//选项
 			String answer = "";//答案
 			String knowledgePoint="";//知识点
+			String CourseName = "";
 			ImportStringLineTypeForChoice type=null; 
 			
 			while((line=br.readLine())!=null){
@@ -332,7 +345,7 @@ public class BankQuestionDaoImpl implements BankQuestionDao {
 //						logger.debug();
 						
 						BankChoiceQuestion q=new BankChoiceQuestion(content,choices[0],choices[1],choices[2],choices[3],
-								choices[4],choices[5],choices[6],choices[7],answer,knowledgePoint);
+								choices[4],choices[5],choices[6],choices[7],answer,knowledgePoint, queryCourse(CourseName));
 						
 						sessionFactory.getCurrentSession().save(q);
 						
@@ -348,6 +361,8 @@ public class BankQuestionDaoImpl implements BankQuestionDao {
 				}else if(line.startsWith(">>>")){
 					answer = line.substring(3).trim();
 					type=ImportStringLineTypeForChoice.ANSWER;
+				} else if (line.startsWith("%%%")){
+					CourseName = line.substring(3).trim();
 				}else{
 					char firstChar = line.charAt(0);
 					if(Character.isDigit(firstChar)){
@@ -452,6 +467,7 @@ public class BankQuestionDaoImpl implements BankQuestionDao {
 			String content = "";//题干
 			String answer = "";//答案
 			String knowledgePoint="";//知识点
+			String CourseName = "";
 			ImportStringLineTypeForBlank type=null; 
 			
 			while((line=br.readLine())!=null){
@@ -470,22 +486,23 @@ public class BankQuestionDaoImpl implements BankQuestionDao {
 //						logger.debug();
 						
 						BankBlankFillingQuestion q=null;
+						Course course = queryCourse(CourseName);
 						if(answer!=null && !answer.equals("")){
 							if(answer.contains(",")){
 								String[] answers = answer.split(",");
 								switch(answers.length){
 									case 2:
-										q=new BankBlankFillingQuestion(content,answers[0],answers[1],knowledgePoint);
+										q=new BankBlankFillingQuestion(content,answers[0],answers[1],knowledgePoint, course);
 										break;
 									case 3:
-										q=new BankBlankFillingQuestion(content,answers[0],answers[1],answers[2],knowledgePoint);
+										q=new BankBlankFillingQuestion(content,answers[0],answers[1],answers[2],knowledgePoint, course);
 										break;	
 									case 4:
-										q=new BankBlankFillingQuestion(content,answers[0],answers[1],answers[2],answers[3],knowledgePoint);
+										q=new BankBlankFillingQuestion(content,answers[0],answers[1],answers[2],answers[3],knowledgePoint, course);
 										break;
 								}
 							}else{
-								q=new BankBlankFillingQuestion(content,answer,knowledgePoint);
+								q=new BankBlankFillingQuestion(content,answer,knowledgePoint, course);
 							}
 						}
 						
@@ -499,6 +516,8 @@ public class BankQuestionDaoImpl implements BankQuestionDao {
 				}else if(line.startsWith("***")){
 					knowledgePoint = line.substring(3).trim();
 					type=ImportStringLineTypeForBlank.KNOWLEDGE_POINT;
+				} else if (line.startsWith("%%%")){
+					CourseName = line.substring(3).trim();
 				}else if(line.startsWith(">>>")){
 					answer = line.substring(3).trim();
 					type=ImportStringLineTypeForBlank.ANSWER;
@@ -547,6 +566,7 @@ public class BankQuestionDaoImpl implements BankQuestionDao {
 			String content = "";//题干
 			String answer = "";//答案
 			String knowledgePoint="";//知识点
+			String CourseName = "";
 			ImportStringLineTypeForJudge type=null; 
 			
 			while((line=br.readLine())!=null){
@@ -563,8 +583,8 @@ public class BankQuestionDaoImpl implements BankQuestionDao {
 //						logger.debug("答案："+answer);
 //						logger.debug("知识点："+knowledgePoint);
 //						logger.debug();
-						
-						BankJudgeQuestion q=new BankJudgeQuestion(content,answer,knowledgePoint);
+//						CourseName
+						BankJudgeQuestion q=new BankJudgeQuestion(content,answer,knowledgePoint, queryCourse(CourseName));
 						
 						sessionFactory.getCurrentSession().save(q);
 						
@@ -579,6 +599,8 @@ public class BankQuestionDaoImpl implements BankQuestionDao {
 				}else if(line.startsWith(">>>")){
 					answer = line.substring(3).trim();
 					type=ImportStringLineTypeForJudge.ANSWER;
+				} else if (line.startsWith("%%%")){
+					CourseName = line.substring(3).trim();
 				}else{
 					char firstChar = line.charAt(0);
 					if(Character.isDigit(firstChar)){
