@@ -1,5 +1,6 @@
 package cn.lynu.lyq.java_exam.actions;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -64,6 +65,8 @@ public class ChoiceQuestionSearchAction extends ActionSupport{
 		logger.debug("setting answerSearch2========================"+answerSearch2);
 		this.answerSearch2 = answerSearch2;
 	}
+
+	public int[] choiceChecked;
 	
 	public String getKnowledgeSearch() {
 		return knowledgeSearch;
@@ -126,5 +129,13 @@ public class ChoiceQuestionSearchAction extends ActionSupport{
 		return SUCCESS;
 	}
 
+	public String deleteQuestion(){
+//		bankQuestionDao.delete(bankQuestionDao.findJudgeById(1))
+		for (int cid:choiceChecked){
+			logger.info("删除id为"+cid+"的选择题");
+			bankQuestionDao.delete(bankQuestionDao.findChoiceById(cid));
+		}
+		return SUCCESS;
+	}
 
 }

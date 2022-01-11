@@ -29,7 +29,7 @@ public class JudgeQuestionSearchAction extends ActionSupport{
 	private static final int PAGE_SIZE = 10;
 	@Resource
 	private BankQuestionDao bankQuestionDao;
-	
+	public int[] judgeChecked;
 	public String getContentSearch() {
 		return contentSearch;
 	}
@@ -80,6 +80,14 @@ public class JudgeQuestionSearchAction extends ActionSupport{
 		logger.debug("answerSearch="+answerSearch);
 		logger.debug("knowledgeSearch="+knowledgeSearch);
 		questionList = bankQuestionDao.findJudgeForSearch(contentSearch,answerSearch,knowledgeSearch);
+		return SUCCESS;
+	}
+
+	public String deleteQuestion(){
+		for (int cid:judgeChecked){
+			logger.info("删除id为"+cid+"的判断题");
+			bankQuestionDao.delete(bankQuestionDao.findJudgeById(cid));
+		}
 		return SUCCESS;
 	}
 }

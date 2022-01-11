@@ -32,7 +32,8 @@
 	    <div class="container" style="padding: 20px;">
 	    	<div class="divider" style="height:20px;background:#fff;"></div>
 	        <div class="row">
-	        
+	        	<s:if test="#session['USER_INFO'] == null || #session['USER_INFO'].role==0">
+
 		        <div class="col s12 m4">
 		            <div class="card">
 		                <div class="card-image waves-effect waves-block waves-light my-opacity" >
@@ -47,21 +48,50 @@
 		            </div>
 	        	</div>
 	        	
-		        <div class="col s12 m4">
-		            <div class="card">
-		                <div class="card-image waves-effect waves-block waves-light my-opacity">
-		                    <a href="questionByKnowledge.jsp"><img class="activator" src="images/categories2.jpg"></a>
-		                </div>
-		                <div class="card-content">
-		                	<a href="questionByKnowledge.jsp">
-		                    <span class="card-title activator light-green-text text-darken-4">章节练习
+<%--		        <div class="col s12 m4">--%>
+<%--		            <div class="card">--%>
+<%--		                <div class="card-image waves-effect waves-block waves-light my-opacity">--%>
+<%--		                    <a href="questionByKnowledge.jsp"><img class="activator" src="images/categories2.jpg"></a>--%>
+<%--		                </div>--%>
+<%--		                <div class="card-content">--%>
+<%--		                	<a href="questionByKnowledge.jsp">--%>
+<%--		                    <span class="card-title activator light-green-text text-darken-4">章节练习--%>
+<%--		                    <i class="fas fa-sign-in-alt fa-lg right light-green-text"></i></span></a>--%>
+<%--		                    <p><a href="questionByKnowledge.jsp">按照章节知识点分类进行练习</a></p>--%>
+<%--		                </div>--%>
+<%--		            </div>--%>
+<%--	        	</div>--%>
+				<div class="col s12 m4">
+					<div class="card">
+						<div class="card-image waves-effect waves-block waves-light my-opacity">
+							<a href="questionTypes.jsp"><img class="activator" src="images/questiontype2.jpg"></a>
+						</div>
+						<div class="card-content">
+							<a href="questionTypes.jsp">
+						<span class="card-title activator light-green-text text-darken-4">试题练习
+						<i class="fas fa-sign-in-alt fa-lg right light-green-text"></i></span></a>
+							<p><a href="questionTypes.jsp">选择题、填空题、判断题练习</a></p>
+						</div>
+					</div>
+				</div>
+				</s:if>
+				<s:if test="#session['USER_INFO']!=null && #session['USER_INFO'].role==2">
+					<div class="col s12 m4">
+						<div class="card">
+							<div class="card-image waves-effect waves-block waves-light my-opacity">
+								<a href="manageuser.action"><img class="activator" src="images/questiontype2.jpg"></a>
+							</div>
+							<div class="card-content">
+								<a href="userList.jsp">
+		                    <span class="card-title activator light-green-text text-darken-4">用户管理
 		                    <i class="fas fa-sign-in-alt fa-lg right light-green-text"></i></span></a>
-		                    <p><a href="questionByKnowledge.jsp">按照章节知识点分类进行练习</a></p>
-		                </div>
-		            </div>
-	        	</div>
-	        	
-	        	<s:if test="#session['USER_INFO']!=null && #session['USER_INFO'].role==1">
+								<p><a href="manageuser.action">管理教师和学生账号</a></p>
+							</div>
+						</div>
+					</div>
+				</s:if>
+
+				<s:if test="#session['USER_INFO']!=null && #session['USER_INFO'].role==1">
 	        	<div class="col s12 m4">
 		            <div class="card">
 		                <div class="card-image waves-effect waves-block waves-light my-opacity">
@@ -69,15 +99,12 @@
 		                </div>
 		                <div class="card-content">
 		                	<a href="questionTypes.jsp">
-		                    <span class="card-title activator light-green-text text-darken-4">题型练习
+		                    <span class="card-title activator light-green-text text-darken-4">试题管理
 		                    <i class="fas fa-sign-in-alt fa-lg right light-green-text"></i></span></a>
-		                    <p><a href="questionTypes.jsp">按选择题、填空题、判断题分别练习</a></p>
+		                    <p><a href="questionTypes.jsp">管理选择题、填空题、判断题</a></p>
 		                </div>
 		            </div>
 	        	</div>
-	        	</s:if>
-	        	
-	        	<s:if test="#session['USER_INFO']!=null && #session['USER_INFO'].role==1">
 		        <div class="col s12 m4">
 		            <div class="card">
 		                <div class="card-image waves-effect waves-block waves-light my-opacity">
@@ -91,9 +118,6 @@
 		                </div>
 		            </div>
 	        	</div>
-	        	</s:if>
-
-				<s:if test="#session['USER_INFO']!=null && #session['USER_INFO'].role==1">
 		        <div class="col s12 m4">
 		            <div class="card">
 		                <div class="card-image waves-effect waves-block waves-light my-opacity">
@@ -101,15 +125,12 @@
 		                </div>
 		                <div class="card-content">
 		                	<a href="importData.jsp">
-		                    <span class="card-title activator light-green-text text-darken-4">导入导出
+		                    <span class="card-title activator light-green-text text-darken-4">数据导入
 		                    <i class="fas fa-sign-in-alt fa-lg right light-green-text"></i></span></a>
-		                    <p><a href="importData.jsp">用户、试题等数据的导入导出</a></p>
+		                    <p><a href="importData.jsp">用户、试题等数据的导入</a></p>
 		                </div>
 		            </div>
 	        	</div>
-	        	</s:if>
-	        	
-	        	<s:if test="#session['USER_INFO']!=null && #session['USER_INFO'].role==1">
 		        <div class="col s12 m4">
 		            <div class="card">
 		                <div class="card-image waves-effect waves-block waves-light my-opacity">

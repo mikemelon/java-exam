@@ -17,7 +17,6 @@ import cn.lynu.lyq.java_exam.entity.Grade;
 
 @Component("gradeDao")
 @Transactional
-
 public class GradeDaoImpl implements GradeDao {
 	private final static Logger logger = LoggerFactory.getLogger(GradeDaoImpl.class);
 	@Resource
@@ -30,8 +29,7 @@ public class GradeDaoImpl implements GradeDao {
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
 	public Grade findById(int id) {
-		Grade g = sessionFactory.getCurrentSession().get(Grade.class, id);
-		return g;
+		return sessionFactory.getCurrentSession().get(Grade.class, id);
 	}
 	
 	@SuppressWarnings("unchecked")

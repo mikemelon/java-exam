@@ -17,7 +17,7 @@ public class Student {
 	private String name;
 	private boolean gender;
 	private String password;
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.DETACH)
 	@JoinColumn(name="grade_id")
 	private Grade grade;
 	private int role; //权限  role=0表示学生， role=1表示“教师或管理员”

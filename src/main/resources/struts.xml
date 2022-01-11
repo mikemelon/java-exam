@@ -80,6 +80,7 @@
 			<result>main.jsp</result>
 		</action>
 		<action name="register" class="userRegister">
+			<result name="input">register.jsp</result>
 			<result>main.jsp</result>
 		</action>
 		<action name="changepassword" class="userChangePassWord">
@@ -87,6 +88,15 @@
 			<result>main.jsp</result>
 		</action>
 
+		<!-- 管理员功能-->
+		<action name="manageuser" class="userList">
+			<result>userList.jsp</result>
+		</action>
+		<action name="delStudent" class="userList" method="delUser">
+			<result type="chain">
+				<param name="actionName">manageuser</param>
+			</result>
+		</action>
 		<!-- 数据导入 -->
 		<action name="importchoice" class="questionImport">
 			<result>importData.jsp</result>
@@ -115,6 +125,12 @@
 				<param name="root">questionList</param>
 			</result>
 		</action>
+		<action name="deleteChoice" class="choiceQuestionSearch" method="deleteQuestion">
+			<result type="chain">
+				<param name="actionName">searchchoice</param>
+			</result>
+		</action>
+
 		<action name="choicedetail" class="choiceDetail">
 			<result>choiceDetail.jsp</result>
 		</action>
@@ -122,6 +138,13 @@
 		<action name="searchblank" class="blankQuestionSearch">
 			<result>searchBlank.jsp</result>
 		</action>
+
+		<action name="deleteBlank" class="blankQuestionSearch" method="deleteQuestion">
+			<result type="chain">
+				<param name="actionName">searchblank</param>
+			</result>
+		</action>
+
 		<action name="blanksearchlist" class="blankQuestionSearch"
 			method="executeForSearch">
 			<result>searchBlank.jsp</result>
@@ -139,6 +162,12 @@
 		<action name="searchjudge" class="judgeQuestionSearch">
 			<result>searchJudge.jsp</result>
 		</action>
+		<action name="deletejudge" class="judgeQuestionSearch" method="deleteQuestion">
+			<result type="chain">
+				<param name="actionName">searchjudge</param>
+			</result>
+		</action>
+
 		<action name="judgesearchlist" class="judgeQuestionSearch"
 			method="executeForSearch">
 			<result>searchJudge.jsp</result>

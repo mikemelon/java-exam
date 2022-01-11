@@ -22,7 +22,63 @@
 </head>
 <body>
 <%@ include file="include/header.jsp" %>
-
+        <div class="layui-container">
+            <form class="layui-form" action="register" method="post" name="register_form">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">姓名</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="name" required lay-verify="required" placeholder="请输入姓名"
+                               autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">学号</label>
+                    <div class="layui-input-block">
+                        <input type="text" required lay-verify="required" placeholder="请输入学号" autocomplete="off"
+                               class="layui-input"
+                               name="RegisterNo">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">密码</label>
+                    <div class="layui-input-block">
+                        <input type="password" required lay-verify="required" placeholder="请输入学号" autocomplete="off"
+                               class="layui-input" name="Password">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">性别</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="sex" value="true" title="男">
+                        <input type="radio" name="sex" value="false" title="女" checked>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">班级</label>
+                    <div class="layui-input-block">
+                        <select name="grade" lay-filter="grade">
+                            <option value="0">一班</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">角色</label>
+                    <div class="layui-input-block">
+                        <select name="role" lay-filter="role">
+                            <option value="0">学生</option>
+                            <option value="1">教师</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit lay-filter="formDemo">注册</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    </div>
+                </div>
+            </form>
+        </div>
 <%@ include file="include/footer.jsp" %>
 <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="js/materialize.min.js"></script>
@@ -41,23 +97,7 @@
 </s:if>
 
 <script>
-    layui.use(['form', 'layer'], function () {
-        var form = layui.form;
-        var layer = layui.layer;
-        form.on("submit(formDemo)", function (data) {
-            $.post("register.jsp", data.field, function () {
-                layer.open({
-                    title: '注册成功'
-                    , content: '点击确定跳转到登录'
-                    , yes: function (index, layero) {
-                        window.location = "/java_exam_war/main.jsp"
-                    }
-                });
-            })
-
-            return false
-        })
-    })
+    layui.use('form')
 
 </script>
 

@@ -26,7 +26,7 @@ public class BlankQuestionSearchAction extends ActionSupport{
 	private int totalPage;
 	private int pageIndex;
 	private static final int PAGE_SIZE = 10;
-	
+	public int[] blankChecked;
 	@Resource
 	private BankQuestionDao bankQuestionDao;
 
@@ -80,6 +80,14 @@ public class BlankQuestionSearchAction extends ActionSupport{
 		logger.debug("answerSearch="+answerSearch);
 		logger.debug("knowledgeSearch="+knowledgeSearch);
 		questionList = bankQuestionDao.findBlankForSearch(contentSearch,answerSearch,knowledgeSearch);
+		return SUCCESS;
+	}
+
+	public String deleteQuestion(){
+		for (int cid:blankChecked){
+			logger.info("删除id为"+cid+"的填空题");
+			bankQuestionDao.delete(bankQuestionDao.findBlankFillingById(cid));
+		}
 		return SUCCESS;
 	}
 }

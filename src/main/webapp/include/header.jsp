@@ -11,7 +11,8 @@
 
                         <s:if test="#session['USER_INFO']==null">
                             <li>
-                            <li><a href="#register_elem" class="waves-effect waves-light btn modal-trigger">注册</a></li>
+<%--                            <li><a href="#register_elem" class="waves-effect waves-light btn modal-trigger">注册</a></li>--%>
+                            <li><a href="register.jsp" class="btn">注册</a></li>
 
 
                             </li>
@@ -83,66 +84,4 @@
            class="waves-effect waves-light btn btn-flat modal-action modal-close">确定</a>
     </div>
 
-</div>
-<div id="register_elem" class="modal modal-fixed-footer" style="height: 80%; width: 81%">
-    <div class="modal-content">
-        <h4>输入注册信息</h4>
-        <div class="layui-container">
-            <form class="layui-form" action="register" method="post" name="register_form">
-                <div class="layui-form-item">
-                    <label class="layui-form-label">姓名</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="name" required lay-verify="required" placeholder="请输入姓名"
-                               autocomplete="off"
-                               class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">学号</label>
-                    <div class="layui-input-block">
-                        <input type="text" required lay-verify="required" placeholder="请输入学号" autocomplete="off"
-                               class="layui-input"
-                               name="RegisterNo">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">密码</label>
-                    <div class="layui-input-block">
-                        <input type="password" required lay-verify="required" placeholder="请输入学号" autocomplete="off"
-                               class="layui-input" name="Password">
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">性别</label>
-                    <div class="layui-input-block">
-                        <input type="radio" name="sex" value="true" title="男">
-                        <input type="radio" name="sex" value="false" title="女" checked>
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">班级</label>
-                    <div class="layui-input-block">
-                        <select name="grade" lay-filter="grade">
-                            <option value="0">一班</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">角色</label>
-                    <div class="layui-input-block">
-                        <select name="role" lay-filter="role">
-                            <option value="0">学生</option>
-                            <option value="1">教师</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <div class="layui-input-block">
-                        <button class="layui-btn" lay-submit lay-filter="formDemo">注册</button>
-                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
 </div>
