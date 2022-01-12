@@ -45,8 +45,8 @@
 </head>
 <body>
 <%@ include file="include/header.jsp" %>
-<form action="delCourse" style="display: none" name="delUser" method="post">
-    <input type="hidden" name="courseId">
+<form action="delKnowledge" style="display: none" name="delUser" method="post">
+    <input type="hidden" name="pointId">
 </form>
 <div id="main">
     <div class="container" style="margin-top: 20px;">
@@ -66,19 +66,19 @@
                 </div>
             </div>
         </form>
-        <button class="layui-btn layui-btn-normal" onclick="window.location = 'createCourse.jsp'">新增</button>
+            <button class="layui-btn layui-btn-normal" onclick="window.location = 'createKnowledge.jsp'">新增</button>
         <table class="mytable">
             <thead>
             <tr>
                 <th>序号</th>
-                <th>课程名</th>
+                <th>知识点</th>
             </tr>
             </thead>
 
-            <s:iterator value="courses" status="st" var="item">
+            <s:iterator value="knowledgePoints" status="st" var="item">
                 <tr
                         style="background-color:<s:if test="#st.odd">#efefef</s:if><s:else>#ffffff</s:else>">
-                    <td><s:property value="#st.index+pageIndex*courses.size+1" /></td>
+                    <td><s:property value="#st.index+pageIndex*knowledgePoints.size+1" /></td>
                     <td><s:property value="name"/></td>
                     <td>
                         <button class="layui-btn layui-btn-danger" onclick="deleteUser(this)" value=<s:property value="id"/>>删除</button>
@@ -118,19 +118,19 @@
 <script>
     function selectPage(page){
         form2.pageIndex.value=page-1;
-        form2.action="courseList";
+        form2.action="knowledgeList";
         form2.submit();
     }
 
     function deleteUser(elem){
         $(elem).parent().parent().remove()
-        delUser.courseId.value = elem.value;
+        delUser.pointId.value = elem.value;
         delUser.submit()
     }
 
     function update(elem){
-        delUser.action = "updateCoursePage"
-        delUser.courseId.value = elem.value
+        delUser.action = "updateKnowledgePage"
+        delUser.pointId.value = elem.value
         delUser.submit()
 
     }

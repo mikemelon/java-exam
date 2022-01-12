@@ -12,6 +12,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import cn.lynu.lyq.java_exam.dao.CourseDao;
+import cn.lynu.lyq.java_exam.dao.KnowledgePointDao;
 import cn.lynu.lyq.java_exam.entity.*;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -32,6 +33,17 @@ public class BankQuestionDaoImpl implements BankQuestionDao {
 	protected SessionFactory sessionFactory;
 	@Resource
 	private CourseDao courseDao;
+	@Resource
+	private KnowledgePointDao knowledgePointDao;
+
+	public void setKnowledgePointDao(KnowledgePointDao knowledgePointDao) {
+		this.knowledgePointDao = knowledgePointDao;
+	}
+
+	public KnowledgePointDao getKnowledgePointDao() {
+		return knowledgePointDao;
+	}
+
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
@@ -90,7 +102,7 @@ public class BankQuestionDaoImpl implements BankQuestionDao {
 
 	@Override
 	public Course queryCourse(String name) {
-		List<Course> courses = courseDao.findAll();
+		List<Course> courses = courseDao.findByName(name);
 		if (courses.size()>0){
 			return courses.get(0);
 		}else {
@@ -99,6 +111,19 @@ public class BankQuestionDaoImpl implements BankQuestionDao {
 			return course;
 		}
 	}
+
+	@Override
+	public KnowledgePoint queryKnowledge(String name) {
+		List<KnowledgePoint> knowledgePoints = knowledgePointDao.findElemByName(name);
+		if (knowledgePoints.size()>0){
+			return knowledgePoints.get(0);
+		}else {
+			KnowledgePoint knowledgePoint  = new KnowledgePoint(name);
+			knowledgePointDao.save(knowledgePoint);
+			return knowledgePoint;
+		}
+	}
+
 
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED,readOnly=true)
@@ -315,7 +340,7 @@ public class BankQuestionDaoImpl implements BankQuestionDao {
 		OPTION_G,OPTION_H,ANSWER,KNOWLEDGE_POINT};//题干、选项(A~H)、答案、知识点
 	@Override
 	@Transactional(propagation=Propagation.NOT_SUPPORTED)
-	public int importChoiceFromTxt(File txtFile) {
+	public int importChoiceFromTxt(File txtFile)  {
 		BufferedReader br= null;
 		int cnt = 0;
 		try {
@@ -345,7 +370,7 @@ public class BankQuestionDaoImpl implements BankQuestionDao {
 //						logger.debug();
 						
 						BankChoiceQuestion q=new BankChoiceQuestion(content,choices[0],choices[1],choices[2],choices[3],
-								choices[4],choices[5],choices[6],choices[7],answer,knowledgePoint, queryCourse(CourseName));
+								choices[4],choices[5],choices[6],choices[7],answer,queryKnowledge(knowledgePoint), queryCourse(CourseName));
 						
 						sessionFactory.getCurrentSession().save(q);
 						
@@ -487,22 +512,23 @@ public class BankQuestionDaoImpl implements BankQuestionDao {
 						
 						BankBlankFillingQuestion q=null;
 						Course course = queryCourse(CourseName);
+						KnowledgePoint knowledgePointInstance = queryKnowledge(knowledgePoint);
 						if(answer!=null && !answer.equals("")){
 							if(answer.contains(",")){
 								String[] answers = answer.split(",");
 								switch(answers.length){
 									case 2:
-										q=new BankBlankFillingQuestion(content,answers[0],answers[1],knowledgePoint, course);
+										q=new BankBlankFillingQuestion(content,answers[0],answers[1],knowledgePointInstance, course);
 										break;
 									case 3:
-										q=new BankBlankFillingQuestion(content,answers[0],answers[1],answers[2],knowledgePoint, course);
+										q=new BankBlankFillingQuestion(content,answers[0],answers[1],answers[2],knowledgePointInstance, course);
 										break;	
 									case 4:
-										q=new BankBlankFillingQuestion(content,answers[0],answers[1],answers[2],answers[3],knowledgePoint, course);
+										q=new BankBlankFillingQuestion(content,answers[0],answers[1],answers[2],answers[3],knowledgePointInstance, course);
 										break;
 								}
 							}else{
-								q=new BankBlankFillingQuestion(content,answer,knowledgePoint, course);
+								q=new BankBlankFillingQuestion(content,answer,knowledgePointInstance, course);
 							}
 						}
 						
@@ -584,7 +610,7 @@ public class BankQuestionDaoImpl implements BankQuestionDao {
 //						logger.debug("知识点："+knowledgePoint);
 //						logger.debug();
 //						CourseName
-						BankJudgeQuestion q=new BankJudgeQuestion(content,answer,knowledgePoint, queryCourse(CourseName));
+						BankJudgeQuestion q=new BankJudgeQuestion(content,answer,queryKnowledge(knowledgePoint), queryCourse(CourseName));
 						
 						sessionFactory.getCurrentSession().save(q);
 						

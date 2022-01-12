@@ -34,7 +34,9 @@ public interface BankQuestionDao {
 	BankChoiceQuestion findChoiceById(int id);
 	BankBlankFillingQuestion findBlankFillingById(int id);
 	BankJudgeQuestion findJudgeById(int id);
-	
+
+	KnowledgePoint queryKnowledge(String name);
+
 	void save(BankQuestion bq);
 	void update(BankQuestion bq);
 	void delete(BankQuestion bq);

@@ -11,7 +11,7 @@ public class BankJudgeQuestion extends BankQuestion {
 	
 	public BankJudgeQuestion(){}
 	
-	public BankJudgeQuestion(String content,String answer,String knowledgePoint, Course course) {
+	public BankJudgeQuestion(String content,String answer,KnowledgePoint knowledgePoint, Course course) {
 		setContent(content);
 		setAnswer(answer);
 		setKnowledgePoint(knowledgePoint);

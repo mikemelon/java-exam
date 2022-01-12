@@ -82,6 +82,20 @@
 				<param name="actionName">courseList</param>
 			</result>
 		</action>
+		<action name="addCourse" class="Course" method="create">
+			<result type="chain">
+				<param name="actionName">courseList</param>
+			</result>
+		</action>
+		<action name="updateCourse" class="Course" method="update">
+			<result type="chain">
+				<param name="actionName">courseList</param>
+			</result>
+		</action>
+		<action name="updateCoursePage" class="Course" method="updatePage">
+			<result>updateCourse.jsp</result>
+		</action>
+
 		<!-- 登录，登出 -->
 		<action name="login" class="userLogin">
 			<result>main.jsp</result>
@@ -108,6 +122,28 @@
 			<result type="chain">
 				<param name="actionName">manageuser</param>
 			</result>
+		</action>
+		<!-- 知识点 -->
+		<action name="KnowledgeList" class="KnowledgePoint">
+			<result>knowledgeList.jsp</result>
+		</action>
+		<action name="addKnowledge" class="KnowledgePoint" method="create">
+			<result type="chain">
+				<param name="actionName">KnowledgeList</param>
+			</result>
+		</action>
+		<action name="delKnowledge" class="KnowledgePoint" method="delete">
+			<result type="chain">
+				<param name="actionName">KnowledgeList</param>
+			</result>
+		</action>
+		<action name="updateKnowledge" class="KnowledgePoint" method="update">
+			<result type="chain">
+				<param name="actionName">KnowledgeList</param>
+			</result>
+		</action>
+		<action name="updateKnowledgePage" class="KnowledgePoint" method="updatePage">
+			<result>updateKnowledge.jsp</result>
 		</action>
 		<!-- 数据导入 -->
 		<action name="importchoice" class="questionImport">

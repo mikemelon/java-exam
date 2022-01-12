@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import com.opensymphony.xwork2.ActionSupport;
 
 import cn.lynu.lyq.java_exam.dao.BankQuestionDao;
+import org.hibernate.exception.ConstraintViolationException;
 @Component("questionImport")
 @Scope("prototype")
 public class QuestionImportAction extends ActionSupport {
@@ -112,7 +113,14 @@ public class QuestionImportAction extends ActionSupport {
 	@Override
 	public String execute() throws Exception {  //只针对选择题
 		logger.info("导入选择题");
-		int cnt = bankQuestionDao.importChoiceFromTxt(choiceImportFile);
+		int cnt = 0;
+		try {
+			cnt = bankQuestionDao.importChoiceFromTxt(choiceImportFile);
+
+		} catch (ConstraintViolationException e) {
+			this.addActionError("重复试题无法导入");
+			return ERROR;
+		}
 		logger.debug("choiceImportFile="+choiceImportFile);
 		logger.debug("choiceFilePath="+choiceFilePath);
 		this.addActionMessage(cnt+"道选择题已经导入题库");
@@ -121,7 +129,13 @@ public class QuestionImportAction extends ActionSupport {
 	
 	public String executeForBlank() throws Exception {
 		logger.info("导入填空题");
-		int cnt = bankQuestionDao.importBlankFromTxt(blankImportFile);
+		int cnt = 0;
+		try {
+			cnt = bankQuestionDao.importBlankFromTxt(blankImportFile);
+		} catch (ConstraintViolationException e) {
+			this.addActionError("重复试题无法导入");
+			return ERROR;
+		}
 		logger.debug("blankImportFile="+blankImportFile);
 		logger.debug("blankFilePath="+blankFilePath);
 		this.addActionMessage(cnt+"道填空题已经导入题库");
@@ -130,7 +144,14 @@ public class QuestionImportAction extends ActionSupport {
 	
 	public String executeForJudge() throws Exception {
 		logger.info("导入判断题");
-		int cnt = bankQuestionDao.importJudgeFromTxt(judgeImportFile);
+
+		int cnt = 0;
+		try {
+			cnt = bankQuestionDao.importJudgeFromTxt(judgeImportFile);
+		} catch (ConstraintViolationException e) {
+			this.addActionError("重复试题无法导入");
+			return ERROR;
+		}
 		logger.debug("judgeImportFile="+judgeImportFile);
 		logger.debug("judgeFilePath="+judgeFilePath);
 		this.addActionMessage(cnt+"道判断题已经导入题库");

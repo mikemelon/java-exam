@@ -20,7 +20,7 @@ public class BankChoiceQuestion extends BankQuestion {
 	
 	public BankChoiceQuestion(){}
 	
-	public BankChoiceQuestion(String content,String choiceA, String choiceB, String choiceC, String choiceD,String answer,String knowledgePoint, Course course) {
+	public BankChoiceQuestion(String content,String choiceA, String choiceB, String choiceC, String choiceD,String answer,KnowledgePoint knowledgePoint, Course course) {
 		setContent(content);
 		this.choiceA = choiceA;
 		this.choiceB = choiceB;
@@ -34,7 +34,7 @@ public class BankChoiceQuestion extends BankQuestion {
 	}
 
 	public BankChoiceQuestion(String content,String choiceA, String choiceB, String choiceC, String choiceD,
-							  String choiceE, String choiceF, String choiceG, String choiceH,	String answer,String knowledgePoint, Course course) {
+							  String choiceE, String choiceF, String choiceG, String choiceH,	String answer,KnowledgePoint knowledgePoint, Course course) {
 		setContent(content);
 		this.choiceA = choiceA;
 		this.choiceB = choiceB;

@@ -157,6 +157,19 @@
 		                </div>
 		            </div>
 	        	</div>
+					<div class="col s12 m4">
+						<div class="card">
+							<div class="card-image waves-effect waves-block waves-light my-opacity">
+								<a href="KnowledgeList.action"><img class="activator" src="images/questiontype2.jpg"></a>
+							</div>
+							<div class="card-content">
+								<a href="KnowledgeList.action">
+		                    <span class="card-title activator light-green-text text-darken-4">知识点管理
+		                    <i class="fas fa-sign-in-alt fa-lg right light-green-text"></i></span></a>
+								<p><a href="KnowledgeList.action">管理知识点</a></p>
+							</div>
+						</div>
+					</div>
 	        	</s:if>
 	        	
 	        </div>
