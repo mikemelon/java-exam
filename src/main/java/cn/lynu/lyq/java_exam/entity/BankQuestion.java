@@ -1,18 +1,19 @@
 package cn.lynu.lyq.java_exam.entity;
 
+
+
 import java.util.Date;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 
 @MappedSuperclass
 public abstract class BankQuestion {
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	private String name;//题目标题，可省略
+	@Column(unique = true)
 	private String content; //题干，对于填空题、判断题就是题目本身，
 	//如果题目包含图片，这是图片的存放路径；如果题目包含多张图片，则用“[pic1,pic2,...]”的语法
 	private String picLocation;  
@@ -20,10 +21,21 @@ public abstract class BankQuestion {
 	private String answer;
 	private Date createDate;
 	private String contributor;//出题人，或题目贡献者，如果有的话
-	private String knowledgePoint;//知识点
+	@ManyToOne(cascade = CascadeType.DETACH)
+	@JoinColumn(name = "knowledge_id")
+	private KnowledgePoint knowledgePoint;//知识点
 	private String memo;
 	private int composeFlag;//组卷标志：（目前只用于题目是否参与随机组卷，1表示用于随机组卷）
-	
+	@ManyToOne(cascade = CascadeType.DETACH)
+	@JoinColumn(name="course_id")
+	private Course course;
+	public void setCourse(Course course) {
+		this.course = course;
+	}
+	public Course getCourse() {
+		return course;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -73,9 +85,9 @@ public abstract class BankQuestion {
 		this.contributor = contributor;
 	}
 	public String getKnowledgePoint() {
-		return knowledgePoint;
+		return knowledgePoint.getName();
 	}
-	public void setKnowledgePoint(String knowledgePoint) {
+	public void setKnowledgePoint(KnowledgePoint knowledgePoint) {
 		this.knowledgePoint = knowledgePoint;
 	}
 	public String getMemo() {

@@ -1,9 +1,11 @@
 package cn.lynu.lyq.java_exam.actions;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
@@ -15,6 +17,7 @@ import cn.lynu.lyq.java_exam.dao.BankQuestionDao;
 import cn.lynu.lyq.java_exam.entity.BankChoiceQuestion;
 @Component("choiceQuestionSearch")
 @Scope("prototype")
+@Data
 public class ChoiceQuestionSearchAction extends ActionSupport{
 	private static final long serialVersionUID = -1106576639902301220L;
 	private final static Logger logger = LoggerFactory.getLogger(ChoiceQuestionSearchAction.class);
@@ -23,90 +26,17 @@ public class ChoiceQuestionSearchAction extends ActionSupport{
 	private String answerSearch;
 	private String answerSearch2;//对于checkbox不选时，不提交的问题，做判断修正
 	private String knowledgeSearch;
+	private String CourseSearch;
 	private List<BankChoiceQuestion> questionList;
 	private int totalPage;
 	private int pageIndex;
 	private static final int PAGE_SIZE = 10;
-	
 	@Resource
 	private BankQuestionDao bankQuestionDao;
-
-	public String getContentSearch() {
-		return contentSearch;
-	}
-
-	public void setContentSearch(String contentSearch) {
-		logger.debug("setting contentSearch========================"+contentSearch);
-		this.contentSearch = contentSearch;
-	}
-
-	public String getChoiceSearch() {
-		return choiceSearch;
-	}
-
-	public void setChoiceSearch(String choiceSearch) {
-		this.choiceSearch = choiceSearch;
-	}
-
-	public String getAnswerSearch() {
-		return answerSearch;
-	}
-
-	public void setAnswerSearch(String answerSearch) {
-		this.answerSearch = answerSearch;
-	}
-
-	public String getAnswerSearch2() {
-		return answerSearch2;
-	}
-	
-	public void setAnswerSearch2(String answerSearch2) {
-		logger.debug("setting answerSearch2========================"+answerSearch2);
-		this.answerSearch2 = answerSearch2;
-	}
-	
-	public String getKnowledgeSearch() {
-		return knowledgeSearch;
-	}
-
-	public void setKnowledgeSearch(String knowledgeSearch) {
-		this.knowledgeSearch = knowledgeSearch;
-	}
-
-	public List<BankChoiceQuestion> getQuestionList() {
-		return questionList;
-	}
-
-	public void setQuestionList(List<BankChoiceQuestion> questionList) {
-		this.questionList = questionList;
-	}
-	
-	public int getTotalPage() {
-		return totalPage;
-	}
-	
-	public void setTotalPage(int totalPage) {
-		this.totalPage = totalPage;
-	}
-
-	public int getPageIndex() {
-		return pageIndex;
-	}
-
-	public void setPageIndex(int pageIndex) {
-		this.pageIndex = pageIndex;
-	}
-
+	public int[] choiceChecked;
 	@Override
 	public String execute() throws Exception {//初始结果
-//		contentSearch="";
-//		choiceSearch="";
-//		answerSearch="";
-//		answerSearch2="";
-//		knowledgeSearch="";
-		
-//		questionList = bankQuestionDao.findAllChoice();
-		
+
 		int totalCnt = bankQuestionDao.countAllChoice();
 		totalPage = (totalCnt%PAGE_SIZE > 0)?(totalCnt/PAGE_SIZE+1):(totalCnt/PAGE_SIZE);
 		questionList = bankQuestionDao.findAllChoiceWithPage(pageIndex,PAGE_SIZE);
@@ -122,9 +52,18 @@ public class ChoiceQuestionSearchAction extends ActionSupport{
 		logger.debug("answerSearch="+answerSearch);
 		logger.debug("answerSearch2="+answerSearch2);
 		logger.debug("knowledgeSearch="+knowledgeSearch);
+		logger.debug("CourseSearch", CourseSearch);
 		questionList = bankQuestionDao.findChoiceForSearch(contentSearch,choiceSearch,answerSearch,knowledgeSearch);
 		return SUCCESS;
 	}
 
+	public String deleteQuestion(){
+//		bankQuestionDao.delete(bankQuestionDao.findJudgeById(1))
+		for (int cid:choiceChecked){
+			logger.info("删除id为"+cid+"的选择题");
+			bankQuestionDao.delete(bankQuestionDao.findChoiceById(cid));
+		}
+		return SUCCESS;
+	}
 
 }

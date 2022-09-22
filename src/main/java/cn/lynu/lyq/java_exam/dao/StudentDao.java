@@ -17,6 +17,9 @@ public interface StudentDao {
 	void save(Student s);
 	void update(Student s);
 	void delete(Student s);
+	void deleteById(int id);
+	int countAllStudent();
+	List<Student> findStudentWithPage(int pageIndex, int pageSize);
 	
 	int importFromTxt(File file);
 

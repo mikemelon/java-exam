@@ -20,7 +20,7 @@ public class BankChoiceQuestion extends BankQuestion {
 	
 	public BankChoiceQuestion(){}
 	
-	public BankChoiceQuestion(String content,String choiceA, String choiceB, String choiceC, String choiceD,String answer,String knowledgePoint) {
+	public BankChoiceQuestion(String content,String choiceA, String choiceB, String choiceC, String choiceD,String answer,KnowledgePoint knowledgePoint, Course course) {
 		setContent(content);
 		this.choiceA = choiceA;
 		this.choiceB = choiceB;
@@ -29,10 +29,12 @@ public class BankChoiceQuestion extends BankQuestion {
 		setAnswer(answer);
 		setKnowledgePoint(knowledgePoint);
 		setComposeFlag(1); //默认允许题目参与随机抽题
+		setCourse(course);
+
 	}
 
 	public BankChoiceQuestion(String content,String choiceA, String choiceB, String choiceC, String choiceD,
-							  String choiceE, String choiceF, String choiceG, String choiceH,	String answer,String knowledgePoint) {
+							  String choiceE, String choiceF, String choiceG, String choiceH,	String answer,KnowledgePoint knowledgePoint, Course course) {
 		setContent(content);
 		this.choiceA = choiceA;
 		this.choiceB = choiceB;
@@ -45,6 +47,7 @@ public class BankChoiceQuestion extends BankQuestion {
 		setAnswer(answer);
 		setKnowledgePoint(knowledgePoint);
 		setComposeFlag(1); //默认允许题目参与随机抽题
+		setCourse(course);
 	}
 	public String getChoiceA() {
 		return choiceA;

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
@@ -16,56 +17,21 @@ import cn.lynu.lyq.java_exam.entity.BankBlankFillingQuestion;
 
 @Component("blankQuestionSearch")
 @Scope("prototype")
+@Data
 public class BlankQuestionSearchAction extends ActionSupport{
 	private static final long serialVersionUID = -1106576639902301220L;
 	private final static Logger logger = LoggerFactory.getLogger(BlankQuestionSearchAction.class);
 	private String contentSearch;
 	private String answerSearch;
 	private String knowledgeSearch;
+	private String CourseSearch;
 	private List<BankBlankFillingQuestion> questionList;
 	private int totalPage;
 	private int pageIndex;
 	private static final int PAGE_SIZE = 10;
-	
+	public int[] blankChecked;
 	@Resource
 	private BankQuestionDao bankQuestionDao;
-
-	public String getContentSearch() {
-		return contentSearch;
-	}
-	public void setContentSearch(String contentSearch) {
-		this.contentSearch = contentSearch;
-	}
-	public String getAnswerSearch() {
-		return answerSearch;
-	}
-	public void setAnswerSearch(String answerSearch) {
-		this.answerSearch = answerSearch;
-	}
-	public String getKnowledgeSearch() {
-		return knowledgeSearch;
-	}
-	public void setKnowledgeSearch(String knowledgeSearch) {
-		this.knowledgeSearch = knowledgeSearch;
-	}
-	public List<BankBlankFillingQuestion> getQuestionList() {
-		return questionList;
-	}
-	public void setQuestionList(List<BankBlankFillingQuestion> questionList) {
-		this.questionList = questionList;
-	}
-	public int getTotalPage() {
-		return totalPage;
-	}
-	public void setTotalPage(int totalPage) {
-		this.totalPage = totalPage;
-	}
-	public int getPageIndex() {
-		return pageIndex;
-	}
-	public void setPageIndex(int pageIndex) {
-		this.pageIndex = pageIndex;
-	}
 	@Override
 	public String execute() throws Exception {//初始结果
 //		questionList = bankQuestionDao.findAllBlankFilling();
@@ -79,7 +45,16 @@ public class BlankQuestionSearchAction extends ActionSupport{
 		logger.debug("contentSearch="+contentSearch);
 		logger.debug("answerSearch="+answerSearch);
 		logger.debug("knowledgeSearch="+knowledgeSearch);
+		logger.debug("CourseSearch", CourseSearch);
 		questionList = bankQuestionDao.findBlankForSearch(contentSearch,answerSearch,knowledgeSearch);
+		return SUCCESS;
+	}
+
+	public String deleteQuestion(){
+		for (int cid:blankChecked){
+			logger.info("删除id为"+cid+"的填空题");
+			bankQuestionDao.delete(bankQuestionDao.findBlankFillingById(cid));
+		}
 		return SUCCESS;
 	}
 }

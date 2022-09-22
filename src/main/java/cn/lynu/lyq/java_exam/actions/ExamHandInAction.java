@@ -109,13 +109,20 @@ public class ExamHandInAction extends ActionSupport {
 			return ERROR;
 		}else{
 	//		int scorePerChoice = 10, scorePerBlank = 5, scorePerJudge = 10;
-			String examStrategyIds = (String)session.get("EXAM_STRATEGY_ID");
-			int examStrategyId = Integer.parseInt(examStrategyIds);
-			ExamStrategy strategy= examStrategyDao.findById(examStrategyId);
+//			String examStrategyIds = (String)session.get("EXAM_STRATEGY_ID");
+//			int examStrategyId = Integer.parseInt(examStrategyIds);
+			List<ExamStrategy> strategys = examStrategyDao.findByExam(theExam);
+			ExamStrategy strategy;
+			if (strategys.size() > 0){
+				strategy = strategys.get(0);
+			} else {
+				this.addActionError("问卷未添加分数分配策略，请联系管理员添加");
+				return ERROR;
+			}
+
 			int scorePerChoice = strategy.getChoicePerScore();
 			int scorePerBlank = strategy.getBlankPerScore();
 			int scorePerJudge = strategy.getJudgePerScore();
-			
 			List<Object> choiceAnswerList = answerMap.get(QuestionType.CHOICE);
 			List<Object> choiceSubmittedList = submitMap.get(QuestionType.CHOICE);
 			for(int i=0; choiceAnswerList!=null && i<choiceAnswerList.size(); i++){

@@ -11,11 +11,12 @@ public class BankJudgeQuestion extends BankQuestion {
 	
 	public BankJudgeQuestion(){}
 	
-	public BankJudgeQuestion(String content,String answer,String knowledgePoint) {
+	public BankJudgeQuestion(String content,String answer,KnowledgePoint knowledgePoint, Course course) {
 		setContent(content);
 		setAnswer(answer);
 		setKnowledgePoint(knowledgePoint);
 		setComposeFlag(1); //默认允许题目参与随机抽题
+		setCourse(course);
 	}
 
 	@Override

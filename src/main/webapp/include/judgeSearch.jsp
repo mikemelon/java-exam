@@ -29,6 +29,13 @@
                        class="validate" style="font-size:large">
                        <label for="password">知识点</label>
                    </div>
+					<div class="input-field col l2 m3 s12">
+						<i class="far fa-file fa-lg prefix"></i>
+						<input type="text" placeholder="输入课程" id="CourseSearch" name="CourseSearch"
+							   value="<s:property value="CourseSearch"/>"
+							   class="validate" style="font-size:large">
+						<label for="CourseSearch">课程</label>
+					</div>
                    <div class="input-field col l3 m4 s12 vertical-align">
 					<button class="red darken-4 waves-effect waves-teal btn-flat" type="button" onclick="ajaxSearchJudge()">
 						<span class="yellow-text text-lighten-1">搜索
@@ -48,6 +55,8 @@
 					<th>题干</th>
 					<th width="80px">答案</th>
 					<th>知识点</th>
+					<th>课程</th>
+
 				</tr>
 			</thead>
 			<tbody id="judgeListBody">
@@ -63,6 +72,7 @@
 						<s:elseif test="answer==\"F\""><i><img src='images/wrong.png' width='20'/></i></s:elseif>
 					</td>
 					<td><s:property value="knowledgePoint" /></td>
+					<td><s:property value="course.name"/></td>
 				</tr>
 			</s:iterator>
 			</tbody>
@@ -112,7 +122,8 @@
 						showHtml+="<td>"+(!data[i].name?'':data[i].name)+"</td>";
 						showHtml+="<td>"+(!data[i].content?'':data[i].content)+"</td>";
 						showHtml+="<td>"+(!data[i].answer?'':(data[i].answer=='T'?"<i class='fas fa-check fa-lg'></i>":"<i class='fas fa-times fa-lg'></i>"))+"</td>";
-						showHtml+="<td>"+(!data[i].knowledgePoint?'':data[i].knowledgePoint)+"</td></tr>";
+						showHtml+="<td>"+(!data[i].knowledgePoint?'':data[i].knowledgePoint)+"</td>";
+						showHtml+="<td>"+(!data[i].course?'':data[i].course.name)+"</td></tr>";
 					}
 					$('#judgeListBody').html(showHtml);
 				});

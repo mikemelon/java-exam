@@ -3,10 +3,7 @@ package cn.lynu.lyq.java_exam.dao;
 import java.io.File;
 import java.util.List;
 
-import cn.lynu.lyq.java_exam.entity.BankBlankFillingQuestion;
-import cn.lynu.lyq.java_exam.entity.BankChoiceQuestion;
-import cn.lynu.lyq.java_exam.entity.BankJudgeQuestion;
-import cn.lynu.lyq.java_exam.entity.BankQuestion;
+import cn.lynu.lyq.java_exam.entity.*;
 
 public interface BankQuestionDao {
 	
@@ -15,7 +12,7 @@ public interface BankQuestionDao {
 	int countAllChoice();
 	int countAllBlankFilling();
 	int countAllJudge();
-	
+	public Course queryCourse(String name);
 	List<BankChoiceQuestion> findAllChoice();
 	List<BankBlankFillingQuestion> findAllBlankFilling();
 	List<BankJudgeQuestion> findAllJudge();
@@ -37,7 +34,9 @@ public interface BankQuestionDao {
 	BankChoiceQuestion findChoiceById(int id);
 	BankBlankFillingQuestion findBlankFillingById(int id);
 	BankJudgeQuestion findJudgeById(int id);
-	
+
+	KnowledgePoint queryKnowledge(String name);
+
 	void save(BankQuestion bq);
 	void update(BankQuestion bq);
 	void delete(BankQuestion bq);

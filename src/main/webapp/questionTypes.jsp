@@ -43,7 +43,7 @@ a{
 							<a href="<s:url action="searchchoice"/>">
 							<span class="card-title activator light-green-text text-darken-4">选择题
 							<i class="fas fa-sign-in-alt fa-lg right light-green-text"></i></span></a>
-							<p><a href="<s:url action="searchchoice"/>">列出和搜索选择题</a></p>
+							<p><a href="<s:url action="searchchoice"/>">列出和<s:if test=" #session['USER_INFO'].role==1">管理</s:if><s:else>搜索</s:else>选择题</a></p>
 						</div>
 					</div>
 				</div>
@@ -57,7 +57,7 @@ a{
 							<a href="<s:url action="searchblank"/>">
 							<span class="card-title activator light-green-text text-darken-4">填空题
 							<i class="fas fa-sign-in-alt fa-lg right light-green-text"></i></span></a>
-							<p><a href="<s:url action="searchblank"/>">列出和搜索填空题</a></p>
+							<p><a href="<s:url action="searchblank"/>">列出和<s:if test=" #session['USER_INFO'].role==1">管理</s:if><s:else>搜索</s:else>填空题</a></p>
 						</div>
 					</div>
 				</div>
@@ -71,7 +71,7 @@ a{
 							<a href="<s:url action="searchjudge"/>">
 							<span class="card-title activator light-green-text text-darken-4">判断题
 							<i class="fas fa-sign-in-alt fa-lg right light-green-text"></i></span></a>
-							<p><a href="<s:url action="searchjudge"/>">列出和搜索判断题</a></p>
+							<p><a href="<s:url action="searchjudge"/>">列出和<s:if test=" #session['USER_INFO'].role==1">管理</s:if><s:else>搜索</s:else>判断题</a></p>
 						</div>
 					</div>
 				</div>

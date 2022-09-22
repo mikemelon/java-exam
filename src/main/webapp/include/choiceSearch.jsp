@@ -39,6 +39,13 @@
                        class="validate" style="font-size:large">
                        <label for="password">知识点</label>
                    </div>
+					<div class="input-field col l2 m3 s12">
+						<i class="far fa-file fa-lg prefix"></i>
+						<input type="text" placeholder="输入课程" id="CourseSearch" name="CourseSearch"
+							   value="<s:property value="CourseSearch"/>"
+							   class="validate" style="font-size:large">
+						<label for="CourseSearch">课程</label>
+					</div>
                    <div class="input-field col l2 m4 s12 vertical-align"><!-- change to ajaxSearch for dialog  -->
 					<button class="red darken-4 waves-effect waves-teal btn-flat" type="button" onclick="ajaxSearchChoice()">
 						<span class="yellow-text text-lighten-1">搜索
@@ -59,6 +66,8 @@
 					<!-- <th>选项</th> -->
 					<th width="80px">答案</th>
 					<th>知识点</th>
+					<th>课程</th>
+
 				</tr>
 			</thead>
 			<tbody id="choiceListBody">
@@ -82,6 +91,8 @@
 					-->
 					<td><s:property value="answer" /></td>
 					<td><s:property value="knowledgePoint" /></td>
+					<td><s:property value="course.name"/></td>
+
 				</tr>
 			</s:iterator>
 			</tbody>
@@ -141,7 +152,8 @@
 						showHtml+="<td>"+(!data[i].name?'':data[i].name)+"</td>";
 						showHtml+="<td>"+(!data[i].content?'':data[i].content)+"</td>";
 						showHtml+="<td>"+(!data[i].answer?'':data[i].answer)+"</td>";
-						showHtml+="<td>"+(!data[i].knowledgePoint?'':data[i].knowledgePoint)+"</td></tr>";
+						showHtml+="<td>"+(!data[i].knowledgePoint?'':data[i].knowledgePoint)+"</td>";
+						showHtml+="<td>"+(!data[i].course?'':data[i].course.name)+"</td></tr>";
 					}
 					$('#choiceListBody').html(showHtml);
 				});

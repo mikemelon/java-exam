@@ -34,7 +34,14 @@ public class JspFilter implements Filter {
 				&& url.endsWith("examComposeTypes.jsp")==false
 				&& url.endsWith("statsTypes.jsp")==false
 				&& url.endsWith("test.jsp")==false  //测试用
-				&& url.endsWith("userChangePassword.jsp")==false) { // 这里可以排除掉一些特殊的允许直接地址栏（或重定向）访问的jsp
+				&& url.endsWith("userChangePassword.jsp")==false
+				&& url.endsWith("register.jsp") == false
+				&& url.endsWith("userList.jsp") == false
+				&& url.endsWith("courseList.jsp") == false
+				&& url.endsWith("createCourse.jsp") == false
+				&& url.endsWith("knowledgeList.jsp") == false
+				&& url.endsWith("createKnowledge.jsp") == false
+			) { // 这里可以排除掉一些特殊的允许直接地址栏（或重定向）访问的jsp
 			httpServletRequest.getRequestDispatcher("/main.jsp").forward(request, response);
 			return;
 		}

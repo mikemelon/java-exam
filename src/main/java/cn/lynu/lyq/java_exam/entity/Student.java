@@ -17,7 +17,7 @@ public class Student {
 	private String name;
 	private boolean gender;
 	private String password;
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.DETACH)
 	@JoinColumn(name="grade_id")
 	private Grade grade;
 	private int role; //权限  role=0表示学生， role=1表示“教师或管理员”
@@ -35,6 +35,15 @@ public class Student {
 		this.gender = gender;
 		this.registerNo = registerNo;
 		this.password = password;
+		this.grade = grade;
+	}
+
+	public Student(String name, String registerNo, boolean gender, String password, int role, Grade grade){
+		this.name = name;
+		this.registerNo = registerNo;
+		this.gender = gender;
+		this.password = password;
+		this.role = role;
 		this.grade = grade;
 	}
 

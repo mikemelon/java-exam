@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import cn.lynu.lyq.java_exam.entity.BankBlankFillingQuestion;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -119,6 +120,31 @@ public class StudentDaoImpl implements StudentDao {
 	@Override
 	public void delete(Student s){
 		sessionFactory.getCurrentSession().delete(s);
+	}
+
+	@Override
+	public void deleteById(int id){
+		Query q = sessionFactory.getCurrentSession().createQuery("DELETE FROM Student WHERE id = ?0");
+		q.setParameter("0", String.valueOf(id));
+		q.executeUpdate();
+
+	}
+
+	@Override
+	public int countAllStudent(){
+		Object obj = sessionFactory.getCurrentSession().createQuery("select count(*) from Student where role != 2").uniqueResult();
+		return ((Number)obj).intValue();
+	}
+
+	@Override
+	public List<Student> findStudentWithPage(int pageIndex, int pageSize){
+		Query q=sessionFactory.getCurrentSession().createQuery("from Student where role != 2");
+		int firstResult = pageIndex*pageSize;
+		q.setFirstResult(firstResult);
+		q.setMaxResults(pageSize);
+		@SuppressWarnings("unchecked")
+		List<Student> list=(List<Student>)q.list();
+		return list;
 	}
 
 	@Override

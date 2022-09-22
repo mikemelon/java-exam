@@ -72,6 +72,30 @@
 			<result>examHandIn.jsp</result>
 		</action>
 
+
+		<!--课程相关-->
+		<action name="courseList" class="Course">
+			<result>courseList.jsp</result>
+		</action>
+		<action name="delCourse" class="Course" method="delCourse">
+			<result type="chain">
+				<param name="actionName">courseList</param>
+			</result>
+		</action>
+		<action name="addCourse" class="Course" method="create">
+			<result type="chain">
+				<param name="actionName">courseList</param>
+			</result>
+		</action>
+		<action name="updateCourse" class="Course" method="update">
+			<result type="chain">
+				<param name="actionName">courseList</param>
+			</result>
+		</action>
+		<action name="updateCoursePage" class="Course" method="updatePage">
+			<result>updateCourse.jsp</result>
+		</action>
+
 		<!-- 登录，登出 -->
 		<action name="login" class="userLogin">
 			<result>main.jsp</result>
@@ -79,12 +103,48 @@
 		<action name="logout" class="userLogin" method="logout">
 			<result>main.jsp</result>
 		</action>
-
+		<action name="register" class="userRegister" method="registerStudent">
+			<result>main.jsp</result>
+		</action>
+		<action name="registerPage" class="userRegister">
+			<result>register.jsp</result>
+		</action>
 		<action name="changepassword" class="userChangePassWord">
 			<result name="input">userChangePassword.jsp</result>
 			<result>main.jsp</result>
 		</action>
 
+		<!-- 管理员功能-->
+		<action name="manageuser" class="userList">
+			<result>userList.jsp</result>
+		</action>
+		<action name="delStudent" class="userList" method="delUser">
+			<result type="chain">
+				<param name="actionName">manageuser</param>
+			</result>
+		</action>
+		<!-- 知识点 -->
+		<action name="KnowledgeList" class="KnowledgePoint">
+			<result>knowledgeList.jsp</result>
+		</action>
+		<action name="addKnowledge" class="KnowledgePoint" method="create">
+			<result type="chain">
+				<param name="actionName">KnowledgeList</param>
+			</result>
+		</action>
+		<action name="delKnowledge" class="KnowledgePoint" method="delete">
+			<result type="chain">
+				<param name="actionName">KnowledgeList</param>
+			</result>
+		</action>
+		<action name="updateKnowledge" class="KnowledgePoint" method="update">
+			<result type="chain">
+				<param name="actionName">KnowledgeList</param>
+			</result>
+		</action>
+		<action name="updateKnowledgePage" class="KnowledgePoint" method="updatePage">
+			<result>updateKnowledge.jsp</result>
+		</action>
 		<!-- 数据导入 -->
 		<action name="importchoice" class="questionImport">
 			<result>importData.jsp</result>
@@ -113,6 +173,12 @@
 				<param name="root">questionList</param>
 			</result>
 		</action>
+		<action name="deleteChoice" class="choiceQuestionSearch" method="deleteQuestion">
+			<result type="chain">
+				<param name="actionName">searchchoice</param>
+			</result>
+		</action>
+
 		<action name="choicedetail" class="choiceDetail">
 			<result>choiceDetail.jsp</result>
 		</action>
@@ -120,6 +186,13 @@
 		<action name="searchblank" class="blankQuestionSearch">
 			<result>searchBlank.jsp</result>
 		</action>
+
+		<action name="deleteBlank" class="blankQuestionSearch" method="deleteQuestion">
+			<result type="chain">
+				<param name="actionName">searchblank</param>
+			</result>
+		</action>
+
 		<action name="blanksearchlist" class="blankQuestionSearch"
 			method="executeForSearch">
 			<result>searchBlank.jsp</result>
@@ -137,6 +210,12 @@
 		<action name="searchjudge" class="judgeQuestionSearch">
 			<result>searchJudge.jsp</result>
 		</action>
+		<action name="deletejudge" class="judgeQuestionSearch" method="deleteQuestion">
+			<result type="chain">
+				<param name="actionName">searchjudge</param>
+			</result>
+		</action>
+
 		<action name="judgesearchlist" class="judgeQuestionSearch"
 			method="executeForSearch">
 			<result>searchJudge.jsp</result>
